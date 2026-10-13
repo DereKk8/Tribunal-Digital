@@ -309,3 +309,61 @@ html, body { background: #140f33; }
 .obj-row .obj-arrow { color: var(--accent); font-weight: 900; }
 .obj-row .obj-kind { margin-left: auto; font-weight: 800; color: var(--accent); }
 .obj-empty { padding: 18px 26px; font-size: 21px; line-height: 1.5; }
+
+/* Acceso desde teléfonos en las diapositivas de apertura */
+.join-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 18px 34px;
+  border-radius: 22px;
+  background: rgba(20, 12, 52, 0.58);
+  border: 2px solid var(--accent);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.join-card .join-label {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+.join-card .join-url {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.join-card .join-sub {
+  font-size: 18px;
+  color: var(--text-secondary);
+}
+.join-pill {
+  position: absolute;
+  top: 22px;
+  right: 88px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: rgba(20, 12, 52, 0.55);
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 17px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  width: auto !important;
+}
+.join-pill a {
+  color: var(--accent);
+  font-weight: 900;
+  text-decoration: none;
+}

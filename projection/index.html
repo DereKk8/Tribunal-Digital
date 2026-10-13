@@ -1277,6 +1277,64 @@ html, body { background: #140f33; }
 .obj-row .obj-kind { margin-left: auto; font-weight: 800; color: var(--accent); }
 .obj-empty { padding: 18px 26px; font-size: 21px; line-height: 1.5; }
 
+/* Acceso desde teléfonos en las diapositivas de apertura */
+.join-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 18px 34px;
+  border-radius: 22px;
+  background: rgba(20, 12, 52, 0.58);
+  border: 2px solid var(--accent);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.join-card .join-label {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+.join-card .join-url {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.join-card .join-sub {
+  font-size: 18px;
+  color: var(--text-secondary);
+}
+.join-pill {
+  position: absolute;
+  top: 22px;
+  right: 88px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: rgba(20, 12, 52, 0.55);
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 17px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  width: auto !important;
+}
+.join-pill a {
+  color: var(--accent);
+  font-weight: 900;
+  text-decoration: none;
+}
+
   </style>
 </head>
 <body>
@@ -1293,14 +1351,20 @@ html, body { background: #140f33; }
 
   <div class="deck" id="deck">
     <div class="timer" id="timer" aria-live="off"><span class="t-label"></span><span class="t-turn"></span><span class="t-time">0:00</span><button type="button" aria-label="Iniciar reloj">▶</button><span class="t-bar"><i></i></span></div>
-<div class="slide active slide-grad-1 title-slide" id="portada" data-title="Portada" data-notes="[Apertura · 0:00–0:30] Bienvenida. Taller de 60 minutos: cinco equipos de cuatro investigan un caso ficticio que avanza en cuatro rondas y termina en un veredicto. No es una clase: ellos investigan, deciden y se objetan. Teclas: F pantalla completa, S notas (esta ventana), ← → para moverse, T inicia o pausa el reloj, N pasa de turno, R reinicia el reloj.">
+<div class="slide active slide-grad-1 title-slide" id="portada" data-title="Portada" data-notes="[Apertura · 0:00–0:30] Bienvenida. Taller de 60 minutos: cinco equipos de cuatro investigan un caso ficticio que avanza en cuatro rondas y termina en un veredicto. No es una clase: ellos investigan, deciden y se objetan. Pida que un teléfono por equipo abra tribunal-digital.onrender.com e ingrese su código. Teclas: F pantalla completa, S notas (esta ventana), ← → para moverse, T inicia o pausa el reloj, N pasa de turno, R reinicia el reloj.">
 <span class="a tag">Taller · 60 minutos · 5 equipos</span>
 <h1 class="a xl text-center">Tribunal Digital</h1>
 <p class="a subtitle">Caso: «El pase directo»</p>
 <p class="a date-text">Investigar · argumentar · proteger</p>
+<div class="a join-card no-nav">
+  <span class="join-label">📱 Entren desde el teléfono de su equipo</span>
+  <a class="join-url" href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a>
+  <span class="join-sub">Un teléfono por equipo · Ingresen el código de 6 caracteres de su equipo</span>
+</div>
 </div>
 
 <div class="slide slide-grad-4 layout-wide" id="aviso" data-title="Antes de empezar" data-notes="[0:30–1:30] Encuadre de cuidado. Lea los cuatro puntos. Si alguien necesita salir o hablar en privado, facilítelo sin pedir explicaciones. Remarque la frase final: guiará todo el juego. No adelante nada del contenido del caso.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <div class="content-body" style="max-width:1200px">
 <span class="a kicker">Antes de empezar</span>
 <h2 class="a lg" style="margin-top:22px">Un caso ficticio, un tema real</h2>
@@ -1315,6 +1379,7 @@ html, body { background: #140f33; }
 </div>
 
 <div class="slide slide-grad-7" id="mision" data-title="Su misión" data-notes="[1:30–2:30] Una sola respuesta colectiva por equipo y fase: una afirmación, una o dos evidencias y una acción. No hay voto individual: todas las personas pueden aportar durante la deliberación. Las respuestas se bloquean en la aplicación y, ya bloqueadas, se proyectan para que todos puedan objetarlas.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <span class="a kicker">Su misión</span>
 <h2 class="a lg text-center" style="margin-top:20px">Cada fase, una respuesta por equipo</h2>
 <div class="a cards-grid wide">
@@ -1322,10 +1387,11 @@ html, body { background: #140f33; }
 <div class="a glass-card"><span class="card-icon">🔎</span><h3>1–2 evidencias</h3><p class="big">Las que sostienen cada dato de su afirmación. Las de rondas anteriores siguen disponibles.</p><span class="card-tag">Citar</span></div>
 <div class="a glass-card"><span class="card-icon">🛡️</span><h3>1 acción</h3><p class="big">Qué deberían hacer Leo o su familia ahora, con lo que se sabe en este momento.</p><span class="card-tag">Decidir</span></div>
 </div>
-<p class="a lead text-center mt-2">Todo el equipo delibera. La respuesta se bloquea en la app y después se ve en pantalla.</p>
+<p class="a lead text-center mt-2">Todo el equipo delibera. La respuesta se bloquea en <b class="accent">tribunal-digital.onrender.com</b> y después se ve en pantalla.</p>
 </div>
 
 <div class="slide slide-grad-8" id="puntos" data-title="Cómo se puntúa" data-notes="[2:30–3:30] +3 si la afirmación queda sostenida por un conjunto de evidencias aceptado (las evidencias deben cubrir cada dato de la afirmación); +2 si la acción es protectora; +3 por cada objeción válida; 0 por una jugada inválida, y la ficha de una objeción fallida se pierde igual. Desempate: más objeciones válidas; luego más argumentos sostenidos; si persiste, victoria compartida. Los discursos no suman: todo lo decide una clave fija, preparada antes del juego.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <span class="a kicker">Puntuación</span>
 <h2 class="a lg text-center" style="margin-top:18px">Cómo se puntúa</h2>
 <div class="a chart-container" style="max-width:1000px;height:330px">
@@ -1340,6 +1406,7 @@ html, body { background: #140f33; }
 </div>
 
 <div class="slide slide-grad-4 layout-wide" id="objeciones" data-title="Objeciones" data-notes="[3:30–4:45] Cada equipo tiene 3 fichas para todo el juego y puede gastar como máximo una por fase. Si la objeción falla, la ficha se pierde. Cada objeción indica: equipo objetivo, categoría y UNA evidencia citada. Recorra las cuatro categorías con sus pruebas. Si varias categorías aplican, cualquiera vale. Contra una respuesta correcta, cualquier objeción falla. La defensa verbal es libre, pero no cambia el resultado: lo decide la clave.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <div class="head-row a"><div><span class="kicker">Objeciones</span><h2 class="lg" style="margin-top:14px">3 fichas para todo el juego</h2></div></div>
 <p class="a lead" style="margin-top:10px">Máximo una por fase · se gasta aunque falle · indiquen <b class="accent">equipo objetivo, categoría y UNA evidencia</b></p>
 <div class="a decide-grid">
@@ -1352,6 +1419,7 @@ html, body { background: #140f33; }
 </div>
 
 <div class="slide slide-grad-7 layout-wide" id="ronda-tipo" data-title="Así es cada ronda" data-notes="[4:45–5:30] Ritmo de cada ronda (10 minutos). La final cambia: 1:30 de análisis, alegatos de 24 s, y el resto igual. El portavoz rota: en cada ronda habla una persona distinta de cada equipo. Use T para iniciar o pausar el reloj, N para pasar al siguiente turno y R para reiniciar.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <div class="a"><span class="kicker">Ritmo</span><h2 class="lg" style="margin-top:14px">Así es cada ronda · 10 minutos</h2></div>
 <div class="a timeline">
 <div class="seg glass-dark" style="flex:1"><span class="dur">1:00</span><span class="name">Revelación</span><span class="desc">Nuevas evidencias en pantalla y en la app.</span></div>
@@ -1365,6 +1433,7 @@ html, body { background: #140f33; }
 </div>
 
 <div class="slide slide-grad-1 layout-wide" id="practica" data-title="Práctica" data-notes="[5:30–6:30] Ejemplo ajeno al caso. 1) Verde afirma algo que P2 desmiente: la contradicción de Rojo citando P2 es válida (+3 para Rojo). Pregunte qué otra objeción habría servido contra Verde: acción insegura, porque enviar la dirección expone a quien juega (citando P1). 2) Morado ya fue prudente: la certeza injustificada de Azul falla y Azul pierde su ficha. Moraleja: objetar cuesta; hay que leer la respuesta y las evidencias.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <div class="a"><span class="kicker">Práctica · fuera del caso</span><h2 class="lg" style="margin-top:14px">Cómo se resuelve una objeción</h2></div>
 <div class="a practice">
 <div class="glass-dark"><h4>Evidencias de práctica</h4>
@@ -1384,6 +1453,7 @@ html, body { background: #140f33; }
 </div>
 
 <div class="slide slide-grad-4" id="caso" data-title="El caso" data-notes="[6:30–6:50] Presente el caso con la cita de Marina. Léala con calma, sin dramatizar. No añada información.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <div class="a quote-block">
 <div class="a quote-mark">&ldquo;</div>
 <p class="a quote-text" style="font-size:40px">Mi hermano Leo tiene 14 años y le ofrecieron un «pase directo» para un torneo de su videojuego. Algo no me cierra. ¿Me ayudan a pensar qué podemos afirmar y qué deberíamos hacer?</p>
@@ -1392,6 +1462,7 @@ html, body { background: #140f33; }
 </div>
 
 <div class="slide slide-grad-7 layout-wide" id="personajes" data-title="Personajes y glosario" data-notes="[6:50–7:00] Repase personajes y glosario sin interpretar nada. Pida que cada equipo elija portavoz para la Ronda 1 y recuerde que debe rotar en cada ronda.">
+<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="https://tribunal-digital.onrender.com" target="_blank" rel="noopener noreferrer">tribunal-digital.onrender.com</a></div>
 <div class="a"><span class="kicker">Expediente</span><h2 class="lg" style="margin-top:12px">Personajes y glosario</h2></div>
 <div class="a cards-grid cols-4" style="margin-top:20px;gap:16px">
 <div class="glass-card" style="padding:20px 20px"><h3 style="font-size:22px">Leo Márquez</h3><p class="big" style="font-size:17.5px">14 años. Juega a Fractal Arena como «LeoNova14».</p></div>

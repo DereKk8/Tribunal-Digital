@@ -78,19 +78,29 @@ function rotation(n) {
 }
 
 // ───────────────────────── APERTURA (7:00) ─────────────────────────
+const JOIN_URL = 'https://tribunal-digital.onrender.com';
+const JOIN_HOST = 'tribunal-digital.onrender.com';
+const JOIN_PILL = `<div class="join-pill no-nav"><span>📱 Únanse con su teléfono:</span><a href="${JOIN_URL}" target="_blank" rel="noopener noreferrer">${JOIN_HOST}</a></div>`;
+
 slide({
   id: 'portada', grad: 1, cls: 'title-slide', title: 'Portada',
-  notes: '[Apertura · 0:00–0:30] Bienvenida. Taller de 60 minutos: cinco equipos de cuatro investigan un caso ficticio que avanza en cuatro rondas y termina en un veredicto. No es una clase: ellos investigan, deciden y se objetan. Teclas: F pantalla completa, S notas (esta ventana), ← → para moverse, T inicia o pausa el reloj, N pasa de turno, R reinicia el reloj.',
+  notes: '[Apertura · 0:00–0:30] Bienvenida. Taller de 60 minutos: cinco equipos de cuatro investigan un caso ficticio que avanza en cuatro rondas y termina en un veredicto. No es una clase: ellos investigan, deciden y se objetan. Pida que un teléfono por equipo abra tribunal-digital.onrender.com e ingrese su código. Teclas: F pantalla completa, S notas (esta ventana), ← → para moverse, T inicia o pausa el reloj, N pasa de turno, R reinicia el reloj.',
   body: `<span class="a tag">Taller · 60 minutos · 5 equipos</span>
 <h1 class="a xl text-center">Tribunal Digital</h1>
 <p class="a subtitle">Caso: «${esc(CASE_INFO.title)}»</p>
-<p class="a date-text">Investigar · argumentar · proteger</p>`,
+<p class="a date-text">Investigar · argumentar · proteger</p>
+<div class="a join-card no-nav">
+  <span class="join-label">📱 Entren desde el teléfono de su equipo</span>
+  <a class="join-url" href="${JOIN_URL}" target="_blank" rel="noopener noreferrer">${JOIN_HOST}</a>
+  <span class="join-sub">Un teléfono por equipo · Ingresen el código de 6 caracteres de su equipo</span>
+</div>`,
 });
 
 slide({
   id: 'aviso', grad: 4, cls: 'layout-wide', title: 'Antes de empezar',
   notes: '[0:30–1:30] Encuadre de cuidado. Lea los cuatro puntos. Si alguien necesita salir o hablar en privado, facilítelo sin pedir explicaciones. Remarque la frase final: guiará todo el juego. No adelante nada del contenido del caso.',
-  body: `<div class="content-body" style="max-width:1200px">
+  body: `${JOIN_PILL}
+<div class="content-body" style="max-width:1200px">
 <span class="a kicker">Antes de empezar</span>
 <h2 class="a lg" style="margin-top:22px">Un caso ficticio, un tema real</h2>
 <ul class="a">
@@ -106,20 +116,22 @@ slide({
 slide({
   id: 'mision', grad: 7, title: 'Su misión',
   notes: '[1:30–2:30] Una sola respuesta colectiva por equipo y fase: una afirmación, una o dos evidencias y una acción. No hay voto individual: todas las personas pueden aportar durante la deliberación. Las respuestas se bloquean en la aplicación y, ya bloqueadas, se proyectan para que todos puedan objetarlas.',
-  body: `<span class="a kicker">Su misión</span>
+  body: `${JOIN_PILL}
+<span class="a kicker">Su misión</span>
 <h2 class="a lg text-center" style="margin-top:20px">Cada fase, una respuesta por equipo</h2>
 <div class="a cards-grid wide">
 <div class="a glass-card"><span class="card-icon">🧩</span><h3>1 afirmación</h3><p class="big">Qué se puede afirmar con lo que hay. Varias suenan bien y no todas se sostienen.</p><span class="card-tag">Afirmar</span></div>
 <div class="a glass-card"><span class="card-icon">🔎</span><h3>1–2 evidencias</h3><p class="big">Las que sostienen cada dato de su afirmación. Las de rondas anteriores siguen disponibles.</p><span class="card-tag">Citar</span></div>
 <div class="a glass-card"><span class="card-icon">🛡️</span><h3>1 acción</h3><p class="big">Qué deberían hacer Leo o su familia ahora, con lo que se sabe en este momento.</p><span class="card-tag">Decidir</span></div>
 </div>
-<p class="a lead text-center mt-2">Todo el equipo delibera. La respuesta se bloquea en la app y después se ve en pantalla.</p>`,
+<p class="a lead text-center mt-2">Todo el equipo delibera. La respuesta se bloquea en <b class="accent">${JOIN_HOST}</b> y después se ve en pantalla.</p>`,
 });
 
 slide({
   id: 'puntos', grad: 8, title: 'Cómo se puntúa',
   notes: '[2:30–3:30] +3 si la afirmación queda sostenida por un conjunto de evidencias aceptado (las evidencias deben cubrir cada dato de la afirmación); +2 si la acción es protectora; +3 por cada objeción válida; 0 por una jugada inválida, y la ficha de una objeción fallida se pierde igual. Desempate: más objeciones válidas; luego más argumentos sostenidos; si persiste, victoria compartida. Los discursos no suman: todo lo decide una clave fija, preparada antes del juego.',
-  body: `<span class="a kicker">Puntuación</span>
+  body: `${JOIN_PILL}
+<span class="a kicker">Puntuación</span>
 <h2 class="a lg text-center" style="margin-top:18px">Cómo se puntúa</h2>
 <div class="a chart-container" style="max-width:1000px;height:330px">
 <div class="chart-bar-group"><div class="chart-bar bar-color-1" style="height:90%;max-width:120px"><span class="bar-val" style="font-size:26px;top:-38px">+3</span></div><span class="bar-label" style="font-size:20px;color:#fff">Argumento sostenido</span></div>
@@ -135,7 +147,8 @@ slide({
 slide({
   id: 'objeciones', grad: 4, cls: 'layout-wide', title: 'Objeciones',
   notes: '[3:30–4:45] Cada equipo tiene 3 fichas para todo el juego y puede gastar como máximo una por fase. Si la objeción falla, la ficha se pierde. Cada objeción indica: equipo objetivo, categoría y UNA evidencia citada. Recorra las cuatro categorías con sus pruebas. Si varias categorías aplican, cualquiera vale. Contra una respuesta correcta, cualquier objeción falla. La defensa verbal es libre, pero no cambia el resultado: lo decide la clave.',
-  body: `<div class="head-row a"><div><span class="kicker">Objeciones</span><h2 class="lg" style="margin-top:14px">3 fichas para todo el juego</h2></div></div>
+  body: `${JOIN_PILL}
+<div class="head-row a"><div><span class="kicker">Objeciones</span><h2 class="lg" style="margin-top:14px">3 fichas para todo el juego</h2></div></div>
 <p class="a lead" style="margin-top:10px">Máximo una por fase · se gasta aunque falle · indiquen <b class="accent">equipo objetivo, categoría y UNA evidencia</b></p>
 <div class="a decide-grid">
 <div class="flow-step"><div class="step-glow"></div><div class="step-num">Contradicción</div><div class="step-title">Un dato es falso</div><div class="step-desc">Algún dato de la afirmación choca con lo que muestra una evidencia.</div><div class="step-cite">Cita: la evidencia que lo contradice</div></div>
@@ -149,7 +162,8 @@ slide({
 slide({
   id: 'ronda-tipo', grad: 7, cls: 'layout-wide', title: 'Así es cada ronda',
   notes: '[4:45–5:30] Ritmo de cada ronda (10 minutos). La final cambia: 1:30 de análisis, alegatos de 24 s, y el resto igual. El portavoz rota: en cada ronda habla una persona distinta de cada equipo. Use T para iniciar o pausar el reloj, N para pasar al siguiente turno y R para reiniciar.',
-  body: `<div class="a"><span class="kicker">Ritmo</span><h2 class="lg" style="margin-top:14px">Así es cada ronda · 10 minutos</h2></div>
+  body: `${JOIN_PILL}
+<div class="a"><span class="kicker">Ritmo</span><h2 class="lg" style="margin-top:14px">Así es cada ronda · 10 minutos</h2></div>
 <div class="a timeline">
 <div class="seg glass-dark" style="flex:1"><span class="dur">1:00</span><span class="name">Revelación</span><span class="desc">Nuevas evidencias en pantalla y en la app.</span></div>
 <div class="seg glass-dark" style="flex:1.3"><span class="dur">2:00</span><span class="name">Deliberación</span><span class="desc">Afirmación + 1–2 evidencias + acción. Se bloquea.</span></div>
@@ -164,7 +178,8 @@ slide({
 slide({
   id: 'practica', grad: 1, cls: 'layout-wide', title: 'Práctica',
   notes: '[5:30–6:30] Ejemplo ajeno al caso. 1) Verde afirma algo que P2 desmiente: la contradicción de Rojo citando P2 es válida (+3 para Rojo). Pregunte qué otra objeción habría servido contra Verde: acción insegura, porque enviar la dirección expone a quien juega (citando P1). 2) Morado ya fue prudente: la certeza injustificada de Azul falla y Azul pierde su ficha. Moraleja: objetar cuesta; hay que leer la respuesta y las evidencias.',
-  body: `<div class="a"><span class="kicker">Práctica · fuera del caso</span><h2 class="lg" style="margin-top:14px">Cómo se resuelve una objeción</h2></div>
+  body: `${JOIN_PILL}
+<div class="a"><span class="kicker">Práctica · fuera del caso</span><h2 class="lg" style="margin-top:14px">Cómo se resuelve una objeción</h2></div>
 <div class="a practice">
 <div class="glass-dark"><h4>Evidencias de práctica</h4>
 <p><span class="chip sm">P1</span> Mensaje de <b>@premios.lumen.oficial</b>: «¡Ganaste un móvil! Mándame tu dirección y tu teléfono para el envío».</p>
@@ -185,7 +200,8 @@ slide({
 slide({
   id: 'caso', grad: 4, title: 'El caso',
   notes: '[6:30–6:50] Presente el caso con la cita de Marina. Léala con calma, sin dramatizar. No añada información.',
-  body: `<div class="a quote-block">
+  body: `${JOIN_PILL}
+<div class="a quote-block">
 <div class="a quote-mark">&ldquo;</div>
 <p class="a quote-text" style="font-size:40px">Mi hermano Leo tiene 14 años y le ofrecieron un «pase directo» para un torneo de su videojuego. Algo no me cierra. ¿Me ayudan a pensar qué podemos afirmar y qué deberíamos hacer?</p>
 <p class="a quote-attr">&mdash; <span>Marina Márquez</span>, 20 años</p>
@@ -195,7 +211,8 @@ slide({
 slide({
   id: 'personajes', grad: 7, cls: 'layout-wide', title: 'Personajes y glosario',
   notes: '[6:50–7:00] Repase personajes y glosario sin interpretar nada. Pida que cada equipo elija portavoz para la Ronda 1 y recuerde que debe rotar en cada ronda.',
-  body: `<div class="a"><span class="kicker">Expediente</span><h2 class="lg" style="margin-top:12px">Personajes y glosario</h2></div>
+  body: `${JOIN_PILL}
+<div class="a"><span class="kicker">Expediente</span><h2 class="lg" style="margin-top:12px">Personajes y glosario</h2></div>
 <div class="a cards-grid cols-4" style="margin-top:20px;gap:16px">
 ${CHARACTERS.map((c) => `<div class="glass-card" style="padding:20px 20px"><h3 style="font-size:22px">${esc(c.name)}</h3><p class="big" style="font-size:17.5px">${esc(c.role)}</p></div>`).join('\n')}
 </div>
