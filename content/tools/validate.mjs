@@ -245,9 +245,11 @@ if (!PUBLIC_ONLY) {
         for (const c of r.claims) if (!rat.includes(c.id)) e3.push(`fundamentos: falta ${c.id}`);
         for (const a of r.actions) if (!rat.includes(a.id)) e3.push(`fundamentos: falta ${a.id}`);
       }
-      // Ninguna frase larga de los fundamentos privados aparece en archivos públicos.
-      const sentences = rat.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter((s) => s.length > 60 && !s.startsWith('|') && !s.includes('«'));
-      for (const s of sentences) if (html.includes(s) || JSON.stringify(pub).includes(s)) e3.push(`frase privada visible en público: «${s.slice(0, 60)}…»`);
+      // Ninguna frase de los fundamentos privados aparece literalmente en archivos públicos.
+      // Misma regla que la puerta de la aplicación (Agente B): trozos de ≥ 40 caracteres entre . ! ? ¡ ¿ o saltos.
+      const fragments = rat.split(/[\n.!?¡¿]+/).map((s) => s.replace(/[#*>`_|-]/g, ' ').replace(/\s+/g, ' ').trim()).filter((s) => s.length >= 40);
+      const pubTexts = [html.replace(/\s+/g, ' '), readFileSync(P('content/public.json'), 'utf8').replace(/\s+/g, ' ')];
+      for (const s of fragments) if (pubTexts.some((t) => t.includes(s))) e3.push(`frase del documento privado visible en público: «${s.slice(0, 60)}…»`);
       check('Fundamentos privados: cubren todas las opciones y no se filtran', e3);
     }
   }

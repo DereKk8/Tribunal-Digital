@@ -31,7 +31,12 @@ function card(id) {
   const t = texts[id];
   if (!t) throw new Error(`Opción desconocida en la plantilla: ${id}`);
   const rr = rules.rounds[t.round];
-  const lines = [`> **${id}** · «${t.text}»`, '>'];
+  // Solo el comienzo del texto: el documento privado no debe repetir frases públicas completas
+  // (la aplicación busca frases literales del documento privado en los archivos públicos).
+  const words = t.text.split(/\s+/);
+  let head = '';
+  for (const w of words) { if ((head + ' ' + w).trim().length > 34) break; head = (head + ' ' + w).trim(); }
+  const lines = [`> **${id}** · «${head}…» (texto completo en pantalla y en public.json)`, '>'];
   if (t.kind === 'claim') {
     const r = rr.claims[id];
     lines.push(`> **Estado:** ${STATUS[r.status]}${r.overcertain ? ' · además afirma con certeza algo que la evidencia no establece' : ''}`);
