@@ -1,0 +1,41 @@
+# Validación del paquete público de contenido (Agente A).
+# No usa secretos ni publica artefactos: la clave privada nunca está en el repositorio.
+name: Contenido · validación pública
+
+on:
+  push:
+    paths:
+      - 'content/**'
+      - 'assets/**'
+      - 'projection/**'
+      - '.github/workflows/content-validate.yml'
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'assets/**'
+      - 'projection/**'
+      - '.github/workflows/content-validate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Esquema, referencias cruzadas, mapa ↔ HTML y ausencia de respuestas
+        run: node content/tools/validate.mjs --public
+      - name: Filtraciones de archivos privados en el índice y el historial
+        run: node content/tools/check-leaks.mjs
+      - name: Los archivos generados coinciden con la fuente
+        run: |
+          node content/tools/build-public.mjs
+          node content/tools/render-evidence.mjs > /dev/null
+          node projection/build/build-deck.mjs
+          git diff --exit-code -- content/public.json content/projection-map.json assets/evidence projection/index.html

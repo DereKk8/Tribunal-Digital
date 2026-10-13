@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────
+# Tribunal Digital · reglas de exclusión
+# El repositorio es PÚBLICO: nada de lo que se suba es privado,
+# aunque el nombre del archivo diga ".private".
+# ─────────────────────────────────────────────────────────────
+
+# ── Agente A (contenido): claves y fundamentos REALES ─────────
+# Se generan y guardan solo en local; se entregan por canal seguro.
+content/answer-key.private.json
+content/answer-rules.private.json
+content/rationales.private.md
+content/*.private.*
+content/private/
+content/handoff/
+*.private.zip
+
+# ── Secretos y estado de ejecución (ambos agentes) ───────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Base de datos de sesión persistente, copias y exportaciones
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+data/
+backups/
+*.bak
+exports/
+private-exports/
+
+# ── Artefactos locales de QA del Agente A ─────────────────────
+projection/qa-output/
+
+# ── Varios ────────────────────────────────────────────────────
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Los fixtures de demostración del Agente B son SINTÉTICOS
+# (reglas inventadas para pruebas) y deben poder versionarse.
+!fixtures/demo/
+!fixtures/demo/**

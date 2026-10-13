@@ -1,0 +1,692 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DereKk8/Tribunal-Digital/content/schema.json",
+  "title": "Tribunal Digital · contrato de contenido v1.0",
+  "description": "Valida content/public.json, content/projection-map.json y el formato de content/answer-key.private.json (la clave real nunca se publica). Las referencias cruzadas que JSON Schema no puede expresar las comprueba content/tools/validate.mjs.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/publicPackage"
+    },
+    {
+      "$ref": "#/$defs/answerKey"
+    },
+    {
+      "$ref": "#/$defs/projectionMap"
+    }
+  ],
+  "$defs": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "gameId": {
+      "const": "tribunal-digital"
+    },
+    "teamId": {
+      "enum": [
+        "azul",
+        "rojo",
+        "verde",
+        "amarillo",
+        "morado"
+      ]
+    },
+    "roundId": {
+      "enum": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "FINAL"
+      ]
+    },
+    "evidenceId": {
+      "type": "string",
+      "pattern": "^E[0-9]{2}$"
+    },
+    "claimId": {
+      "type": "string",
+      "pattern": "^(R[1-4]|FINAL)-C[1-9]$"
+    },
+    "actionId": {
+      "type": "string",
+      "pattern": "^(R[1-4]|FINAL)-A[1-9]$"
+    },
+    "objectionKind": {
+      "enum": [
+        "contradiction",
+        "logical_leap",
+        "unjustified_certainty",
+        "unsafe_action"
+      ]
+    },
+    "phaseId": {
+      "enum": [
+        "reveal",
+        "deliberation",
+        "defense",
+        "objection",
+        "confrontation",
+        "resolution"
+      ]
+    },
+    "evidenceSet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceId"
+      },
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1
+    },
+    "team": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/teamId"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "id",
+        "body",
+        "asset_path",
+        "revealed_in"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/evidenceId"
+        },
+        "body": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "asset_path": {
+          "type": "string",
+          "pattern": "^assets/[A-Za-z0-9._/-]+\\.(svg|png|jpg|jpeg|webp)$"
+        },
+        "revealed_in": {
+          "$ref": "#/$defs/roundId"
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": [
+        "id",
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "claim": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/option"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/claimId"
+            }
+          }
+        }
+      ]
+    },
+    "action": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/option"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/actionId"
+            }
+          }
+        }
+      ]
+    },
+    "round": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "evidence",
+        "claims",
+        "actions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/roundId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          },
+          "minItems": 2,
+          "maxItems": 6
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/action"
+          },
+          "minItems": 2,
+          "maxItems": 5
+        }
+      }
+    },
+    "roundR1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/round"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "R1"
+            }
+          }
+        }
+      ]
+    },
+    "roundR2": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/round"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "R2"
+            }
+          }
+        }
+      ]
+    },
+    "roundR3": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/round"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "R3"
+            }
+          }
+        }
+      ]
+    },
+    "roundR4": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/round"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "R4"
+            }
+          }
+        }
+      ]
+    },
+    "roundFINAL": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/round"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "FINAL"
+            }
+          }
+        }
+      ]
+    },
+    "publicPackage": {
+      "title": "content/public.json",
+      "description": "Paquete público. No contiene indicadores de respuestas correctas, reglas de solución ni secretos.",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "game_id",
+        "teams",
+        "rounds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "$ref": "#/$defs/schemaVersion"
+        },
+        "game_id": {
+          "$ref": "#/$defs/gameId"
+        },
+        "teams": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/team"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "const": "azul"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/team"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "const": "rojo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/team"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "const": "verde"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/team"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "const": "amarillo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/team"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "const": "morado"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "items": false,
+          "minItems": 5
+        },
+        "rounds": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/roundR1"
+            },
+            {
+              "$ref": "#/$defs/roundR2"
+            },
+            {
+              "$ref": "#/$defs/roundR3"
+            },
+            {
+              "$ref": "#/$defs/roundR4"
+            },
+            {
+              "$ref": "#/$defs/roundFINAL"
+            }
+          ],
+          "items": false,
+          "minItems": 5
+        }
+      }
+    },
+    "acceptedArgument": {
+      "type": "object",
+      "required": [
+        "claim_id",
+        "evidence_ids"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "claim_id": {
+          "$ref": "#/$defs/claimId"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/evidenceSet"
+        }
+      }
+    },
+    "acceptedObjection": {
+      "type": "object",
+      "description": "Debe coincidir con la instantánea completa y bloqueada de la respuesta del equipo objetado (los conjuntos de evidencias se comparan sin orden).",
+      "required": [
+        "target_claim_id",
+        "target_evidence_ids",
+        "target_action_id",
+        "objection_kind",
+        "cited_evidence_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "target_claim_id": {
+          "$ref": "#/$defs/claimId"
+        },
+        "target_evidence_ids": {
+          "$ref": "#/$defs/evidenceSet"
+        },
+        "target_action_id": {
+          "$ref": "#/$defs/actionId"
+        },
+        "objection_kind": {
+          "$ref": "#/$defs/objectionKind"
+        },
+        "cited_evidence_id": {
+          "$ref": "#/$defs/evidenceId"
+        }
+      }
+    },
+    "roundKey": {
+      "type": "object",
+      "required": [
+        "accepted_arguments",
+        "accepted_actions",
+        "accepted_objections"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "accepted_arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/acceptedArgument"
+          }
+        },
+        "accepted_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/actionId"
+          },
+          "uniqueItems": true
+        },
+        "accepted_objections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/acceptedObjection"
+          }
+        }
+      }
+    },
+    "answerKey": {
+      "title": "content/answer-key.private.json (formato)",
+      "description": "Formato de la clave privada. El archivo real NUNCA se versiona ni se publica; aquí solo se define su estructura.",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "game_id",
+        "rounds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "$ref": "#/$defs/schemaVersion"
+        },
+        "game_id": {
+          "$ref": "#/$defs/gameId"
+        },
+        "rounds": {
+          "type": "object",
+          "required": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "FINAL"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "R1": {
+              "$ref": "#/$defs/roundKey"
+            },
+            "R2": {
+              "$ref": "#/$defs/roundKey"
+            },
+            "R3": {
+              "$ref": "#/$defs/roundKey"
+            },
+            "R4": {
+              "$ref": "#/$defs/roundKey"
+            },
+            "FINAL": {
+              "$ref": "#/$defs/roundKey"
+            }
+          }
+        }
+      }
+    },
+    "phaseSlide": {
+      "type": "object",
+      "required": [
+        "slide_id",
+        "slide_index",
+        "slides"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "slide_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "slide_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "slides": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "regularRoundMap": {
+      "type": "object",
+      "required": [
+        "reveal",
+        "deliberation",
+        "defense",
+        "objection",
+        "resolution"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reveal": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "deliberation": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "defense": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "objection": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "confrontation": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "resolution": {
+          "$ref": "#/$defs/phaseSlide"
+        }
+      }
+    },
+    "finalRoundMap": {
+      "type": "object",
+      "required": [
+        "deliberation",
+        "defense",
+        "objection",
+        "resolution"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reveal": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "deliberation": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "defense": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "objection": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "confrontation": {
+          "$ref": "#/$defs/phaseSlide"
+        },
+        "resolution": {
+          "$ref": "#/$defs/phaseSlide"
+        }
+      }
+    },
+    "projectionMap": {
+      "title": "content/projection-map.json",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "game_id",
+        "projection_file",
+        "slide_count",
+        "index_base",
+        "rounds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "$ref": "#/$defs/schemaVersion"
+        },
+        "game_id": {
+          "$ref": "#/$defs/gameId"
+        },
+        "projection_file": {
+          "const": "projection/index.html"
+        },
+        "slide_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "index_base": {
+          "const": 0
+        },
+        "rounds": {
+          "type": "object",
+          "required": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "FINAL"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "R1": {
+              "$ref": "#/$defs/regularRoundMap"
+            },
+            "R2": {
+              "$ref": "#/$defs/regularRoundMap"
+            },
+            "R3": {
+              "$ref": "#/$defs/regularRoundMap"
+            },
+            "R4": {
+              "$ref": "#/$defs/regularRoundMap"
+            },
+            "FINAL": {
+              "$ref": "#/$defs/finalRoundMap"
+            }
+          }
+        },
+        "segments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
