@@ -292,3 +292,20 @@ html, body { background: #140f33; }
 /* Categorías de objeción en rejilla (no es un flujo secuencial) */
 .decide-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; width: 100%; margin-top: 26px; }
 .decide-grid .flow-step { text-align: left; padding: 26px 22px; }
+
+/* Datos en vivo adicionales: objeciones, resultados de la ronda y ganadores */
+.board-row .team-cell { display: flex; flex-direction: column; gap: 4px; }
+.board-row .round-pts { font-size: 16px; font-weight: 600; color: var(--text-secondary); }
+.board-row.winner { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.55) inset; }
+.board-row.winner .rank { background: var(--accent); font-size: 26px; }
+.obj-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.obj-chip { font-size: 15px; font-weight: 700; padding: 6px 12px; border-radius: 50px; background: rgba(20, 12, 52, 0.45); border: 1px solid rgba(255, 255, 255, 0.2); }
+.obj-chip.ok { color: #bbf7d0; border-color: rgba(134, 239, 172, 0.6); }
+.obj-chip.ko { color: #fecdd3; border-color: rgba(253, 164, 175, 0.5); }
+.obj-list { width: 100%; max-width: 1240px; display: flex; flex-direction: column; gap: 8px; margin-top: 26px; }
+.obj-row { display: flex; align-items: center; gap: 14px; padding: 8px 18px; font-size: 19px; }
+.obj-row .team { font-size: 19px; }
+.obj-row .team svg { width: 22px; height: 22px; }
+.obj-row .obj-arrow { color: var(--accent); font-weight: 900; }
+.obj-row .obj-kind { margin-left: auto; font-weight: 800; color: var(--accent); }
+.obj-empty { padding: 18px 26px; font-size: 21px; line-height: 1.5; }

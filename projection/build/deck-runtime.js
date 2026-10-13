@@ -172,6 +172,8 @@
         tTurn.textContent = 'Turno ' + (turnIdx + 1) + '/' + turns + who + ' · ' + fmt(turnLeft);
       } else tTurn.classList.remove('show');
     }
+    var ticking = false;
+    function ensureTick() { if (!ticking) { ticking = true; requestAnimationFrame(tick); } }
     function tick(now) {
       var dt = (now - last) / 1000;
       last = now;
@@ -180,9 +182,9 @@
       if (left <= 0) running = false;
       if (turnLeft <= 0) turnRunning = false;
       render();
-      if (running || turnRunning) requestAnimationFrame(tick);
+      if (running || turnRunning) requestAnimationFrame(tick); else ticking = false;
     }
-    function start() { if (!total) return; if (left <= 0) left = total; running = true; last = performance.now(); requestAnimationFrame(tick); render(); }
+    function start() { if (!total) return; if (left <= 0) left = total; if (!running && !turnRunning) last = performance.now(); running = true; ensureTick(); render(); }
     var group = null;
     function setup(slide) {
       var g = slide.dataset.timerGroup || null;
@@ -208,14 +210,22 @@
     btn.addEventListener('click', function (e) { e.stopPropagation(); api.toggle(); });
     var api = {
       setup: setup,
+      sync: function (remaining, totalFromServer) {
+        if (!total || !isFinite(remaining)) return;
+        if (totalFromServer && Math.abs(totalFromServer - total) > 1) return; // otra fase: no mezclar relojes
+        if (Math.abs(remaining - left) < 1.5 && (running || remaining <= 0)) return;
+        left = Math.max(0, Math.min(total, remaining));
+        if (left > 0) start(); else { running = false; render(); }
+      },
       toggle: function () { if (!total) return; if (running) { running = false; render(); } else start(); },
       reset: function () { running = false; turnRunning = false; left = total; turnIdx = 0; turnLeft = turnLen; render(); },
       nextTurn: function () {
         if (!turns) return;
         if (turnRunning || turnLeft < turnLen) turnIdx = Math.min(turns - 1, turnIdx + 1);
+        if (!running && !turnRunning) last = performance.now();
         turnLeft = turnLen; turnRunning = true;
         if (!running && total && left > 0) start();
-        last = performance.now(); requestAnimationFrame(tick); render();
+        ensureTick(); render();
       }
     };
     return api;
@@ -260,9 +270,30 @@
       list.forEach(function (r) {
         var id = pick(r, ['team_id', 'teamId', 'team']);
         if (teamIds.indexOf(id) < 0) return;
+        // La aplicación marca a los equipos sin respuesta con status «absent» y sin más campos.
+        if (r.status !== undefined && r.status !== 'submitted' && r.status !== 'locked') return;
+        var claim = pick(r, ['claim_id', 'claimId', 'claim']);
+        if (!claim) return;
         var ev = pick(r, ['evidence_ids', 'evidenceIds', 'evidence']);
-        s.responses.push({ team_id: id, claim_id: pick(r, ['claim_id', 'claimId', 'claim']), evidence_ids: Array.isArray(ev) ? ev.slice(0, 2) : [], action_id: pick(r, ['action_id', 'actionId', 'action']) });
+        s.responses.push({
+          team_id: id, claim_id: claim, evidence_ids: Array.isArray(ev) ? ev.slice(0, 2) : [],
+          action_id: pick(r, ['action_id', 'actionId', 'action']),
+          claim_text: typeof r.claim_text === 'string' ? r.claim_text : null,
+          action_text: typeof r.action_text === 'string' ? r.action_text : null
+        });
       });
+      // Objeciones (la aplicación las publica al cerrar la ventana; «valid» solo en Resultados)
+      var os = Array.isArray(raw.objections) ? raw.objections : [];
+      s.objections = os.filter(function (o) { return o && teamIds.indexOf(o.attacking_team_id) > -1 && teamIds.indexOf(o.target_team_id) > -1; }).map(function (o) {
+        return { attacking_team_id: o.attacking_team_id, target_team_id: o.target_team_id, kind: o.objection_kind, kind_label: o.objection_kind_label, cited: o.cited_evidence_id, valid: typeof o.valid === 'boolean' ? o.valid : null, points: num(o.points) };
+      });
+      var rr = Array.isArray(raw.round_results) ? raw.round_results : [];
+      s.round_results = rr.filter(function (x) { return x && teamIds.indexOf(x.team_id) > -1; }).map(function (x) {
+        return { team_id: x.team_id, argument_points: num(x.argument_points), action_points: num(x.action_points), objection_points: num(x.objection_points), total: num(x.total) };
+      });
+      s.winners = Array.isArray(raw.winners) ? raw.winners.map(function (w) { return typeof w === 'string' ? w : (w && w.team_id); }).filter(function (w) { return teamIds.indexOf(w) > -1; }) : [];
+      s.slide = (typeof raw.slide === 'string' || (typeof raw.slide === 'number' && raw.slide >= 0)) ? raw.slide : null;
+      s.timer = raw.timer && raw.timer.ends_at && raw.timer.server_time ? { ends: Date.parse(raw.timer.ends_at), server: Date.parse(raw.timer.server_time), total: num(raw.timer.duration_seconds) } : null;
       // rango denso si el servidor no lo envía
       var sorted = s.scoreboard.slice().sort(function (a, b) { return b.score - a.score; });
       sorted.forEach(function (r, i) { if (r.rank === null) r.rank = i === 0 ? 1 : (r.score === sorted[i - 1].score ? sorted[i - 1].rank : i + 1); });
@@ -299,7 +330,7 @@
           lastPhaseKey = key;
         })
         .catch(function () { mode = state ? 'stale' : 'demo'; })
-        .then(function () { setBadge(); render(); });
+        .then(function () { setBadge(); render(); syncTimer(); });
     }
 
     function stateFor(roundId) {
@@ -307,11 +338,30 @@
       return { s: demoFor(roundId), demo: true };
     }
 
+    function resolveRef(ref) {
+      if (typeof ref === 'number') return ref >= 0 && ref < slides.length ? ref : -1;
+      if (typeof ref === 'string') return indexOfId(ref);
+      return -1;
+    }
     function jumpToPhase() {
       if (!state) return;
-      var r = DATA.map.rounds[state.round_id];
-      var entry = r && r[state.phase];
-      if (entry) goTo(entry.slide_index);
+      // 1) la diapositiva que indica el servidor; 2) el mapa de proyección incrustado
+      var i = resolveRef(state.slide);
+      if (i < 0) {
+        var r = DATA.map.rounds[state.round_id];
+        if (r && r[state.phase] !== undefined) i = resolveRef(r[state.phase]);
+        else if (state.phase === 'tutorial') i = resolveRef(DATA.map.tutorial);
+        else if (state.phase === 'closing') i = resolveRef(DATA.map.closing);
+      }
+      if (i > -1 && i !== current) goTo(i);
+    }
+    // El reloj del servidor (solo orientativo) sincroniza la píldora si la fase coincide.
+    function syncTimer() {
+      if (mode !== 'live' || !state || !state.timer || !isFinite(state.timer.ends) || !isFinite(state.timer.server)) return;
+      var slide = slides[current];
+      if (slide.dataset.round !== state.round_id || slide.dataset.phase !== state.phase) return;
+      var remaining = (state.timer.ends - state.timer.server) / 1000;
+      Timer.sync(remaining, state.timer.total);
     }
 
     function render() {
@@ -329,7 +379,7 @@
     if (canFetch) { poll(); setInterval(function () { if (!document.hidden) poll(); }, 3000); }
     else setBadge();
 
-    return { render: render, jumpToPhase: jumpToPhase };
+    return { render: render, jumpToPhase: jumpToPhase, syncTimer: syncTimer };
   })();
 
   /* ---------- Dibujo de componentes dinámicos (solo DOM seguro, sin innerHTML) ---------- */
@@ -350,6 +400,7 @@
   }
   function clear(n) { while (n.firstChild) n.removeChild(n.firstChild); }
   function short(id) { return String(id || '').replace(/^(R\d|FINAL)-/, ''); }
+  var KIND = { contradiction: 'Contradicción', logical_leap: 'Salto lógico', unjustified_certainty: 'Certeza injustificada', unsafe_action: 'Acción insegura' };
 
   var Render = {
     responses: function (box, s, roundId, demo) {
@@ -369,9 +420,9 @@
         var row = h('div', 'resp-row glass-dark');
         row.appendChild(teamBadge(t.id));
         if (!r) { var miss = h('div', 'resp-cell'); miss.appendChild(h('p', null, 'Sin respuesta bloqueada')); row.appendChild(miss); box.appendChild(row); return; }
-        var c = h('div', 'resp-cell'); c.appendChild(h('span', 'chip sm', short(r.claim_id))); c.appendChild(h('p', null, (round && round.claims[r.claim_id]) || '—'));
+        var c = h('div', 'resp-cell'); c.appendChild(h('span', 'chip sm', short(r.claim_id))); c.appendChild(h('p', null, (round && round.claims[r.claim_id]) || r.claim_text || '—'));
         var e = h('div', 'resp-ev'); (r.evidence_ids || []).forEach(function (id) { e.appendChild(h('span', 'chip sm ghost', id)); });
-        var a = h('div', 'resp-cell'); a.appendChild(h('span', 'chip sm', short(r.action_id))); a.appendChild(h('p', null, (round && round.actions[r.action_id]) || '—'));
+        var a = h('div', 'resp-cell'); a.appendChild(h('span', 'chip sm', short(r.action_id))); a.appendChild(h('p', null, (round && round.actions[r.action_id]) || r.action_text || '—'));
         row.appendChild(c); row.appendChild(e); row.appendChild(a);
         box.appendChild(row);
       });
@@ -380,16 +431,58 @@
     scoreboard: function (box, s, roundId, demo) {
       clear(box);
       if (!s || !s.scoreboard.length) { box.appendChild(h('div', 'glass-dark placeholder-box', 'El marcador aparecerá aquí.')); return; }
+      var podium = box.dataset.podium === '1';
+      var winners = podium && s.winners ? s.winners : [];
+      var results = !podium && s.round_results && s.round_results.length && s.round_id === box.dataset.round ? s.round_results : [];
       var rows = s.scoreboard.slice().sort(function (a, b) { return a.rank - b.rank || DATA.teams.findIndex(function (t) { return t.id === a.team_id; }) - DATA.teams.findIndex(function (t) { return t.id === b.team_id; }); });
       rows.forEach(function (r) {
-        var row = h('div', 'board-row glass-dark' + (r.rank === 1 ? ' first' : ''));
-        row.appendChild(h('div', 'rank', String(r.rank)));
-        row.appendChild(teamBadge(r.team_id));
+        var win = winners.indexOf(r.team_id) > -1;
+        var row = h('div', 'board-row glass-dark' + (r.rank === 1 ? ' first' : '') + (win ? ' winner' : ''));
+        row.appendChild(h('div', 'rank', win ? '🏆' : String(r.rank)));
+        var cell = h('div', 'team-cell');
+        cell.appendChild(teamBadge(r.team_id));
+        var rr = null;
+        for (var i = 0; i < results.length; i++) if (results[i].team_id === r.team_id) rr = results[i];
+        if (rr) {
+          var fmt = function (n) { return n === null ? '–' : (n > 0 ? '+' + n : String(n)); };
+          cell.appendChild(h('span', 'round-pts', 'Esta ronda: argumento ' + fmt(rr.argument_points) + ' · acción ' + fmt(rr.action_points) + ' · objeción ' + fmt(rr.objection_points)));
+        }
+        row.appendChild(cell);
         var tk = h('div'); tk.appendChild(h('span', 'tokens-label', 'Fichas')); tk.appendChild(tokenDots(r.tokens)); row.appendChild(tk);
         var sc = h('div', 'score', String(r.score)); sc.appendChild(h('small', null, 'pts')); row.appendChild(sc);
         box.appendChild(row);
       });
+      if (winners.length > 1) box.appendChild(h('div', 'lock-hint', 'Victoria compartida tras aplicar los desempates.'));
+      if (!podium && s.objections && s.objections.length && s.round_id === box.dataset.round && s.objections.some(function (o) { return o.valid !== null; })) {
+        var line = h('div', 'obj-chips');
+        s.objections.forEach(function (o) {
+          var c = h('span', 'obj-chip ' + (o.valid ? 'ok' : 'ko'));
+          c.textContent = teamName(o.attacking_team_id).replace('Equipo ', '') + ' → ' + teamName(o.target_team_id).replace('Equipo ', '') + ' · ' + (o.kind_label || KIND[o.kind] || o.kind) + (o.valid ? ' ✓ +' + (o.points === null ? 3 : o.points) : ' ✗');
+          line.appendChild(c);
+        });
+        box.appendChild(line);
+      }
       if (demo) box.appendChild(h('div', 'src-note', 'Marcador de ejemplo (modo demostración). En vivo, los datos llegan de /api/public-state.'));
+    },
+    objections: function (box, s, roundId, demo) {
+      clear(box);
+      var list = s && !demo && s.round_id === roundId && s.objections ? s.objections : [];
+      if (!list.length) {
+        box.appendChild(h('div', 'glass-dark obj-empty', demo
+          ? 'Aquí aparecerán las objeciones presentadas (equipo que objeta → equipo objetado · categoría · evidencia citada) cuando se cierre la ventana de objeciones.'
+          : 'Se discuten argumentos, no personas. El resultado no depende del aplauso ni de la oratoria: lo decide la clave.'));
+        return;
+      }
+      list.slice(0, 10).forEach(function (o, i) {
+        var row = h('div', 'obj-row glass-dark');
+        row.appendChild(h('span', 'chip sm', String(i + 1)));
+        row.appendChild(teamBadge(o.attacking_team_id));
+        row.appendChild(h('span', 'obj-arrow', '→'));
+        row.appendChild(teamBadge(o.target_team_id));
+        row.appendChild(h('span', 'obj-kind', o.kind_label || KIND[o.kind] || o.kind || ''));
+        if (o.cited) row.appendChild(h('span', 'chip sm ghost', o.cited));
+        box.appendChild(row);
+      });
     },
     tokens: function (box, s, roundId, demo) {
       clear(box);

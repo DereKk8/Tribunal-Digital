@@ -32,7 +32,7 @@ const vs = (def, data) => validate(sub(def), data, schema);
 // ── 1. Esquemas ──────────────────────────────────────────────────────────────
 const pub = readJson('content/public.json');
 const map = readJson('content/projection-map.json');
-check('Esquema · content/public.json', vs('publicPackage', pub));
+check('Esquema · content/public.json', vs('publicCase', pub));
 check('Esquema · content/projection-map.json', vs('projectionMap', map));
 check('Esquema · el documento raíz acepta public.json y el mapa (oneOf)', [...validate(schema, pub), ...validate(schema, map)]);
 if (existsSync(P('content/answer-key.example.json'))) {
@@ -86,19 +86,30 @@ const SLIDE_RE = /<div class="slide(?: [^"]*)?" id="([^"]+)"([^>]*)>/g;
 const slideIds = [...html.matchAll(SLIDE_RE)].map((m) => m[1]);
 {
   const e = [];
-  if (map.slide_count !== slideIds.length) e.push(`slide_count=${map.slide_count} pero el HTML tiene ${slideIds.length}`);
+  if (map.slide_count !== undefined && map.slide_count !== slideIds.length) e.push(`slide_count=${map.slide_count} pero el HTML tiene ${slideIds.length}`);
   if (new Set(slideIds).size !== slideIds.length) e.push('ids de diapositiva repetidos en el HTML');
+  const resolve = (ref) => (typeof ref === 'number' ? (ref < slideIds.length ? slideIds[ref] : null) : slideIds.includes(ref) ? ref : null);
+  for (const k of ['tutorial', 'closing']) if (map[k] !== undefined && !resolve(map[k])) e.push(`${k}: ${map[k]} no existe en el HTML`);
   for (const [rid, phases] of Object.entries(map.rounds)) {
-    if (rid !== 'FINAL' && !phases.reveal) e.push(`${rid}: falta reveal`);
-    for (const [ph, entry] of Object.entries(phases)) {
-      const idx = slideIds.indexOf(entry.slide_id);
-      if (idx < 0) e.push(`${rid}.${ph}: ${entry.slide_id} no existe en el HTML`);
-      else if (idx !== entry.slide_index) e.push(`${rid}.${ph}: índice ${entry.slide_index} ≠ ${idx}`);
-      if (entry.slides[0] !== entry.slide_id) e.push(`${rid}.${ph}: slides[0] debe ser slide_id`);
-      for (const s of entry.slides) if (!slideIds.includes(s)) e.push(`${rid}.${ph}: ${s} no existe`);
-      const re = new RegExp(`id="${entry.slide_id}"[^>]*data-round="${rid}"[^>]*data-phase="${ph}"`);
-      if (!re.test(html)) e.push(`${rid}.${ph}: la diapositiva ${entry.slide_id} no declara data-round/data-phase coherentes`);
+    if (rid !== 'FINAL' && phases.reveal === undefined) e.push(`${rid}: falta reveal`);
+    for (const [ph, ref] of Object.entries(phases)) {
+      const id = resolve(ref);
+      if (!id) { e.push(`${rid}.${ph}: ${ref} no existe en el HTML`); continue; }
+      const re = new RegExp(`id="${id}"[^>]*data-round="${rid}"[^>]*data-phase="${ph}"`);
+      if (!re.test(html)) e.push(`${rid}.${ph}: la diapositiva ${id} no declara data-round/data-phase coherentes`);
+      const list = map.phase_slides?.[rid]?.[ph];
+      if (list) {
+        if (list[0] !== id) e.push(`${rid}.${ph}: phase_slides debe empezar por ${id}`);
+        for (const sid of list) {
+          if (!slideIds.includes(sid)) e.push(`${rid}.${ph}: ${sid} no existe`);
+          else if (!new RegExp(`id="${sid}"[^>]*data-round="${rid}"[^>]*data-phase="${ph}"`).test(html)) e.push(`${rid}.${ph}: ${sid} no pertenece a esa fase`);
+        }
+      }
     }
+  }
+  // Marcadores que la aplicación considera fuga si aparecen en la proyección.
+  for (const m of ['answer-key', 'answer_key', 'rationales.private', '.private.json', 'target_claim_id', 'target_evidence_ids', 'target_action_id']) {
+    if (html.includes(m)) e.push(`la proyección contiene el marcador privado «${m}»`);
   }
   check('Mapa de proyección coherente con el HTML generado', e);
 }

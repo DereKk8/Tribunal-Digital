@@ -26,14 +26,31 @@ const html = readFileSync(path.join(ROOT, 'projection/index.html'));
 
 let mode = 'ok';
 const requests = [];
+// Estado con la forma documentada por la aplicación (docs/INTEGRACION.md del Agente B).
+// Valores ilustrativos: no son respuestas del caso.
+const now = Date.now();
 const STATE = {
-  round_id: 'R2',
-  phase: 'defense',
-  scoreboard: { azul: { score: 4, tokens_remaining: 2 }, rojo: { score: 11, tokens_remaining: 1 }, verde: { score: 4, tokens_remaining: 3 }, amarillo: { score: 0, tokens_remaining: 3 }, morado: { score: 2, tokens_remaining: 0 } },
-  locked_responses: [
-    { team_id: 'rojo', claim_id: 'R2-C4', evidence_ids: ['E05'], action_id: 'R2-A2' },
-    { team_id: 'azul', claim_id: 'R2-C1', evidence_ids: ['E06', 'E07'], action_id: 'R2-A1' },
+  api_version: '1.0', content_mode: 'real', demo: false, game_active: true, stage_index: 14, stage_count: 31,
+  round_id: 'R2', round_title: '…', phase: 'resolution', phase_label: 'Resultados', slide: 'r2-resultados',
+  timer: { duration_seconds: 45, started_at: new Date(now - 15000).toISOString(), ends_at: new Date(now + 30000).toISOString(), server_time: new Date(now).toISOString(), hint_only: true },
+  scoreboard: [
+    { team_id: 'rojo', team_name: 'Rojo', score: 11, objection_tokens_remaining: 1, rank: 1, valid_objections: 1, supported_arguments: 1 },
+    { team_id: 'azul', team_name: 'Azul', score: 4, objection_tokens_remaining: 2, rank: 2 },
+    { team_id: 'verde', team_name: 'Verde', score: 4, objection_tokens_remaining: 3, rank: 2 },
+    { team_id: 'morado', team_name: 'Morado', score: 2, objection_tokens_remaining: 0, rank: 4 },
+    { team_id: 'amarillo', team_name: 'Amarillo', score: 0, objection_tokens_remaining: 3, rank: 5 },
   ],
+  responses: [
+    { team_id: 'rojo', status: 'submitted', claim_id: 'R2-C4', claim_text: 'x', evidence_ids: ['E05'], action_id: 'R2-A2', action_text: 'y' },
+    { team_id: 'azul', status: 'submitted', claim_id: 'R2-C1', evidence_ids: ['E06', 'E07'], action_id: 'R2-A1' },
+    { team_id: 'verde', status: 'absent' },
+  ],
+  objections: [
+    { attacking_team_id: 'rojo', target_team_id: 'azul', objection_kind: 'logical_leap', objection_kind_label: 'Salto lógico', cited_evidence_id: 'E06', valid: true, points: 3 },
+    { attacking_team_id: 'morado', target_team_id: 'rojo', objection_kind: 'contradiction', objection_kind_label: 'Contradicción', cited_evidence_id: 'E08', valid: false, points: 0 },
+  ],
+  round_results: [{ team_id: 'rojo', argument_points: 3, action_points: 2, objection_points: 3, total: 8 }],
+  winners: [],
 };
 const server = http.createServer((req, res) => {
   requests.push(req.url);
@@ -61,20 +78,35 @@ await page.waitForFunction(() => document.getElementById('live-badge').textConte
 ok((await badge()).startsWith('En vivo'), 'aviso «En vivo» con servidor disponible');
 const board = await page.$$eval('#r2-resultados .board-row', (rows) => rows.map((r) => ({ rank: r.querySelector('.rank').textContent, team: r.querySelector('.team').textContent.trim(), score: r.querySelector('.score').firstChild.textContent })));
 ok(board.length === 5 && board[0].rank === '1' && board[0].team === 'Equipo Rojo' && board[0].score === '11', `marcador ordenado por puesto (primero: ${JSON.stringify(board[0])})`);
-ok(board.filter((b) => b.rank === '2').map((b) => b.team).join(',') === 'Equipo Azul,Equipo Verde' && board[3].rank === '4', 'empate a 4 puntos comparte el puesto 2 y el siguiente es 4.º (rango calculado)');
+ok(board.filter((b) => b.rank === '2').map((b) => b.team).join(',') === 'Equipo Azul,Equipo Verde' && board[3].rank === '4', 'empates comparten puesto (2, 2, 4)');
 const tokens = await page.$$eval('#r2-resultados .board-row .tokens', (els) => els.map((e) => e.querySelectorAll('i.on').length));
-ok(JSON.stringify(tokens) === JSON.stringify([1, 2, 3, 0, 3]), `fichas dibujadas desde tokens_remaining en orden de puesto (${tokens})`);
+ok(JSON.stringify(tokens) === JSON.stringify([1, 2, 3, 0, 3]), `fichas desde objection_tokens_remaining (${tokens})`);
+ok((await page.textContent('#r2-resultados .round-pts')).includes('argumento +3 · acción +2 · objeción +3'), 'resultados de la ronda (round_results) en el marcador');
+const chips = await page.$$eval('#r2-resultados .obj-chip', (els) => els.map((e) => e.className + '|' + e.textContent));
+ok(chips.length === 2 && chips[0].includes('ok') && chips[0].includes('+3') && chips[1].includes('ko'), `objeciones resueltas con ✓/✗ (${chips.join(' ; ')})`);
+const t = await page.textContent('#timer .t-time');
+ok(['0:30', '0:29', '0:28', '0:27'].includes(t), `reloj sincronizado con el del servidor (${t})`);
 await page.evaluate(() => { location.hash = 'r2-defensa'; });
 await page.waitForTimeout(300);
 const resp = await page.$$eval('#r2-defensa .resp-row', (rows) => rows.map((r) => r.textContent.replace(/\s+/g, ' ').trim()));
-ok(resp.length === 5 && resp.some((r) => r.includes('Equipo Rojo') && r.includes('C4') && r.includes('E05')), 'respuestas bloqueadas de R2 visibles en Defensa');
-ok(resp.some((r) => r.includes('Equipo Verde') && r.includes('Sin respuesta bloqueada')), 'equipo sin respuesta mostrado como «Sin respuesta bloqueada»');
+ok(resp.length === 5 && resp.some((r) => r.includes('Equipo Rojo') && r.includes('C4') && r.includes('E05')), 'respuestas bloqueadas visibles en Defensa');
+ok(resp.some((r) => r.includes('Equipo Verde') && r.includes('Sin respuesta bloqueada')), 'status «absent» se muestra como «Sin respuesta bloqueada»');
+await page.evaluate(() => { location.hash = 'r2-confrontacion'; });
+await page.waitForTimeout(300);
+const objRows = await page.$$eval('#r2-confrontacion .obj-row', (rows) => rows.map((r) => r.textContent.replace(/\s+/g, ' ').trim()));
+ok(objRows.length === 2 && objRows[0].includes('Equipo Rojo') && objRows[0].includes('Salto lógico') && objRows[0].includes('E06'), 'objeciones listadas en Confrontación');
 await page.evaluate(() => { location.hash = 'r1-defensa'; });
 await page.waitForTimeout(300);
 ok((await page.textContent('#r1-defensa .resp')).includes('aparecerán aquí'), 'en otra ronda no se muestran respuestas ajenas a la ronda');
 await page.keyboard.press('g');
 await page.waitForTimeout(300);
-ok(await page.evaluate(() => location.hash === '#r2-defensa'), 'tecla G salta a la fase indicada por el servidor (R2 · defense)');
+ok(await page.evaluate(() => location.hash === '#r2-resultados'), 'tecla G salta a la diapositiva indicada por «slide»');
+STATE.phase = 'closing'; STATE.round_id = null; STATE.slide = 'cierre-podio'; STATE.winners = ['rojo'];
+await page.waitForTimeout(3500);
+await page.keyboard.press('g');
+await page.waitForTimeout(300);
+ok(await page.evaluate(() => location.hash === '#cierre-podio'), 'G lleva al cierre');
+ok((await page.textContent('#cierre-podio .board-row.winner .team')).includes('Equipo Rojo'), 'ganador destacado en el podio');
 
 // 2) Conexión perdida
 mode = 'down';

@@ -174,41 +174,32 @@ personas usando `?demo=1`; comprobar el reloj (T/N/R); practicar el guion de 30 
 
 ## 7. Integración con la aplicación (Agente B)
 
-- **Ruta de presentador.** Servir `projection/index.html` **solo** en una ruta autorizada para presentación (no
-  accesible con códigos de equipo), y en el mismo origen que `GET /api/public-state`. El HTML no contiene ni pide
-  ningún secreto; usa `fetch('/api/public-state', { credentials: 'same-origin' })` cada 3 s.
+Alineado con `docs/INTEGRACION.md` de la aplicación (rama del Agente B):
+
+- **Proyección.** La aplicación sirve `projection/index.html` sin cambios en `/projection/`, solo con sesión de
+  moderación (los códigos de equipo no la abren). La proyección consulta `GET /api/public-state` cada 3 s en el
+  mismo origen (`credentials: 'same-origin'`), sin pedir ningún otro recurso: fuente e imágenes van incrustadas.
+- **Campos que usa la proyección** (forma estable documentada por la aplicación):
+  `round_id`, `phase`, `slide` (id del mapa), `timer.ends_at`/`server_time`/`duration_seconds` (solo como guía para
+  sincronizar el reloj de la fase visible), `scoreboard[]` (`team_id`, `score`, `objection_tokens_remaining`,
+  `rank`), `responses[]` (`status: "submitted"`; los `"absent"` se muestran como «Sin respuesta bloqueada»),
+  `objections[]` (lista en Confrontación y ✓/✗ con puntos en Resultados cuando la aplicación publica `valid`),
+  `round_results[]` (puntos de la ronda por equipo en Resultados) y `winners[]` (podio del cierre).
+  Por robustez se aceptan también alias (`scoreboard` como objeto, `tokens_remaining`, `locked_responses`…) y, si
+  falta `rank`, se calcula por puntos.
 - **Sin servidor** (archivo local, `?demo=1`, 404, error de red): modo demostración con datos de ejemplo
   claramente rotulados. Con 401/403 lo indica en el aviso inferior. Si la conexión se pierde, conserva los últimos
   datos y avisa: «Sin conexión con el servidor · últimos datos de las hh:mm:ss».
-- **Formato esperado** (valores ilustrativos al azar, no son respuestas):
-
-```json
-{
-  "round_id": "R2",
-  "phase": "defense",
-  "scoreboard": [
-    { "team_id": "azul", "score": 5, "objection_tokens": 2, "rank": 1 },
-    { "team_id": "rojo", "score": 3, "objection_tokens": 3, "rank": 2 }
-  ],
-  "responses": [
-    { "team_id": "azul", "claim_id": "R2-C4", "evidence_ids": ["E06", "E08"], "action_id": "R2-A1" }
-  ]
-}
-```
-
-  Se toleran alias para no acoplar implementaciones: `scoreboard` como arreglo u objeto indexado por equipo;
-  fichas en `objection_tokens` | `tokens_remaining` | `remaining_tokens` | `objection_tokens_remaining` | `tokens`;
-  respuestas en `responses` | `locked_responses` | `team_responses`. Si falta `rank`, se calcula por puntos (empate =
-  mismo puesto). Las respuestas se muestran solo si `round_id` coincide con la ronda de la diapositiva; el servidor
-  debe enviarlas **solo tras el bloqueo**.
+- **Mapa** (`content/projection-map.json`): cada fase apunta a **un id** de diapositiva (formato que valida la
+  aplicación; también admite índices). Incluye `tutorial` y `closing`; `phase_slides` y `segments` listan, a título
+  informativo, todas las diapositivas de cada fase o bloque.
 - **Parámetros de URL:** `?demo=1` fuerza la demostración · `?follow=1` sigue automáticamente la fase del
-  servidor · `?api=/ruta` cambia el endpoint (solo rutas del mismo origen) · `#id` abre una diapositiva.
-- **CSP:** la proyección usa `<script>` y `<style>` en línea (formato make-slide). Si el servidor aplica CSP,
-  permita esos bloques por hash o sirva esta ruta con una política compatible.
-- **Imágenes:** `asset_path` es relativo a la raíz del paquete (`assets/evidence/E01.svg`); los SVG están además
-  incrustados en la proyección.
-
----
+  servidor (por `slide` o, si falta, por el mapa) · `?api=/ruta` cambia el endpoint (solo rutas del mismo origen) ·
+  `#id` abre una diapositiva. La tecla **G** salta a la fase actual del servidor.
+- **CSP:** la proyección usa `<script>` y `<style>` en línea (formato make-slide); la aplicación la sirve sin CSP
+  propia, como corresponde.
+- **Imágenes:** `asset_path` es relativo a la raíz del paquete (`assets/evidence/E01.svg`); la aplicación las
+  entrega a los equipos en `/media/<id>` solo cuando ya se revelaron.
 
 ## 8. Archivos privados: generar, guardar y entregar sin publicarlos
 

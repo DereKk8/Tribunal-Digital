@@ -279,15 +279,15 @@ function liveSlides({ r, prefix, grad, defenseName, defenseSecs, defenseTotal, n
     turnNames: Array.from({ length: 10 }, (_, i) => `${i % 2 ? 'Defensa' : 'Ataque'} ${Math.floor(i / 2) + 1}`),
     notes: notes.confrontation,
     body: `<div class="a"><span class="kicker">${label}<span class="sep">·</span>Confrontación</span>
-<h2 class="lg" style="margin-top:12px">Hasta 5 intercambios</h2></div>
-<div class="a flow-container" style="max-width:1100px;margin-top:34px">
+<h2 class="lg" style="margin-top:12px">Ataque y defensa</h2></div>
+<div class="a flow-container" style="max-width:1100px;margin-top:26px">
 <div class="flow-step"><div class="step-glow"></div><div class="step-num">18 s</div><div class="step-title" style="font-size:26px">Ataque</div><div class="step-desc" style="font-size:18px">El equipo que objetó explica su categoría y la evidencia citada.</div></div>
 <div class="flow-arrow">&rarr;</div>
 <div class="flow-step"><div class="step-glow"></div><div class="step-num">18 s</div><div class="step-title" style="font-size:26px">Defensa</div><div class="step-desc" style="font-size:18px">El equipo objetado responde. La defensa verbal es libre.</div></div>
 <div class="flow-arrow">&rarr;</div>
-<div class="flow-step"><div class="step-glow"></div><div class="step-num">× 5</div><div class="step-title" style="font-size:26px">Siguiente</div><div class="step-desc" style="font-size:18px">Si hubo más de cinco objeciones, se debaten las cinco primeras.</div></div>
+<div class="flow-step"><div class="step-glow"></div><div class="step-num">× 5 como máximo</div><div class="step-title" style="font-size:26px">Una por objeción</div><div class="step-desc" style="font-size:18px">Cada equipo objeta como mucho una vez por fase: hay, a lo sumo, cinco intercambios.</div></div>
 </div>
-<div class="a glass-dark" style="padding:18px 26px;margin-top:34px;max-width:1100px"><p style="font-size:22px;line-height:1.5">Se discuten <b class="accent">argumentos, no personas</b>. El resultado no depende del aplauso ni de la oratoria: lo decide la clave.</p></div>`,
+<div class="a obj-list" data-live="objections" data-round="${r.id}"></div>`,
   });
   slide({
     id: `${prefix}-resultados`, grad: 11, cls: 'layout-wide', title: `${label} · Resultados`,
@@ -301,8 +301,8 @@ function liveSlides({ r, prefix, grad, defenseName, defenseSecs, defenseTotal, n
 const genericNotes = (label, defenseSecs) => ({
   defense: `[${label} · ${defenseSecs === 30 ? 'Defensa · 2:30' : 'Alegatos · 2:00'}] Las respuestas ya están bloqueadas y se ven en pantalla. Cada portavoz tiene ${defenseSecs} s: pulse T para el reloj general y N para pasar de turno (el orden rota en cada ronda). La defensa verbal es libre y no suma puntos. Si una respuesta no aparece, ese equipo no bloqueó a tiempo.`,
   objection: `[${label} · Objeciones · 0:45] Cada equipo decide si gasta una ficha (máximo una por fase). En la app indica equipo objetivo, categoría y una sola evidencia. Recuerde: una objeción fallida también gasta la ficha. Usted no conoce el resultado en pantalla; lo calcula la aplicación con la clave privada.`,
-  confrontation: `[${label} · Confrontación · 3:00] Hasta cinco intercambios de 18 s: primero ataca el equipo que objetó, luego responde el objetado. Use N para alternar turnos. Modere el tono: argumentos, no personas. No anticipe si la objeción es válida.`,
-  resolution: `[${label} · Resultados · 0:45] Muestre el marcador. Explique en 30 s la lógica de la ronda con su hoja privada de fundamentos (rationales.private.md, fuera de esta presentación). Anuncie el cambio de portavoz para la siguiente fase.`,
+  confrontation: `[${label} · Confrontación · 3:00] Un intercambio por objeción presentada (como máximo cinco): 18 s para el equipo que objetó y 18 s para el objetado. Use N para alternar turnos. Con conexión, la lista de objeciones aparece en pantalla al cerrarse la ventana. Modere el tono: argumentos, no personas. No anticipe si la objeción es válida.`,
+  resolution: `[${label} · Resultados · 0:45] Muestre el marcador. Explique en 30 s la lógica de la ronda con su hoja privada de fundamentos, que no forma parte de esta presentación. Anuncie el cambio de portavoz para la siguiente fase.`,
 });
 
 for (const r of ROUNDS) {
@@ -357,7 +357,7 @@ slide({
   notes: '[Cierre · 0:00–1:00] Pulse T (5:00 para todo el cierre). Anuncie el resultado. Desempates: 1) más objeciones válidas; 2) más argumentos sostenidos; 3) si sigue el empate, victoria compartida. Felicite el razonamiento, no solo el resultado.',
   body: `<div class="a"><span class="kicker">Cierre</span>
 <h2 class="lg" style="margin-top:12px">Veredicto del Tribunal</h2></div>
-<div class="a board" data-live="scoreboard"></div>
+<div class="a board" data-live="scoreboard" data-podium="1"></div>
 <p class="a lock-hint" style="margin-top:14px">Desempate: <b>1)</b> más objeciones válidas · <b>2)</b> más argumentos sostenidos · <b>3)</b> victoria compartida</p>`,
 });
 
@@ -445,27 +445,35 @@ slide({
 });
 
 // ───────────────────────── Mapa de proyección ─────────────────────────
-const index = Object.fromEntries(slides.map((s, i) => [s.id, i]));
+// Formato acordado con la aplicación (Agente B): cada fase apunta a UN id de diapositiva
+// (también se aceptan índices enteros desde 0). «phase_slides» y «segments» son
+// información adicional: todas las diapositivas que pertenecen a cada fase o bloque.
+const ids = new Set(slides.map((s) => s.id));
 const map = {
   schema_version: SCHEMA_VERSION,
   game_id: GAME_ID,
   projection_file: 'projection/index.html',
   slide_count: slides.length,
-  index_base: 0,
+  tutorial: 'portada',
+  closing: 'cierre-podio',
   rounds: {},
+  phase_slides: {},
   segments: {
-    opening: slides.filter((s) => !s.round && !s.id.startsWith('cierre')).map((s) => s.id),
+    tutorial: slides.filter((s) => !s.round && !s.id.startsWith('cierre')).map((s) => s.id),
     closing: slides.filter((s) => s.id.startsWith('cierre')).map((s) => s.id),
   },
 };
 for (const r of ROUNDS) {
-  const phases = {};
+  const first = {};
+  const all = {};
   for (const s of slides.filter((x) => x.round === r.id)) {
-    phases[s.phase] = phases[s.phase] || { slide_id: s.id, slide_index: index[s.id], slides: [] };
-    phases[s.phase].slides.push(s.id);
+    if (!first[s.phase]) first[s.phase] = s.id;
+    (all[s.phase] = all[s.phase] || []).push(s.id);
   }
-  map.rounds[r.id] = phases;
+  map.rounds[r.id] = first;
+  map.phase_slides[r.id] = all;
 }
+for (const v of [map.tutorial, map.closing]) if (!ids.has(v)) throw new Error(`Diapositiva inexistente en el mapa: ${v}`);
 
 // ───────────────────────── Datos públicos y demostración ─────────────────────────
 const DEMO_SCORES = { azul: [9, 2], rojo: [7, 3], verde: [7, 1], amarillo: [5, 2], morado: [3, 3] };

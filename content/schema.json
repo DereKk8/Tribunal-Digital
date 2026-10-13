@@ -5,7 +5,7 @@
   "description": "Valida content/public.json, content/projection-map.json y el formato de content/answer-key.private.json (la clave real nunca se publica). Las referencias cruzadas que JSON Schema no puede expresar las comprueba content/tools/validate.mjs.",
   "oneOf": [
     {
-      "$ref": "#/$defs/publicPackage"
+      "$ref": "#/$defs/publicCase"
     },
     {
       "$ref": "#/$defs/answerKey"
@@ -285,7 +285,7 @@
         }
       ]
     },
-    "publicPackage": {
+    "publicCase": {
       "title": "content/public.json",
       "description": "Paquete público. No contiene indicadores de respuestas correctas, reglas de solución ni secretos.",
       "type": "object",
@@ -531,34 +531,6 @@
         }
       }
     },
-    "phaseSlide": {
-      "type": "object",
-      "required": [
-        "slide_id",
-        "slide_index",
-        "slides"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "slide_id": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$"
-        },
-        "slide_index": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "slides": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "^[a-z0-9-]+$"
-          },
-          "minItems": 1,
-          "uniqueItems": true
-        }
-      }
-    },
     "regularRoundMap": {
       "type": "object",
       "required": [
@@ -571,22 +543,22 @@
       "additionalProperties": false,
       "properties": {
         "reveal": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "deliberation": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "defense": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "objection": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "confrontation": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "resolution": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         }
       }
     },
@@ -601,34 +573,32 @@
       "additionalProperties": false,
       "properties": {
         "reveal": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "deliberation": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "defense": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "objection": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "confrontation": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         },
         "resolution": {
-          "$ref": "#/$defs/phaseSlide"
+          "$ref": "#/$defs/slideRef"
         }
       }
     },
     "projectionMap": {
       "title": "content/projection-map.json",
+      "description": "Ronda + fase → diapositiva. Cada fase apunta a un id (o índice) de projection/index.html. «confrontation» es opcional y FINAL no tiene «reveal». «phase_slides» y «segments» son informativos.",
       "type": "object",
       "required": [
         "schema_version",
         "game_id",
-        "projection_file",
-        "slide_count",
-        "index_base",
         "rounds"
       ],
       "additionalProperties": false,
@@ -646,8 +616,11 @@
           "type": "integer",
           "minimum": 1
         },
-        "index_base": {
-          "const": 0
+        "tutorial": {
+          "$ref": "#/$defs/slideRef"
+        },
+        "closing": {
+          "$ref": "#/$defs/slideRef"
         },
         "rounds": {
           "type": "object",
@@ -677,14 +650,111 @@
             }
           }
         },
+        "phase_slides": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "R1": {
+              "$ref": "#/$defs/phaseSlideLists"
+            },
+            "R2": {
+              "$ref": "#/$defs/phaseSlideLists"
+            },
+            "R3": {
+              "$ref": "#/$defs/phaseSlideLists"
+            },
+            "R4": {
+              "$ref": "#/$defs/phaseSlideLists"
+            },
+            "FINAL": {
+              "$ref": "#/$defs/phaseSlideLists"
+            }
+          }
+        },
         "segments": {
           "type": "object",
           "additionalProperties": {
             "type": "array",
             "items": {
-              "type": "string"
-            }
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
           }
+        }
+      }
+    },
+    "slideRef": {
+      "description": "Id de una diapositiva de projection/index.html (recomendado) o índice entero desde 0 de los elementos .slide.",
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+        },
+        {
+          "type": "integer",
+          "minimum": 0
+        }
+      ]
+    },
+    "phaseSlideLists": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reveal": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "deliberation": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "defense": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "objection": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "confrontation": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "resolution": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_:.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
         }
       }
     }
