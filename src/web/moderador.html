@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Estrado | Tribunal Digital</title>
+<link rel="preload" href="/static/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/static/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body class="estrado">
+<div id="cinta" class="cinta" role="note" hidden><span>DEMO — DATOS FICTICIOS DE PRUEBA</span></div>
+<p id="conexion" class="conexion" role="status" aria-live="polite" hidden></p>
+
+<main class="contenedor">
+  <section id="pantalla-acceso" class="acceso" hidden aria-labelledby="titulo-acceso">
+    <h1 id="titulo-acceso" class="marca display"><span>Estrado</span></h1>
+    <div class="bancos" aria-hidden="true"><i class="t-azul"></i><i class="t-rojo"></i><i class="t-verde"></i><i class="t-amarillo"></i><i class="t-morado"></i></div>
+    <p class="acceso-texto">Panel de moderación del Tribunal Digital.</p>
+    <form id="form-acceso" novalidate>
+      <label class="etiqueta-campo" for="clave">Contraseña de moderación</label>
+      <input id="clave" name="clave" class="campo-codigo" type="password" autocomplete="current-password" required>
+      <p id="error-acceso" class="error" role="alert" hidden></p>
+      <button type="submit" class="boton-entrar">Entrar al estrado</button>
+    </form>
+  </section>
+
+  <section id="pantalla-panel" hidden>
+    <div id="mensaje" role="status" aria-live="polite"></div>
+    <div id="panel"></div>
+  </section>
+</main>
+
+<div id="zona-impresion" class="zona-impresion"></div>
+
+<dialog id="dialogo" aria-labelledby="dialogo-titulo">
+  <h2 id="dialogo-titulo"></h2>
+  <div id="dialogo-cuerpo"></div>
+  <div class="botones">
+    <button type="button" id="dialogo-aceptar">Confirmar</button>
+    <button type="button" id="dialogo-cancelar" class="quieto">Volver</button>
+  </div>
+</dialog>
+
+<script src="/static/comun.js"></script>
+<script src="/static/moderador.js"></script>
+</body>
+</html>

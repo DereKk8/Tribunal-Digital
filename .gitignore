@@ -13,6 +13,7 @@ content/*.private.*
 content/private/
 content/handoff/
 *.private.zip
+*.private.real.json
 
 # ── Secretos y estado de ejecución (ambos agentes) ───────────
 .env
@@ -21,9 +22,10 @@ content/handoff/
 *.pem
 *.key
 
-# Base de datos de sesión persistente, copias y exportaciones
+# Base de datos de sesión persistente, copias y exportaciones de auditoría
 *.sqlite
 *.sqlite3
+*.sqlite-*
 *.db
 *.db-journal
 data/
@@ -32,8 +34,13 @@ backups/
 exports/
 private-exports/
 
-# ── Artefactos locales de QA del Agente A ─────────────────────
+# ── Artefactos locales de QA ──────────────────────────────────
 projection/qa-output/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+*.log
 
 # ── Varios ────────────────────────────────────────────────────
 node_modules/

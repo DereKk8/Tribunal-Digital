@@ -1,0 +1,151 @@
+{
+  "aviso": "DEMO — DATOS FICTICIOS DE PRUEBA. Simulación determinista de cinco equipos con la clave sintética de fixtures/demo/. Ver fixtures/demo/SIMULACION.md.",
+  "rounds": {
+    "R1": {
+      "checks_before_responses": [
+        {"team": "rojo", "kind": "response", "payload": {"claim_id": "R1-C4", "evidence_ids": ["R1-E1", "R2-E1"], "action_id": "R1-A1"}, "expect_status": 422, "expect_code": "bad_evidence", "nota": "evidencia de una ronda futura"},
+        {"team": "rojo", "kind": "response", "payload": {"claim_id": "R1-C4", "evidence_ids": ["R1-E1", "R1-E2", "R1-E1"], "action_id": "R1-A1"}, "expect_status": 422, "expect_code": "bad_evidence_count", "nota": "más de 2 evidencias"},
+        {"team": "azul", "kind": "response", "payload": {"team_id": "rojo", "claim_id": "R1-C1", "evidence_ids": ["R1-E1"], "action_id": "R1-A1"}, "expect_status": 403, "expect_code": "team_mismatch", "nota": "suplantar a otro equipo"},
+        {"team": "azul", "kind": "response", "payload": {"claim_id": "R1-C1", "evidence_ids": ["R1-E1"], "action_id": "R1-A1", "points": 99}, "expect_status": 400, "expect_code": "field_not_allowed", "nota": "el cliente intenta enviar puntos"}
+      ],
+      "responses": {
+        "azul": {"claim_id": "R1-C1", "evidence_ids": ["R1-E1"], "action_id": "R1-A1"},
+        "rojo": {"claim_id": "R1-C4", "evidence_ids": ["R1-E2", "R1-E1"], "action_id": "R1-A1"},
+        "verde": {"claim_id": "R1-C3", "evidence_ids": ["R1-E1"], "action_id": "R1-A2"},
+        "amarillo": {"claim_id": "R1-C1", "evidence_ids": ["R1-E2"], "action_id": "R1-A1"},
+        "morado": {"claim_id": "R1-C3", "evidence_ids": ["R1-E1"], "action_id": "R1-A1"}
+      },
+      "checks_after_responses": [
+        {"team": "verde", "kind": "response", "payload": {"claim_id": "R1-C3", "evidence_ids": ["R1-E1"], "action_id": "R1-A2"}, "expect_status": 200, "expect_code": "already_recorded", "nota": "reintento idéntico (doble clic / red)"},
+        {"team": "azul", "kind": "response", "payload": {"claim_id": "R1-C2", "evidence_ids": ["R1-E2"], "action_id": "R1-A1"}, "expect_status": 409, "expect_code": "already_submitted", "nota": "intento de cambiar la respuesta"}
+      ],
+      "checks_after_lock": [
+        {"team": "azul", "kind": "response", "payload": {"claim_id": "R1-C2", "evidence_ids": ["R1-E2"], "action_id": "R1-A1"}, "expect_status": 409, "expect_code": "already_submitted", "nota": "cambio tras ver las respuestas ajenas"}
+      ],
+      "checks_before_objections": [
+        {"team": "verde", "kind": "objection", "payload": {"target_team_id": "verde", "objection_kind": "contradiction", "cited_evidence_id": "R1-E2"}, "expect_status": 422, "expect_code": "self_objection", "nota": "autoobjeción"},
+        {"team": "verde", "kind": "objection", "payload": {"attacking_team_id": "azul", "target_team_id": "rojo", "objection_kind": "contradiction", "cited_evidence_id": "R1-E2"}, "expect_status": 403, "expect_code": "team_mismatch", "nota": "objetar en nombre de otro equipo"}
+      ],
+      "objections": {
+        "azul": {"target_team_id": "verde", "objection_kind": "unjustified_certainty", "cited_evidence_id": "R1-E2"},
+        "rojo": {"target_team_id": "verde", "objection_kind": "unsafe_action", "cited_evidence_id": "R1-E1"},
+        "amarillo": {"target_team_id": "morado", "objection_kind": "unjustified_certainty", "cited_evidence_id": "R1-E1"},
+        "verde": {"target_team_id": "azul", "objection_kind": "contradiction", "cited_evidence_id": "R1-E2"}
+      },
+      "checks_after_objection_lock": [
+        {"team": "morado", "kind": "objection", "payload": {"target_team_id": "azul", "objection_kind": "contradiction", "cited_evidence_id": "R1-E2"}, "expect_status": 409, "expect_code": "phase_closed", "nota": "objeción tardía"}
+      ],
+      "expected": {
+        "round_points": {"azul": 8, "rojo": 8, "verde": 0, "amarillo": 2, "morado": 2},
+        "totals": {"azul": 8, "rojo": 8, "verde": 0, "amarillo": 2, "morado": 2},
+        "tokens": {"azul": 2, "rojo": 2, "verde": 2, "amarillo": 2, "morado": 3},
+        "valid_objections": {"azul": true, "rojo": true, "amarillo": false, "verde": false}
+      }
+    },
+    "R2": {
+      "responses": {
+        "azul": {"claim_id": "R2-C1", "evidence_ids": ["R2-E1"], "action_id": "R2-A3"},
+        "rojo": {"claim_id": "R2-C4", "evidence_ids": ["R2-E1", "R1-E1"], "action_id": "R2-A1"},
+        "verde": {"claim_id": "R2-C3", "evidence_ids": ["R2-E2"], "action_id": "R2-A2"},
+        "amarillo": {"claim_id": "R2-C2", "evidence_ids": ["R2-E3"], "action_id": "R2-A2"}
+      },
+      "checks_after_lock": [
+        {"team": "morado", "kind": "response", "payload": {"claim_id": "R2-C1", "evidence_ids": ["R2-E1"], "action_id": "R2-A1"}, "expect_status": 409, "expect_code": "phase_closed", "nota": "respuesta tardía de un equipo ausente"}
+      ],
+      "checks_before_objections": [
+        {"team": "amarillo", "kind": "objection", "payload": {"target_team_id": "morado", "objection_kind": "contradiction", "cited_evidence_id": "R2-E2"}, "expect_status": 422, "expect_code": "target_absent", "nota": "objetar a un equipo sin respuesta (no gasta ficha)"}
+      ],
+      "objections": {
+        "verde": {"target_team_id": "amarillo", "objection_kind": "unsafe_action", "cited_evidence_id": "R2-E2"},
+        "azul": {"target_team_id": "verde", "objection_kind": "contradiction", "cited_evidence_id": "R2-E2"},
+        "rojo": {"target_team_id": "verde", "objection_kind": "contradiction", "cited_evidence_id": "R2-E2"}
+      },
+      "checks_after_objections": [
+        {"team": "azul", "kind": "objection", "payload": {"target_team_id": "verde", "objection_kind": "contradiction", "cited_evidence_id": "R2-E2"}, "expect_status": 200, "expect_code": "already_recorded", "nota": "reintento idéntico: no descuenta otra ficha"},
+        {"team": "azul", "kind": "objection", "payload": {"target_team_id": "amarillo", "objection_kind": "unsafe_action", "cited_evidence_id": "R2-E2"}, "expect_status": 409, "expect_code": "already_objected", "nota": "segunda objeción en la misma fase"}
+      ],
+      "expected": {
+        "round_points": {"azul": 8, "rojo": 8, "verde": 3, "amarillo": 3, "morado": 0},
+        "totals": {"azul": 16, "rojo": 16, "verde": 3, "amarillo": 5, "morado": 2},
+        "tokens": {"azul": 1, "rojo": 1, "verde": 1, "amarillo": 2, "morado": 3},
+        "valid_objections": {"verde": true, "azul": true, "rojo": true}
+      }
+    },
+    "R3": {
+      "responses": {
+        "azul": {"claim_id": "R3-C1", "evidence_ids": ["R3-E1", "R3-E2"], "action_id": "R3-A1"},
+        "rojo": {"claim_id": "R3-C2", "evidence_ids": ["R3-E3"], "action_id": "R3-A1"},
+        "verde": {"claim_id": "R3-C3", "evidence_ids": ["R3-E1"], "action_id": "R3-A2"},
+        "amarillo": {"claim_id": "R3-C3", "evidence_ids": ["R3-E3"], "action_id": "R3-A2"},
+        "morado": {"claim_id": "R3-C1", "evidence_ids": ["R3-E3"], "action_id": "R3-A1"}
+      },
+      "objections": {
+        "azul": {"target_team_id": "verde", "objection_kind": "logical_leap", "cited_evidence_id": "R3-E3"},
+        "rojo": {"target_team_id": "amarillo", "objection_kind": "contradiction", "cited_evidence_id": "R3-E3"},
+        "verde": {"target_team_id": "azul", "objection_kind": "logical_leap", "cited_evidence_id": "R3-E1"},
+        "amarillo": {"target_team_id": "verde", "objection_kind": "logical_leap", "cited_evidence_id": "R3-E2"},
+        "morado": {"target_team_id": "amarillo", "objection_kind": "contradiction", "cited_evidence_id": "R3-E3"}
+      },
+      "checks_after_objections": [
+        {"team": "verde", "kind": "objection", "payload": {"target_team_id": "rojo", "objection_kind": "contradiction", "cited_evidence_id": "R3-E3"}, "expect_status": 409, "expect_code": "already_objected", "nota": "segunda objeción en la misma fase"}
+      ],
+      "expected": {
+        "round_points": {"azul": 8, "rojo": 8, "verde": 0, "amarillo": 0, "morado": 5},
+        "totals": {"azul": 24, "rojo": 24, "verde": 3, "amarillo": 5, "morado": 7},
+        "tokens": {"azul": 0, "rojo": 0, "verde": 0, "amarillo": 1, "morado": 2},
+        "valid_objections": {"azul": true, "rojo": true, "verde": false, "amarillo": false, "morado": true}
+      }
+    },
+    "R4": {
+      "responses": {
+        "azul": {"claim_id": "R4-C1", "evidence_ids": ["R4-E1"], "action_id": "R4-A1"},
+        "rojo": {"claim_id": "R4-C2", "evidence_ids": ["R4-E2", "R1-E2"], "action_id": "R4-A1"},
+        "verde": {"claim_id": "R4-C2", "evidence_ids": ["R4-E2"], "action_id": "R4-A1"},
+        "amarillo": {"claim_id": "R4-C1", "evidence_ids": ["R4-E1"], "action_id": "R4-A2"},
+        "morado": {"claim_id": "R4-C2", "evidence_ids": ["R4-E1"], "action_id": "R4-A1"}
+      },
+      "checks_before_objections": [
+        {"team": "azul", "kind": "objection", "payload": {"target_team_id": "morado", "objection_kind": "contradiction", "cited_evidence_id": "R4-E2"}, "expect_status": 409, "expect_code": "no_tokens", "nota": "sin fichas tras gastar las tres"},
+        {"team": "verde", "kind": "objection", "payload": {"target_team_id": "morado", "objection_kind": "contradiction", "cited_evidence_id": "R4-E2"}, "expect_status": 409, "expect_code": "no_tokens", "nota": "sin fichas tras gastar las tres"}
+      ],
+      "objections": {
+        "morado": {"target_team_id": "amarillo", "objection_kind": "unsafe_action", "cited_evidence_id": "R4-E2"}
+      },
+      "expected": {
+        "round_points": {"azul": 5, "rojo": 5, "verde": 5, "amarillo": 3, "morado": 5},
+        "totals": {"azul": 29, "rojo": 29, "verde": 8, "amarillo": 8, "morado": 12},
+        "tokens": {"azul": 0, "rojo": 0, "verde": 0, "amarillo": 1, "morado": 1},
+        "valid_objections": {"morado": true}
+      }
+    },
+    "FINAL": {
+      "responses": {
+        "azul": {"claim_id": "FINAL-C1", "evidence_ids": ["FINAL-E1", "R2-E1"], "action_id": "FINAL-A1"},
+        "rojo": {"claim_id": "FINAL-C1", "evidence_ids": ["R2-E1", "FINAL-E1"], "action_id": "FINAL-A1"},
+        "verde": {"claim_id": "FINAL-C1", "evidence_ids": ["FINAL-E1"], "action_id": "FINAL-A1"},
+        "amarillo": {"claim_id": "FINAL-C1", "evidence_ids": ["FINAL-E1"], "action_id": "FINAL-A1"},
+        "morado": {"claim_id": "FINAL-C3", "evidence_ids": ["R1-E1"], "action_id": "FINAL-A2"}
+      },
+      "checks_before_objections": [
+        {"team": "rojo", "kind": "objection", "payload": {"target_team_id": "morado", "objection_kind": "logical_leap", "cited_evidence_id": "FINAL-E1"}, "expect_status": 409, "expect_code": "no_tokens", "nota": "sin fichas en la final"}
+      ],
+      "objections": {
+        "morado": {"target_team_id": "verde", "objection_kind": "contradiction", "cited_evidence_id": "FINAL-E1"}
+      },
+      "expected": {
+        "round_points": {"azul": 5, "rojo": 5, "verde": 5, "amarillo": 5, "morado": 0},
+        "totals": {"azul": 34, "rojo": 34, "verde": 13, "amarillo": 13, "morado": 12},
+        "tokens": {"azul": 0, "rojo": 0, "verde": 0, "amarillo": 1, "morado": 0},
+        "valid_objections": {"morado": false}
+      }
+    }
+  },
+  "expected_final": {
+    "scores": {"azul": 34, "rojo": 34, "verde": 13, "amarillo": 13, "morado": 12},
+    "tokens": {"azul": 0, "rojo": 0, "verde": 0, "amarillo": 1, "morado": 0},
+    "ranks": {"azul": 1, "rojo": 1, "verde": 3, "amarillo": 4, "morado": 5},
+    "valid_objections": {"azul": 3, "rojo": 3, "verde": 1, "amarillo": 0, "morado": 2},
+    "supported_arguments": {"azul": 5, "rojo": 5, "verde": 2, "amarillo": 3, "morado": 0},
+    "winners": ["azul", "rojo"]
+  }
+}

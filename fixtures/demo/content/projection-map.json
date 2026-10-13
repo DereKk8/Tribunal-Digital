@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "game_id": "tribunal-digital",
+  "aviso": "DEMO — DATOS FICTICIOS DE PRUEBA. Los identificadores apuntan a la página de prueba fixtures/demo/projection/index.html, no a la presentación make-slide real.",
+  "tutorial": "demo-tutorial",
+  "closing": "demo-closing",
+  "rounds": {
+    "R1": {
+      "reveal": "demo-r1-reveal",
+      "deliberation": "demo-r1-deliberation",
+      "defense": "demo-r1-defense",
+      "objection": "demo-r1-objection",
+      "confrontation": "demo-r1-confrontation",
+      "resolution": "demo-r1-resolution"
+    },
+    "R2": {
+      "reveal": "demo-r2-reveal",
+      "deliberation": "demo-r2-deliberation",
+      "defense": "demo-r2-defense",
+      "objection": "demo-r2-objection",
+      "confrontation": "demo-r2-confrontation",
+      "resolution": "demo-r2-resolution"
+    },
+    "R3": {
+      "reveal": "demo-r3-reveal",
+      "deliberation": "demo-r3-deliberation",
+      "defense": "demo-r3-defense",
+      "objection": "demo-r3-objection",
+      "confrontation": "demo-r3-confrontation",
+      "resolution": "demo-r3-resolution"
+    },
+    "R4": {
+      "reveal": "demo-r4-reveal",
+      "deliberation": "demo-r4-deliberation",
+      "defense": "demo-r4-defense",
+      "objection": "demo-r4-objection",
+      "confrontation": "demo-r4-confrontation",
+      "resolution": "demo-r4-resolution"
+    },
+    "FINAL": {
+      "deliberation": "demo-final-deliberation",
+      "defense": "demo-final-defense",
+      "objection": "demo-final-objection",
+      "resolution": "demo-final-resolution"
+    }
+  }
+}

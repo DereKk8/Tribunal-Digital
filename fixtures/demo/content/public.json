@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "game_id": "tribunal-digital",
+  "title": "DEMO — DATOS FICTICIOS DE PRUEBA · Caso de ensayo: la reunión del club de ajedrez",
+  "teams": [
+    {"id": "azul", "name": "Azul"},
+    {"id": "rojo", "name": "Rojo"},
+    {"id": "verde", "name": "Verde"},
+    {"id": "amarillo", "name": "Amarillo"},
+    {"id": "morado", "name": "Morado"}
+  ],
+  "rounds": [
+    {
+      "id": "R1",
+      "title": "DEMO — Verificación de horarios",
+      "evidence": [
+        {"id": "R1-E1", "body": "DEMO: una publicación indica las 16:00.", "asset_path": "assets/demo-r1-e1.svg", "revealed_in": "R1"},
+        {"id": "R1-E2", "body": "DEMO: la agenda oficial indica las 17:00.", "asset_path": "assets/demo-r1-e2.svg", "revealed_in": "R1"}
+      ],
+      "claims": [
+        {"id": "R1-C1", "text": "La publicación señala las 16:00."},
+        {"id": "R1-C2", "text": "La agenda oficial señala las 17:00."},
+        {"id": "R1-C3", "text": "Está demostrado que la reunión será a las 16:00."},
+        {"id": "R1-C4", "text": "Circulan dos horarios distintos para la misma reunión."}
+      ],
+      "actions": [
+        {"id": "R1-A1", "text": "Verificar el horario por el canal oficial."},
+        {"id": "R1-A2", "text": "Compartir datos personales con el contacto no verificado."}
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "DEMO — Cuenta recién creada",
+      "evidence": [
+        {"id": "R2-E1", "body": "DEMO: la cuenta que difundió las 16:00 se creó hace dos días.", "asset_path": "assets/demo-r2-e1.svg", "revealed_in": "R2"},
+        {"id": "R2-E2", "body": "DEMO: la cuenta no sigue a nadie del club.", "asset_path": "assets/demo-r2-e2.svg", "revealed_in": "R2"},
+        {"id": "R2-E3", "body": "DEMO: la foto de perfil aparece en un banco de imágenes gratuito.", "asset_path": "assets/demo-r2-e3.svg", "revealed_in": "R2"}
+      ],
+      "claims": [
+        {"id": "R2-C1", "text": "La cuenta que difundió las 16:00 es reciente."},
+        {"id": "R2-C2", "text": "La foto de perfil no es original."},
+        {"id": "R2-C3", "text": "La cuenta pertenece con seguridad a la presidencia del club."},
+        {"id": "R2-C4", "text": "Una cuenta reciente difundió el horario no oficial."}
+      ],
+      "actions": [
+        {"id": "R2-A1", "text": "Confirmar la identidad de la cuenta por un canal conocido."},
+        {"id": "R2-A2", "text": "Aceptar la solicitud de seguimiento para ver qué publica."},
+        {"id": "R2-A3", "text": "Reportar la cuenta a la plataforma."}
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "DEMO — Enlace de inscripción",
+      "evidence": [
+        {"id": "R3-E1", "body": "DEMO: un mensaje pide la contraseña para «confirmar la inscripción».", "asset_path": "assets/demo-r3-e1.svg", "revealed_in": "R3"},
+        {"id": "R3-E2", "body": "DEMO: el reglamento oficial dice que nunca se pide la contraseña.", "asset_path": "assets/demo-r3-e2.svg", "revealed_in": "R3"},
+        {"id": "R3-E3", "body": "DEMO: el enlace dirige a un dominio distinto del oficial.", "asset_path": "assets/demo-r3-e3.svg", "revealed_in": "R3"}
+      ],
+      "claims": [
+        {"id": "R3-C1", "text": "El mensaje solicita la contraseña."},
+        {"id": "R3-C2", "text": "El enlace no pertenece al sitio oficial."},
+        {"id": "R3-C3", "text": "El enlace es seguro porque se ve profesional."}
+      ],
+      "actions": [
+        {"id": "R3-A1", "text": "No escribir la contraseña e inscribirse desde el sitio oficial."},
+        {"id": "R3-A2", "text": "Escribir la contraseña rápido para no perder el cupo."}
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "DEMO — Captura editada",
+      "evidence": [
+        {"id": "R4-E1", "body": "DEMO: una captura «oficial» muestra las 16:00 con una tipografía distinta.", "asset_path": "assets/demo-r4-e1.svg", "revealed_in": "R4"},
+        {"id": "R4-E2", "body": "DEMO: la cuenta oficial publicó: «no hemos cambiado el horario».", "asset_path": "assets/demo-r4-e2.svg", "revealed_in": "R4"}
+      ],
+      "claims": [
+        {"id": "R4-C1", "text": "La captura presenta señales de edición."},
+        {"id": "R4-C2", "text": "La cuenta oficial desmiente el cambio de horario."},
+        {"id": "R4-C3", "text": "La captura prueba que el horario cambió a las 16:00."}
+      ],
+      "actions": [
+        {"id": "R4-A1", "text": "No reenviar la captura y citar el aviso oficial."},
+        {"id": "R4-A2", "text": "Reenviar la captura a todos los grupos por si acaso."}
+      ]
+    },
+    {
+      "id": "FINAL",
+      "title": "DEMO — Veredicto final",
+      "evidence": [
+        {"id": "FINAL-E1", "body": "DEMO: el club confirma por su canal oficial que la reunión es a las 17:00.", "asset_path": "assets/demo-final-e1.svg", "revealed_in": "FINAL"}
+      ],
+      "claims": [
+        {"id": "FINAL-C1", "text": "El horario de las 16:00 fue información falsa difundida por una cuenta no verificada."},
+        {"id": "FINAL-C2", "text": "No es posible saber nada del caso."},
+        {"id": "FINAL-C3", "text": "La reunión es a las 16:00 porque lo dijeron varias cuentas."}
+      ],
+      "actions": [
+        {"id": "FINAL-A1", "text": "Reportar la cuenta y compartir solo el aviso oficial."},
+        {"id": "FINAL-A2", "text": "Exponer en público los datos personales de quien administra la cuenta."}
+      ]
+    }
+  ]
+}
