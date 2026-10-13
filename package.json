@@ -1,0 +1,29 @@
+{
+  "name": "tribunal-digital-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicación del taller «Tribunal Digital»: respuestas por equipo, objeciones y puntuación automática.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "configurar": "node scripts/setup-env.js",
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "demo": "node --disable-warning=ExperimentalWarning src/server.js --modo=demo",
+    "real": "node --disable-warning=ExperimentalWarning src/server.js --modo=real",
+    "validar": "node --disable-warning=ExperimentalWarning scripts/validate-content.js --modo=demo",
+    "validar:real": "node --disable-warning=ExperimentalWarning scripts/validate-content.js --modo=real",
+    "simular": "node --disable-warning=ExperimentalWarning scripts/simulate.js",
+    "archivar-partida": "node --disable-warning=ExperimentalWarning scripts/archive-game.js",
+    "test": "node --disable-warning=ExperimentalWarning --test --test-concurrency=1 \"tests/unit/*.test.js\" \"tests/integration/*.test.js\"",
+    "test:e2e": "playwright test",
+    "test:todo": "npm run validar && npm test && npm run simular && npm run test:e2e"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

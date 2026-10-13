@@ -1,0 +1,25 @@
+# --- Secretos y datos reales: NUNCA versionar ---
+# Clave real de puntuación y justificaciones privadas (Agente A las entrega por canal seguro)
+content/answer-key.private.json
+content/rationales.private.md
+content/*.private.*
+*.private.real.json
+# Credenciales locales
+.env
+.env.*
+!.env.example
+# Estado de ejecución (base de datos, sesiones, códigos de equipo) y exportaciones de auditoría
+data/
+exports/
+*.sqlite
+*.sqlite-*
+*.db
+
+# --- Dependencias y artefactos de pruebas ---
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+*.log
+.DS_Store
