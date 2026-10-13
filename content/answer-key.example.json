@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "game_id": "tribunal-digital",
+  "rounds": {
+    "R1": {
+      "accepted_arguments": [
+        { "claim_id": "R1-C9", "evidence_ids": ["E90", "E91"] }
+      ],
+      "accepted_actions": ["R1-A9"],
+      "accepted_objections": [
+        { "target_claim_id": "R1-C8", "target_evidence_ids": ["E90"], "target_action_id": "R1-A8", "objection_kind": "contradiction", "cited_evidence_id": "E91" },
+        { "target_claim_id": "R1-C8", "target_evidence_ids": ["E90"], "target_action_id": "R1-A8", "objection_kind": "unsafe_action", "cited_evidence_id": "E90" }
+      ]
+    },
+    "R2": { "accepted_arguments": [], "accepted_actions": [], "accepted_objections": [] },
+    "R3": { "accepted_arguments": [], "accepted_actions": [], "accepted_objections": [] },
+    "R4": { "accepted_arguments": [], "accepted_actions": [], "accepted_objections": [] },
+    "FINAL": { "accepted_arguments": [], "accepted_actions": [], "accepted_objections": [] }
+  }
+}
