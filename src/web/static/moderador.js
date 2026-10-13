@@ -93,7 +93,7 @@
   // ------------------------------------------------------------------ secciones
   function cabecera() {
     return '<header class="estrado-cabecera"><div class="estrado-marca">Estrado<small>Tribunal Digital</small></div><div class="herramientas">' +
-      (estado.game ? '<a class="boton" href="/projection/" target="_blank" rel="noopener">Abrir proyección</a>' +
+      (estado.game ? '<a class="boton" href="/projection/?follow=1" target="_blank" rel="noopener">Abrir proyección</a>' +
         '<button type="button" class="quieto" data-accion="imprimir">Imprimir códigos</button>' +
         '<a class="boton quieto" href="/api/moderator/export.json" download>Exportar JSON</a>' +
         '<a class="boton quieto" href="/api/moderator/export.csv" download>Exportar CSV</a>' +

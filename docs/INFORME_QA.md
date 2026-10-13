@@ -14,6 +14,19 @@ Fecha de ejecución: 13 de octubre de 2026 · Node.js 22.22.0 · Chromium 141 (P
 | Simulación de cinco equipos | `npm run simular` | **Coincide exactamente** con lo esperado (puntos, fichas, puestos, ganadores y auditoría) |
 | E2E en navegador real | `npm run test:e2e` | **1/1 aprobada** (≈55 s): sesión completa con cinco teléfonos, moderación y proyector 16:9; ejecutada dos veces sin fallos |
 
+## Integración con el paquete real de Agente A
+
+[PR #2](https://github.com/DereKk8/Tribunal-Digital/pull/2) (`167a0c3`) fusionado con esta rama en un árbol local. La clave real **no** se entrega a este entorno, así que se usó una clave **sintética** generada a partir de `content/public.json` (ignorada por Git y nunca subida).
+
+| Comprobación | Resultado |
+|---|---|
+| `npm run validar:real`: esquema canónico de Agente A (`$defs.publicCase`, `answerKey`, `projectionMap`), contrato, recursos E01–E18, mapa de diapositivas, sin fugas en el HTML de 63 diapositivas, recorrido HTTP de 31 etapas (424 peticiones) y proyección servida byte a byte | **APROBADO** (con la clave sintética) |
+| `npm test` con una clave presente en `content/` (el escenario en el que Agente A vio 85/86) | **86/86** tras independizar la prueba de la raíz real; la versión anterior falla 19/20 en ese mismo árbol |
+| La proyección *make-slide* `gradient-pop` sigue `slide` del servidor en modo real | **31/31 etapas** con `?follow=1` (retraso ≤ 3 s). Sin el parámetro se quedaba en la portada: el estrado ahora abre `/projection/?follow=1` |
+| Validación con la **clave real** | Hecha por Agente A en su entorno (APROBADO y 63/63 en su E2E, según su comentario); no reproducible aquí |
+
+Observación para Agente A: `projection/index.html` pide la fuente Pretendard a `cdn.jsdelivr.net`; sin Internet (bloqueado en este entorno) la presentación se ve con la fuente de reserva.
+
 ## Cobertura de los requisitos de verificación
 
 | # | Requisito | Dónde se prueba | Estado |
@@ -60,10 +73,9 @@ Diseño propio «Expediente» (papel de expediente, tinta ferrogálica y lacre; 
 
 ## PENDIENTE (no se marca como aprobado)
 
-1. **Contenido real de Agente A**: `npm run validar:real` → hoy PENDIENTE. Al recibirlo: ejecutar la lista de [INTEGRACION.md](INTEGRACION.md).
-2. **Proyección *make-slide* con `gradient-pop`**: no se puede comprobar que se sirve sin cambios de diseño hasta tener el HTML real (la página DEMO no cuenta).
-3. **Cinco teléfonos físicos** en la Wi‑Fi del aula (las pruebas usan contextos móviles emulados en Chromium; no se probó Safari/iOS real).
-4. **Despliegue en Render**: preparado (`render.yaml`, [DESPLIEGUE.md](DESPLIEGUE.md)) pero no ejecutado desde este entorno (la red del entorno bloquea la API de Render).
+1. **Clave real**: en este entorno `npm run validar:real` sigue PENDIENTE solo por la clave (el paquete público ya está). Con la clave instalada en el portátil del taller debe dar APROBADO.
+2. **Cinco teléfonos físicos** en la Wi‑Fi del aula (las pruebas usan contextos móviles emulados en Chromium; no se probó Safari/iOS real).
+3. **Despliegue en Render**: preparado (`render.yaml`, [DESPLIEGUE.md](DESPLIEGUE.md)) pero no ejecutado desde este entorno (la red del entorno bloquea la API de Render).
 
 ## Riesgos residuales
 

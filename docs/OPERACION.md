@@ -17,7 +17,7 @@
 
 1. **Estrado** (`/moderador`): inicie sesión y pulse **Crear partida**. Aparecen cinco códigos. **Imprimir códigos** genera una tarjeta por equipo.
 2. **Teléfonos**: un teléfono por equipo abre la dirección y escribe su código. El estrado marca cada equipo como *En línea*.
-3. **Proyector**: **Abrir proyección** (requiere la sesión de moderación; los códigos de equipo no la abren).
+3. **Proyector**: **Abrir proyección** (requiere la sesión de moderación; los códigos de equipo no la abren). Se abre como `/projection/?follow=1` y la presentación cambia de diapositiva sola al avanzar de fase; las flechas del teclado siguen funcionando para repasar.
 4. **Avanzar** cambia de fase. Cada avance pide confirmación y explica qué se bloquea (p. ej. «Respuestas selladas: 4 de 5; los equipos sin respuesta obtendrán 0»). Un doble clic no avanza dos veces.
 5. **Turnos de palabra**: tras cerrar las objeciones, el estrado agrupa quién objeta a quién para dar la palabra. La aplicación nunca silencia a nadie.
 6. **Resultados**: al entrar en *Resultados* la puntuación se calcula sola y es idempotente. La tabla *Puntuación regla por regla* explica cada punto.

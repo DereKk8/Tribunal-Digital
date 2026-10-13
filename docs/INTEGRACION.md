@@ -93,6 +93,8 @@ Mismo origen que la proyección (sin CORS), `Cache-Control: no-store`, sin auten
 - `winners` solo se llena en `closing`.
 - Nunca incluye la clave, evidencia futura, respuestas de rondas futuras, códigos, credenciales ni explicaciones de moderación.
 
+El estrado abre la proyección como `/projection/?follow=1`: con ese parámetro la presentación de Agente A sigue la diapositiva `slide` del servidor (comprobado en las 31 etapas, con un retraso máximo de unos 3 s, su intervalo de consulta). Sin el parámetro, la presentación se maneja a mano con el teclado.
+
 Ejemplo mínimo dentro de *make-slide* (sin cambiar el diseño): consultar cada 2 s y llamar `window.slideGo(indice)` con `slide` si es un número, o buscar el índice del elemento con ese id entre `document.querySelectorAll('.slide')`.
 
 ## Lista de comprobación de la integración (PR)
