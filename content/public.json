@@ -1,0 +1,366 @@
+{
+  "schema_version": "1.0",
+  "game_id": "tribunal-digital",
+  "teams": [
+    {
+      "id": "azul",
+      "name": "Equipo Azul"
+    },
+    {
+      "id": "rojo",
+      "name": "Equipo Rojo"
+    },
+    {
+      "id": "verde",
+      "name": "Equipo Verde"
+    },
+    {
+      "id": "amarillo",
+      "name": "Equipo Amarillo"
+    },
+    {
+      "id": "morado",
+      "name": "Equipo Morado"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "R1",
+      "title": "La invitación: ¿Qué respalda la oferta de «pase directo» que recibió Leo?",
+      "evidence": [
+        {
+          "id": "E01",
+          "body": "E01 · Página web del club\nPágina web oficial del Club Atalaya eSports (clubatalaya.gg/semillero). Publicada el lunes 7 de septiembre de 2026.\nTítulo: «Semillero Atalaya 2026». Subtítulo: «Pruebas abiertas de Fractal Arena para jugadores de 13 a 17 años».\n1 · Inscripción: «La hace la madre, el padre o el tutor en el Portal Familias, hasta el miércoles 30 de septiembre a las 23:59.»\n2 · Clasificatorio online: «Sábado 3 de octubre, de 10:00 a 14:00, con transmisión en Lumen Live (@clubatalaya).»\n3 · Final presencial: «Los 40 mejores del clasificatorio pasan a la final del sábado 24 de octubre en la Sede Atalaya, acompañados por un adulto responsable.»\nCuerpo técnico: Rai Ferrer (entrenador principal), Lucía Paz (analista), Tomás Ibarra (preparador). «Nuestro cuerpo técnico sigue partidas del servidor y puede invitar a jugadores destacados a inscribirse.»\n«Coordinación y protección de menores: Inés Calvo.»\nRai Ferrer aparece con gorra morada del club y auriculares amarillos.",
+          "asset_path": "assets/evidence/E01.svg",
+          "revealed_in": "R1"
+        },
+        {
+          "id": "E02",
+          "body": "E02 · Chat privado de Fractal Arena\nChat privado de Fractal Arena entre RaiCoach_ATL y LeoNova14. Martes 29 de septiembre de 2026.\nEncabezado del chat: RaiCoach_ATL · Nivel 9.\n21:47 RaiCoach_ATL: «Ey, crack 👋 Te estuve viendo en clasificatorias. Tienes muy buen nivel 🔥»\n21:48 RaiCoach_ATL: «Soy Rai, entreno al Semillero Atalaya. Estoy armando una lista corta para darles pase directo a la final del 24, sin pasar por el clasificatorio.»\n21:50 LeoNova14: «en serio?? ya me inscribió mi mamá en el portal»\n21:52 RaiCoach_ATL: «Perfecto 😉 Para la lista necesito tu edad, tu ciudad y en qué cole estás. Y tranqui, que esto todavía no es público.»",
+          "asset_path": "assets/evidence/E02.svg",
+          "revealed_in": "R1"
+        },
+        {
+          "id": "E03",
+          "body": "E03 · Perfil de jugador: RaiCoach_ATL\nPerfil de jugador en Fractal Arena: RaiCoach_ATL. Captura de Leo, martes 29 de septiembre de 2026, 21:55.\nBio: «Coach del Semillero Atalaya 🦅 | scouting».\nNivel: 9 · Cuenta creada: 21 sep 2026 · Partidas jugadas: 14 · Rango clasificatoria: Sin clasificar · Amigos: 6 · Clan: —.\nEstado: en línea.",
+          "asset_path": "assets/evidence/E03.svg",
+          "revealed_in": "R1"
+        },
+        {
+          "id": "E04",
+          "body": "E04 · Perfil de jugador: LeoNova14\nPerfil de jugador en Fractal Arena: LeoNova14. Captura de Leo, martes 29 de septiembre de 2026, 21:56.\nBio: «14 · zona norte · main Vex».\nNivel: 63 · Cuenta creada: 3 mar 2023 · Partidas jugadas: 1.284 · Rango clasificatoria: Diamante II · Amigos: 57 · Clan: Los Zurdos [MONTEVERDE].\nEstado: en línea.\nHistorial reciente: lun 28 sep — modo Clasificatoria — Victoria; mar 29 sep — modo Clasificatoria — Victoria · MVP; mar 29 sep — modo Normal — Derrota.",
+          "asset_path": "assets/evidence/E04.svg",
+          "revealed_in": "R1"
+        }
+      ],
+      "claims": [
+        {
+          "id": "R1-C1",
+          "text": "El Semillero existe y su cuerpo técnico puede invitar a jugadores; por lo tanto, quien le escribe a Leo es de verdad el entrenador Rai Ferrer."
+        },
+        {
+          "id": "R1-C2",
+          "text": "RaiCoach_ATL no es una cuenta nueva: lleva años en el servidor siguiendo partidas y conoce bien el nivel de jugadores como Leo."
+        },
+        {
+          "id": "R1-C3",
+          "text": "Está claro que el «pase directo» de RaiCoach_ATL no figura en las bases: según la web del club, a la final se pasa desde el clasificatorio."
+        },
+        {
+          "id": "R1-C4",
+          "text": "RaiCoach_ATL miente desde el primer mensaje: dice que vio a Leo en clasificatorias, pero Leo no había jugado ni una partida clasificatoria antes del 3 de octubre."
+        },
+        {
+          "id": "R1-C5",
+          "text": "Que un adulto desconocido le escriba a un menor por el chat del juego ya demuestra que se trata de un caso de grooming."
+        }
+      ],
+      "actions": [
+        {
+          "id": "R1-A1",
+          "text": "Responderle con su edad, su ciudad y su colegio: el Semillero existe, la plaza parece real y esos datos no son tan delicados."
+        },
+        {
+          "id": "R1-A2",
+          "text": "Consultar al club por su canal oficial, para comprobar si esa cuenta y ese «pase directo» son reales."
+        },
+        {
+          "id": "R1-A3",
+          "text": "Avisar en el chat del clan de que Rai Ferrer, el entrenador del Atalaya, intenta engañar a menores."
+        },
+        {
+          "id": "R1-A4",
+          "text": "Bloquear la cuenta y borrar el chat para cortar el contacto de raíz, y que Leo siga jugando como si nada hubiera pasado."
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Secretos y canales: ¿Qué distingue un secreto inocente de una señal de alerta?",
+      "evidence": [
+        {
+          "id": "E05",
+          "body": "E05 · Chat privado de Fractal Arena\nChat privado de Fractal Arena entre RaiCoach_ATL y LeoNova14. Jueves 1 de octubre de 2026.\nEncabezado del chat: RaiCoach_ATL · Nivel 9.\n22:10 RaiCoach_ATL: «Lo del pase va bien. Aquí hay mucho mirón; mejor seguimos por Susurro: rf_coach»\n22:11 RaiCoach_ATL: «Allá pongo mensajes temporales, así no queda nada colgado 😉»\n22:12 LeoNova14: «ok. le digo a mi mamá?»\n22:14 RaiCoach_ATL: «Todavía no. Ni en casa ni al clan, que después se ilusionan y si no sale es un bajón. Y no hace falta que tu mamá toque nada en el portal: yo lo gestiono desde dentro.»\n22:15 LeoNova14: «vale 👍»",
+          "asset_path": "assets/evidence/E05.svg",
+          "revealed_in": "R2"
+        },
+        {
+          "id": "E06",
+          "body": "E06 · Chat privado de Fractal Arena\nChat privado de Fractal Arena entre DaniZurdo y LeoNova14. Jueves 1 de octubre de 2026.\nEncabezado del chat: DaniZurdo · Nivel 88 · «16 · capi de Los Zurdos».\n19:05 DaniZurdo: «Leo! Pásame tu número y te meto al grupo del equipo del cole, el que lleva el profe Gil 💪»\n19:06 DaniZurdo: «Y ni una palabra a los del Colegio San Telmo sobre la jugada del humo: es nuestra sorpresa para el intercolegial 🤫»\n19:20 LeoNova14: «jaja hecho. ahí va: [número tapado por Marina]»",
+          "asset_path": "assets/evidence/E06.svg",
+          "revealed_in": "R2"
+        },
+        {
+          "id": "E07",
+          "body": "E07 · Información de un grupo de Susurro\nInformación del grupo de Susurro «Los Zurdos · Monteverde». Captura de Leo, viernes 2 de octubre de 2026.\nGrupo · 9 participantes · Creado por Prof. Andrés Gil · Mensajes temporales: desactivados.\nDescripción: «Equipo de eSports del Colegio Monteverde. Avisos de entrenamientos y torneos. Las familias reciben un resumen semanal por correo.»\nParticipantes: Prof. Andrés Gil (Admin); Dani Soler; Leo Márquez (Añadido por Prof. Andrés Gil · 2 oct); + 6 integrantes más del equipo.",
+          "asset_path": "assets/evidence/E07.svg",
+          "revealed_in": "R2"
+        },
+        {
+          "id": "E08",
+          "body": "E08 · Página web del club\nPágina web oficial del Club Atalaya eSports (clubatalaya.gg/semillero/preguntas). Publicada el lunes 7 de septiembre de 2026.\nTítulo: «Preguntas frecuentes del Semillero».\n«¿El cuerpo técnico puede escribirme?» — «Puede felicitarte en el chat público del juego, pero nunca te pedirá datos personales ni seguirá la conversación por mensajes privados o apps externas. Todos los trámites se hacen en el Portal Familias, con la persona adulta inscrita.»\n«¿Hay pases directos a la final?» — «No. Las 40 plazas de la final salen del clasificatorio del 3 de octubre.»\n«¿Cómo sé si un mensaje es del club?» — «Nuestros correos terminan en @clubatalaya.gg. Ante cualquier duda, escribe a semillero@clubatalaya.gg.»",
+          "asset_path": "assets/evidence/E08.svg",
+          "revealed_in": "R2"
+        }
+      ],
+      "claims": [
+        {
+          "id": "R2-C1",
+          "text": "Dani también pidió un dato personal de Leo y un secreto; por lo tanto, su conducta debe preocupar tanto como la de RaiCoach_ATL."
+        },
+        {
+          "id": "R2-C2",
+          "text": "Los dos secretos son muy distintos: Dani pide guardar una jugada ante un equipo rival, mientras RaiCoach_ATL pide ocultar el contacto a la familia."
+        },
+        {
+          "id": "R2-C3",
+          "text": "El paso a Susurro demuestra que RaiCoach_ATL no es el verdadero Rai Ferrer: el club dice que su personal nunca sigue conversaciones por apps externas."
+        },
+        {
+          "id": "R2-C4",
+          "text": "RaiCoach_ATL le recordó a Leo que su madre debía completar la inscripción en el Portal Familias, tal como pide el club en sus bases."
+        },
+        {
+          "id": "R2-C5",
+          "text": "El club dice que su personal nunca sigue conversaciones por apps externas; por lo tanto, el paso a Susurro queda fuera de los canales del Semillero."
+        }
+      ],
+      "actions": [
+        {
+          "id": "R2-A1",
+          "text": "Seguir hablando con RaiCoach_ATL en Susurro, solo de temas del juego y sin dar ningún dato, hasta que el club publique la lista de la final."
+        },
+        {
+          "id": "R2-A2",
+          "text": "Enviarle a RaiCoach_ATL las preguntas frecuentes del club y exigirle que explique por qué no cumple sus normas."
+        },
+        {
+          "id": "R2-A3",
+          "text": "Contárselo a su madre, para que ella consulte al club por el canal oficial si ese contacto es suyo."
+        },
+        {
+          "id": "R2-A4",
+          "text": "Pedirle a Dani, que conoce bien el juego, que escriba a rf_coach haciéndose pasar por Leo para ver qué responde."
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "¿Quién está detrás?: ¿Qué podemos afirmar —y qué no— sobre la identidad de quien escribe?",
+      "evidence": [
+        {
+          "id": "E09",
+          "body": "E09 · Perfil de Lumen: @rai.atalaya\nPerfil de Lumen @rai.atalaya («Rai Ferrer | Coach»). Captura de Marina, jueves 8 de octubre de 2026.\nSin insignia de verificación · Se unió en septiembre de 2026 · 3 publicaciones · 41 seguidores · 12 seguidos.\nBio: «Coach Semillero Atalaya 🦅 Busco talento. DM abiertos.»\nFoto de perfil: Rai Ferrer con gorra morada del club y auriculares amarillos.\nPublicaciones: tres imágenes del logo y la sede del club.",
+          "asset_path": "assets/evidence/E09.svg",
+          "revealed_in": "R3"
+        },
+        {
+          "id": "E10",
+          "body": "E10 · Correo del club\nCorreo electrónico. Viernes 9 de octubre de 2026, 10:32.\nDe: Inés Calvo <proteccion@clubatalaya.gg> · Para: Carmen Ruiz · CC: Marina Márquez · Asunto: «Re: Mensajes recibidos por Leo Márquez»\n«Hola, Carmen y Marina: gracias por escribirnos. Les confirmo que Raimundo Ferrer es el entrenador principal del Semillero; su perfil público es @raiferrer, verificado en Lumen. Las cuentas RaiCoach_ATL, @rai.atalaya y rf_coach no son cuentas del club ni figuran entre las que nuestro personal tiene declaradas. Lo estamos consultando con Rai y les escribiremos en cuanto tengamos respuesta. Les recuerdo que nadie del club ofrece pases directos ni escribe a jugadores menores por mensajes privados. Mientras tanto, les pedimos que Leo no responda a esas cuentas.»\nFirma: Inés Calvo · Coordinadora del Semillero y responsable de protección de menores.",
+          "asset_path": "assets/evidence/E10.svg",
+          "revealed_in": "R3"
+        },
+        {
+          "id": "E11",
+          "body": "E11 · Publicación de Lumen de @clubatalaya\nPublicación de Lumen de @clubatalaya (Club Atalaya eSports, cuenta verificada). Sábado 3 de octubre de 2026, 09:45.\nEN VIVO HOY: «Clasificatorio del Semillero Atalaya 2026, de 10:00 a 14:00. Narran Rai Ferrer y Lucía Paz. De 12:00 a 12:15, pausa técnica: se corta la transmisión.»\nImagen: Rai Ferrer y Lucía Paz en la mesa de narración, con auriculares.",
+          "asset_path": "assets/evidence/E11.svg",
+          "revealed_in": "R3"
+        },
+        {
+          "id": "E12",
+          "body": "E12 · Chat de Susurro con rf_coach\nChat de Susurro entre rf_coach y Leo. Captura de Leo, sábado 3 de octubre de 2026, 13:40. Indicador del chat: mensajes temporales · 24 h.\nAviso del chat: «rf_coach activó los mensajes temporales: los mensajes desaparecen 24 horas después de enviarse.»\n11:06 rf_coach: «¿Cómo vas en el clasificatorio? Yo aquí liado con mil cosas 😅»\n12:07 rf_coach: «Te escribo rápido, que tengo un respiro: el lunes te llega una sorpresa 🎁»\n12:09 Leo: «jaja qué es»\n13:31 rf_coach: «Sorpresa es sorpresa 😉 ¿Sigues jugando?»",
+          "asset_path": "assets/evidence/E12.svg",
+          "revealed_in": "R3"
+        }
+      ],
+      "claims": [
+        {
+          "id": "R3-C1",
+          "text": "Los horarios del 3 de octubre dejan abierta la identidad: rf_coach escribió durante la narración y también durante el corte."
+        },
+        {
+          "id": "R3-C2",
+          "text": "Según el correo del club, Rai Ferrer admitió que las tres cuentas son suyas, aunque asegura que las usa solo para buscar talento joven."
+        },
+        {
+          "id": "R3-C3",
+          "text": "Como el club confirma que Rai Ferrer es su entrenador, las cuentas que usan su nombre y su foto también son suyas."
+        },
+        {
+          "id": "R3-C4",
+          "text": "La foto de perfil de @rai.atalaya es la misma imagen de Rai Ferrer que aparece en la web del Semillero."
+        },
+        {
+          "id": "R3-C5",
+          "text": "rf_coach no puede ser Rai Ferrer: todos sus mensajes del sábado 3 de octubre se enviaron mientras Rai narraba en vivo el clasificatorio."
+        }
+      ],
+      "actions": [
+        {
+          "id": "R3-A1",
+          "text": "Guardar capturas con fecha y hora de chats y perfiles antes de que se borren, y que Leo deje de responder."
+        },
+        {
+          "id": "R3-A2",
+          "text": "Que Leo siga respondiendo con normalidad y sin dar datos, para no levantar sospechas mientras el club termina de investigar."
+        },
+        {
+          "id": "R3-A3",
+          "text": "Responder al correo del club adjuntando todas las capturas guardadas."
+        },
+        {
+          "id": "R3-A4",
+          "text": "Que Carmen le escriba a rf_coach desde el móvil de Leo, se identifique como su madre y le exija que deje en paz a su hijo."
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "La escalada: ¿Hay ya un riesgo claro que justifique denunciar?",
+      "evidence": [
+        {
+          "id": "E13",
+          "body": "E13 · Notificación de regalo en Fractal Arena\nNotificación de Fractal Arena recibida por LeoNova14. Lunes 5 de octubre de 2026, 20:14.\n«RaiCoach_ATL te regaló 1.200 Cristales». Mensaje: «Para la skin del equipo. Que quede entre nosotros 😉». Estado: aceptado. Saldo actual: 1.350 Cristales.",
+          "asset_path": "assets/evidence/E13.svg",
+          "revealed_in": "R4"
+        },
+        {
+          "id": "E14",
+          "body": "E14 · Chat de Susurro con rf_coach\nChat de Susurro entre rf_coach y Leo. Captura de Leo, miércoles 7 de octubre de 2026, 22:51. Indicador del chat: mensajes temporales · 24 h.\n21:58 rf_coach: «Para cerrar tu pase necesito verte jugar por videollamada. A solas, sin nadie en el cuarto, que si no me desconcentro 😅»\n22:01 rf_coach: «Antes mándame una foto tuya con la camiseta del equipo y otra de tu cuarto, para ver la luz y el setup.»\n22:03 rf_coach: «¿Y a qué cole vas? Es para coordinar el transporte.»\n22:40 Leo: «mmm no sé, mañana veo»",
+          "asset_path": "assets/evidence/E14.svg",
+          "revealed_in": "R4"
+        },
+        {
+          "id": "E15",
+          "body": "E15 · Chat de Susurro con rf_coach\nChat de Susurro entre rf_coach y Leo. Captura de Marina, sábado 10 de octubre de 2026, 18:02. Indicador del chat: mensajes temporales · 24 h.\n16:12 rf_coach: «Leo? Te noto desaparecido 😕»\n16:15 rf_coach: «El sábado 17 hago una prueba privada para los del pase, en un local cerca del Monteverde (vi en tu clan que es tu cole). Te paso a buscar a las 16:00. No hace falta que vengan tus papás: es algo técnico y rapidito.»\n16:16 rf_coach: «Y si algún día no me encuentras por aquí, búscame en Lumen como @r.ferrer.pro»\n16:17 rf_coach: «No le cuentes a nadie todavía, que se arruina la sorpresa 🤐»\nLeo no respondió.",
+          "asset_path": "assets/evidence/E15.svg",
+          "revealed_in": "R4"
+        },
+        {
+          "id": "E16",
+          "body": "E16 · Correo del club\nCorreo electrónico. Lunes 12 de octubre de 2026, 09:15.\nDe: Inscripciones Semillero <inscripciones@clubatalaya.gg> · Para: Carmen Ruiz (adulta inscrita) · Asunto: «Leo Márquez · Final presencial del 24 de octubre»\n«Hola, Carmen: ¡enhorabuena! Leo terminó en el puesto 27 del clasificatorio del 3 de octubre y tiene plaza en la final presencial del sábado 24 de octubre, a las 10:00, en la Sede Atalaya (Av. del Puerto 1450). Para confirmar la plaza, complete en el Portal Familias antes del 20 de octubre: la autorización firmada por el adulto responsable, un contacto de emergencia y la ficha médica básica. Leo debe venir acompañado por un adulto. Nunca pedimos datos por mensaje privado ni directamente a los jugadores.»\nFirma: Equipo de Inscripciones del Semillero Atalaya.",
+          "asset_path": "assets/evidence/E16.svg",
+          "revealed_in": "R4"
+        }
+      ],
+      "claims": [
+        {
+          "id": "R4-C1",
+          "text": "Todavía es pronto para denunciar: mientras no se sepa quién está detrás de rf_coach, cualquier denuncia sería precipitada y podría perjudicar a un inocente."
+        },
+        {
+          "id": "R4-C2",
+          "text": "El correo del 12 de octubre es otro intento de engaño: pide datos de Leo, igual que rf_coach, y llega por un canal que no es el que usa el club."
+        },
+        {
+          "id": "R4-C3",
+          "text": "Videollamada a solas, fotos de su cuarto y una cita sin adultos: con eso ya hay motivo para denunciar, sin esperar a saber quién escribe."
+        },
+        {
+          "id": "R4-C4",
+          "text": "Ya está probado que rf_coach es Rai Ferrer: firma con sus iniciales y escribió «tengo un respiro» justo en el corte de la transmisión."
+        },
+        {
+          "id": "R4-C5",
+          "text": "La «prueba privada» del 17 no es del Semillero: la única cita presencial que anuncia el club es la final del 24, en la sede y con un adulto."
+        }
+      ],
+      "actions": [
+        {
+          "id": "R4-A1",
+          "text": "Que Leo acepte la cita del 17 y Marina lo acompañe a escondidas para desenmascararlo."
+        },
+        {
+          "id": "R4-A2",
+          "text": "Publicar en Lumen las capturas, con el nombre de Leo tapado, para que otras familias del Semillero estén alerta cuanto antes."
+        },
+        {
+          "id": "R4-A3",
+          "text": "Responderle a rf_coach que la familia ya avisó a la policía, para que se asuste, desaparezca y no vuelva a escribir a Leo."
+        },
+        {
+          "id": "R4-A4",
+          "text": "Guardar las pruebas y, con su madre, reportar las cuentas en las plataformas y denunciar ante el club y la policía."
+        }
+      ]
+    },
+    {
+      "id": "FINAL",
+      "title": "Veredicto: ¿Qué sostiene la evidencia completa y qué hacemos ahora?",
+      "evidence": [
+        {
+          "id": "E17",
+          "body": "E17 · Aviso del Centro de Seguridad de Lumen\nAviso del Centro de Seguridad de Lumen a Marina Márquez. Martes 13 de octubre de 2026, 08:40.\nTu reporte #LM-48213: «Revisamos la cuenta @rai.atalaya que reportaste el 10 de octubre y la suspendimos por suplantación de identidad. Por privacidad, no podemos compartir información sobre quién la gestionaba. Si ves otra cuenta relacionada, repórtala desde su perfil.»\nEstado: Cuenta suspendida: @rai.atalaya.",
+          "asset_path": "assets/evidence/E17.svg",
+          "revealed_in": "FINAL"
+        },
+        {
+          "id": "E18",
+          "body": "E18 · Correo del club\nCorreo electrónico. Martes 13 de octubre de 2026, 12:10.\nDe: Inés Calvo <proteccion@clubatalaya.gg> · Para: Carmen Ruiz · CC: Marina Márquez · Asunto: «Re: Mensajes recibidos por Leo Márquez»\n«Hola de nuevo: Rai Ferrer nos confirmó que no creó ni maneja RaiCoach_ATL, @rai.atalaya ni rf_coach, y él mismo las reportó como suplantación. Con las capturas que nos enviaron, ayer presentamos una denuncia ante la unidad de delitos informáticos de la policía. Hoy avisaremos a todas las familias del Semillero, sin dar ningún dato de Leo. Les pedimos que conserven todas las capturas y no borren nada. Si Leo lo necesita, la psicóloga del club puede acompañarlo.»\nFirma: Inés Calvo.",
+          "asset_path": "assets/evidence/E18.svg",
+          "revealed_in": "FINAL"
+        }
+      ],
+      "claims": [
+        {
+          "id": "FINAL-C1",
+          "text": "Nunca hubo riesgo real: quien suplantaba al entrenador no buscaba más que los cristales y la cuenta de Leo, como en tantas estafas del juego."
+        },
+        {
+          "id": "FINAL-C2",
+          "text": "Es seguro que el caso sigue abierto tras suspender @rai.atalaya: rf_coach dejó otro contacto, @r.ferrer.pro, que esa suspensión deja fuera."
+        },
+        {
+          "id": "FINAL-C3",
+          "text": "Rai Ferrer manejaba las cuentas desde el principio, y el club, en lugar de investigarlo, intenta encubrirlo con un comunicado a las familias."
+        },
+        {
+          "id": "FINAL-C4",
+          "text": "Las cuentas suplantaban a Rai Ferrer y mostraron señales de captación; quién está detrás y si cometió un delito lo determinará la investigación."
+        },
+        {
+          "id": "FINAL-C5",
+          "text": "Está demostrado que detrás de las cuentas hay un depredador con más víctimas entre las familias del Semillero: por eso el club avisa a todas ellas."
+        }
+      ],
+      "actions": [
+        {
+          "id": "FINAL-A1",
+          "text": "Mantener la denuncia, aportar @r.ferrer.pro y rf_coach a la investigación y acompañar a Leo con su familia y el club."
+        },
+        {
+          "id": "FINAL-A2",
+          "text": "Dar el caso por cerrado con la suspensión, borrar las capturas para que Leo pase página y no volver a hablar del tema en casa."
+        },
+        {
+          "id": "FINAL-A3",
+          "text": "Crear una cuenta falsa para seguir de cerca a @r.ferrer.pro, reunir más pruebas y entregar a la policía todo lo que se consiga."
+        },
+        {
+          "id": "FINAL-A4",
+          "text": "Difundir en Lumen las capturas y el aviso del club, para que ninguna otra familia caiga en la trampa."
+        }
+      ]
+    }
+  ]
+}
