@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e6e9e1">
+<title>Tribunal Digital</title>
+<link rel="preload" href="/static/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/static/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div id="cinta" class="cinta" role="note" hidden><span>DEMO — DATOS FICTICIOS DE PRUEBA</span></div>
+<p id="conexion" class="conexion" role="status" aria-live="polite" hidden></p>
+
+<header id="banda" class="banda" hidden>
+  <div class="banda-fila">
+    <span id="banda-equipo" class="banda-equipo"></span>
+    <span id="banda-fichas" class="fichas"></span>
+  </div>
+  <div class="banda-fase">
+    <span id="banda-ronda" class="banda-ronda" hidden></span>
+    <span id="banda-nombre" class="banda-nombre"></span>
+    <span id="banda-reloj" class="banda-reloj" aria-hidden="true"></span>
+  </div>
+  <div class="drenaje" aria-hidden="true"><i id="drenaje"></i></div>
+</header>
+
+<main class="contenedor">
+  <section id="pantalla-acceso" class="acceso" hidden aria-labelledby="titulo-acceso">
+    <h1 id="titulo-acceso" class="marca display"><span>Tribunal</span><span>Digital</span></h1>
+    <div class="bancos" aria-hidden="true"><i class="t-azul"></i><i class="t-rojo"></i><i class="t-verde"></i><i class="t-amarillo"></i><i class="t-morado"></i></div>
+    <p class="acceso-texto">Escriban el código de su equipo para entrar a la sala.</p>
+    <form id="form-acceso" novalidate>
+      <label class="etiqueta-campo" for="codigo">Código del equipo</label>
+      <input id="codigo" name="codigo" class="campo-codigo" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" required>
+      <p id="error-acceso" class="error" role="alert" hidden></p>
+      <button type="submit" class="boton-entrar">Entrar al tribunal</button>
+    </form>
+    <p class="pie-acceso">Un solo teléfono por equipo envía las decisiones. Los demás pueden mirar y debatir.</p>
+  </section>
+
+  <section id="pantalla-juego" hidden>
+    <div id="mensaje" role="status" aria-live="polite"></div>
+    <div id="contenido"></div>
+  </section>
+</main>
+
+<dialog id="dialogo" aria-labelledby="dialogo-titulo">
+  <h2 id="dialogo-titulo"></h2>
+  <div id="dialogo-cuerpo"></div>
+  <div class="botones">
+    <button type="button" id="dialogo-aceptar">Confirmar</button>
+    <button type="button" id="dialogo-cancelar" class="quieto">Volver</button>
+  </div>
+</dialog>
+
+<script src="/static/comun.js"></script>
+<script src="/static/equipo.js"></script>
+</body>
+</html>
