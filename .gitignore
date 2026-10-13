@@ -1,25 +1,53 @@
-# --- Secretos y datos reales: NUNCA versionar ---
-# Clave real de puntuación y justificaciones privadas (Agente A las entrega por canal seguro)
+# ─────────────────────────────────────────────────────────────
+# Tribunal Digital · reglas de exclusión
+# El repositorio es PÚBLICO: nada de lo que se suba es privado,
+# aunque el nombre del archivo diga ".private".
+# ─────────────────────────────────────────────────────────────
+
+# ── Agente A (contenido): claves y fundamentos REALES ─────────
+# Se generan y guardan solo en local; se entregan por canal seguro.
 content/answer-key.private.json
+content/answer-rules.private.json
 content/rationales.private.md
 content/*.private.*
+content/private/
+content/handoff/
+*.private.zip
 *.private.real.json
-# Credenciales locales
+
+# ── Secretos y estado de ejecución (ambos agentes) ───────────
 .env
 .env.*
 !.env.example
-# Estado de ejecución (base de datos, sesiones, códigos de equipo) y exportaciones de auditoría
-data/
-exports/
+*.pem
+*.key
+
+# Base de datos de sesión persistente, copias y exportaciones de auditoría
 *.sqlite
+*.sqlite3
 *.sqlite-*
 *.db
+*.db-journal
+data/
+backups/
+*.bak
+exports/
+private-exports/
 
-# --- Dependencias y artefactos de pruebas ---
-node_modules/
+# ── Artefactos locales de QA ──────────────────────────────────
+projection/qa-output/
 test-results/
 playwright-report/
 blob-report/
 .playwright/
 *.log
+
+# ── Varios ────────────────────────────────────────────────────
+node_modules/
 .DS_Store
+Thumbs.db
+
+# Los fixtures de demostración del Agente B son SINTÉTICOS
+# (reglas inventadas para pruebas) y deben poder versionarse.
+!fixtures/demo/
+!fixtures/demo/**
