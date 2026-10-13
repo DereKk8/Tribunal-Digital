@@ -188,6 +188,11 @@ if (!PUBLIC_ONLY) {
       if (bad.length) e.push(`${r.id}: ${bad.length} objeciones válidas contra respuestas correctas`);
       const badAct = k.accepted_objections.filter((o) => o.objection_kind === 'unsafe_action' && accActs.has(o.target_action_id));
       if (badAct.length) e.push(`${r.id}: acción aceptada objetada como insegura`);
+      // La demostración incrustada en la proyección no debe reproducir argumentos aceptados.
+      const deckData = JSON.parse(html.match(/<script type="application\/json" id="deck-data">([\s\S]*?)<\/script>/)[1]);
+      for (const d of deckData.demo[r.id]?.responses || []) {
+        if (accArgs.has(`${d.claim_id}|${setKey(d.evidence_ids)}`)) e.push(`${r.id}: la demostración reproduce un argumento aceptado`);
+      }
     }
     check('Integridad de la clave privada frente al paquete público', e);
 

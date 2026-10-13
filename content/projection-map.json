@@ -1,0 +1,262 @@
+{
+  "schema_version": "1.0",
+  "game_id": "tribunal-digital",
+  "projection_file": "projection/index.html",
+  "slide_count": 63,
+  "index_base": 0,
+  "rounds": {
+    "R1": {
+      "reveal": {
+        "slide_id": "r1-revelacion",
+        "slide_index": 9,
+        "slides": [
+          "r1-revelacion",
+          "r1-e01",
+          "r1-e02",
+          "r1-e03",
+          "r1-e04"
+        ]
+      },
+      "deliberation": {
+        "slide_id": "r1-deliberacion",
+        "slide_index": 14,
+        "slides": [
+          "r1-deliberacion"
+        ]
+      },
+      "defense": {
+        "slide_id": "r1-defensa",
+        "slide_index": 15,
+        "slides": [
+          "r1-defensa"
+        ]
+      },
+      "objection": {
+        "slide_id": "r1-objeciones",
+        "slide_index": 16,
+        "slides": [
+          "r1-objeciones"
+        ]
+      },
+      "confrontation": {
+        "slide_id": "r1-confrontacion",
+        "slide_index": 17,
+        "slides": [
+          "r1-confrontacion"
+        ]
+      },
+      "resolution": {
+        "slide_id": "r1-resultados",
+        "slide_index": 18,
+        "slides": [
+          "r1-resultados"
+        ]
+      }
+    },
+    "R2": {
+      "reveal": {
+        "slide_id": "r2-revelacion",
+        "slide_index": 19,
+        "slides": [
+          "r2-revelacion",
+          "r2-e05",
+          "r2-e06",
+          "r2-e07",
+          "r2-e08"
+        ]
+      },
+      "deliberation": {
+        "slide_id": "r2-deliberacion",
+        "slide_index": 24,
+        "slides": [
+          "r2-deliberacion"
+        ]
+      },
+      "defense": {
+        "slide_id": "r2-defensa",
+        "slide_index": 25,
+        "slides": [
+          "r2-defensa"
+        ]
+      },
+      "objection": {
+        "slide_id": "r2-objeciones",
+        "slide_index": 26,
+        "slides": [
+          "r2-objeciones"
+        ]
+      },
+      "confrontation": {
+        "slide_id": "r2-confrontacion",
+        "slide_index": 27,
+        "slides": [
+          "r2-confrontacion"
+        ]
+      },
+      "resolution": {
+        "slide_id": "r2-resultados",
+        "slide_index": 28,
+        "slides": [
+          "r2-resultados"
+        ]
+      }
+    },
+    "R3": {
+      "reveal": {
+        "slide_id": "r3-revelacion",
+        "slide_index": 29,
+        "slides": [
+          "r3-revelacion",
+          "r3-e09",
+          "r3-e10",
+          "r3-e11",
+          "r3-e12"
+        ]
+      },
+      "deliberation": {
+        "slide_id": "r3-deliberacion",
+        "slide_index": 34,
+        "slides": [
+          "r3-deliberacion"
+        ]
+      },
+      "defense": {
+        "slide_id": "r3-defensa",
+        "slide_index": 35,
+        "slides": [
+          "r3-defensa"
+        ]
+      },
+      "objection": {
+        "slide_id": "r3-objeciones",
+        "slide_index": 36,
+        "slides": [
+          "r3-objeciones"
+        ]
+      },
+      "confrontation": {
+        "slide_id": "r3-confrontacion",
+        "slide_index": 37,
+        "slides": [
+          "r3-confrontacion"
+        ]
+      },
+      "resolution": {
+        "slide_id": "r3-resultados",
+        "slide_index": 38,
+        "slides": [
+          "r3-resultados"
+        ]
+      }
+    },
+    "R4": {
+      "reveal": {
+        "slide_id": "r4-revelacion",
+        "slide_index": 39,
+        "slides": [
+          "r4-revelacion",
+          "r4-e13",
+          "r4-e14",
+          "r4-e15",
+          "r4-e16"
+        ]
+      },
+      "deliberation": {
+        "slide_id": "r4-deliberacion",
+        "slide_index": 44,
+        "slides": [
+          "r4-deliberacion"
+        ]
+      },
+      "defense": {
+        "slide_id": "r4-defensa",
+        "slide_index": 45,
+        "slides": [
+          "r4-defensa"
+        ]
+      },
+      "objection": {
+        "slide_id": "r4-objeciones",
+        "slide_index": 46,
+        "slides": [
+          "r4-objeciones"
+        ]
+      },
+      "confrontation": {
+        "slide_id": "r4-confrontacion",
+        "slide_index": 47,
+        "slides": [
+          "r4-confrontacion"
+        ]
+      },
+      "resolution": {
+        "slide_id": "r4-resultados",
+        "slide_index": 48,
+        "slides": [
+          "r4-resultados"
+        ]
+      }
+    },
+    "FINAL": {
+      "deliberation": {
+        "slide_id": "final-revelacion",
+        "slide_index": 49,
+        "slides": [
+          "final-revelacion",
+          "final-e17",
+          "final-e18",
+          "final-deliberacion"
+        ]
+      },
+      "defense": {
+        "slide_id": "final-alegatos",
+        "slide_index": 53,
+        "slides": [
+          "final-alegatos"
+        ]
+      },
+      "objection": {
+        "slide_id": "final-objeciones",
+        "slide_index": 54,
+        "slides": [
+          "final-objeciones"
+        ]
+      },
+      "confrontation": {
+        "slide_id": "final-confrontacion",
+        "slide_index": 55,
+        "slides": [
+          "final-confrontacion"
+        ]
+      },
+      "resolution": {
+        "slide_id": "final-resultados",
+        "slide_index": 56,
+        "slides": [
+          "final-resultados"
+        ]
+      }
+    }
+  },
+  "segments": {
+    "opening": [
+      "portada",
+      "aviso",
+      "mision",
+      "puntos",
+      "objeciones",
+      "ronda-tipo",
+      "practica",
+      "caso",
+      "personajes"
+    ],
+    "closing": [
+      "cierre-podio",
+      "cierre-senales",
+      "cierre-limites",
+      "cierre-acciones",
+      "cierre-recursos",
+      "cierre-gracias"
+    ]
+  }
+}
