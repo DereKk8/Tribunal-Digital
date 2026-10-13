@@ -1,0 +1,24 @@
+# Blueprint de Render (plan gratuito) para alojar Tribunal Digital en una URL pública con HTTPS.
+# Guía completa: docs/DESPLIEGUE.md
+services:
+  - type: web
+    name: tribunal-digital
+    runtime: node
+    plan: free
+    autoDeploy: true
+    buildCommand: npm ci --omit=dev
+    startCommand: node --disable-warning=ExperimentalWarning src/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # demo = datos ficticios de prueba. Para el taller real lea docs/DESPLIEGUE.md (clave como Secret File).
+      - key: CONTENT_MODE
+        value: demo
+      # Render genera una contraseña aleatoria; consúltela en Environment del panel de Render.
+      - key: MODERATOR_PASSWORD
+        generateValue: true
+      - key: TRUST_PROXY
+        value: "1"
+      - key: HOST
+        value: 0.0.0.0
