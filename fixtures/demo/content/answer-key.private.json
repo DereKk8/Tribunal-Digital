@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "game_id": "tribunal-digital",
+  "aviso": "DEMO — DATOS FICTICIOS DE PRUEBA. Clave sintética, pública a propósito y segura para versionar SOLO en fixtures/demo/. No contiene ni se parece a la clave real del taller.",
+  "rounds": {
+    "R1": {
+      "accepted_arguments": [
+        {"claim_id": "R1-C1", "evidence_ids": ["R1-E1"]},
+        {"claim_id": "R1-C2", "evidence_ids": ["R1-E2"]},
+        {"claim_id": "R1-C4", "evidence_ids": ["R1-E1", "R1-E2"]}
+      ],
+      "accepted_actions": ["R1-A1"],
+      "accepted_objections": [
+        {"target_claim_id": "R1-C3", "target_evidence_ids": ["R1-E1"], "target_action_id": "R1-A2", "objection_kind": "unjustified_certainty", "cited_evidence_id": "R1-E2"},
+        {"target_claim_id": "R1-C3", "target_evidence_ids": ["R1-E1"], "target_action_id": "R1-A1", "objection_kind": "unjustified_certainty", "cited_evidence_id": "R1-E2"},
+        {"target_claim_id": "R1-C3", "target_evidence_ids": ["R1-E1"], "target_action_id": "R1-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R1-E1"},
+        {"target_claim_id": "R1-C1", "target_evidence_ids": ["R1-E1"], "target_action_id": "R1-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R1-E2"}
+      ]
+    },
+    "R2": {
+      "accepted_arguments": [
+        {"claim_id": "R2-C1", "evidence_ids": ["R2-E1"]},
+        {"claim_id": "R2-C2", "evidence_ids": ["R2-E3"]},
+        {"claim_id": "R2-C4", "evidence_ids": ["R1-E1", "R2-E1"]}
+      ],
+      "accepted_actions": ["R2-A1", "R2-A3"],
+      "accepted_objections": [
+        {"target_claim_id": "R2-C3", "target_evidence_ids": ["R2-E2"], "target_action_id": "R2-A2", "objection_kind": "contradiction", "cited_evidence_id": "R2-E2"},
+        {"target_claim_id": "R2-C3", "target_evidence_ids": ["R2-E1"], "target_action_id": "R2-A2", "objection_kind": "logical_leap", "cited_evidence_id": "R2-E2"},
+        {"target_claim_id": "R2-C1", "target_evidence_ids": ["R2-E1"], "target_action_id": "R2-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R2-E2"},
+        {"target_claim_id": "R2-C2", "target_evidence_ids": ["R2-E3"], "target_action_id": "R2-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R2-E2"}
+      ]
+    },
+    "R3": {
+      "accepted_arguments": [
+        {"claim_id": "R3-C1", "evidence_ids": ["R3-E1"]},
+        {"claim_id": "R3-C1", "evidence_ids": ["R3-E1", "R3-E2"]},
+        {"claim_id": "R3-C2", "evidence_ids": ["R3-E3"]}
+      ],
+      "accepted_actions": ["R3-A1"],
+      "accepted_objections": [
+        {"target_claim_id": "R3-C3", "target_evidence_ids": ["R3-E1"], "target_action_id": "R3-A2", "objection_kind": "logical_leap", "cited_evidence_id": "R3-E3"},
+        {"target_claim_id": "R3-C3", "target_evidence_ids": ["R3-E1"], "target_action_id": "R3-A1", "objection_kind": "logical_leap", "cited_evidence_id": "R3-E3"},
+        {"target_claim_id": "R3-C3", "target_evidence_ids": ["R3-E3"], "target_action_id": "R3-A2", "objection_kind": "contradiction", "cited_evidence_id": "R3-E3"},
+        {"target_claim_id": "R3-C2", "target_evidence_ids": ["R3-E3"], "target_action_id": "R3-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R3-E2"}
+      ]
+    },
+    "R4": {
+      "accepted_arguments": [
+        {"claim_id": "R4-C1", "evidence_ids": ["R4-E1"]},
+        {"claim_id": "R4-C2", "evidence_ids": ["R4-E2"]},
+        {"claim_id": "R4-C2", "evidence_ids": ["R1-E2", "R4-E2"]}
+      ],
+      "accepted_actions": ["R4-A1"],
+      "accepted_objections": [
+        {"target_claim_id": "R4-C3", "target_evidence_ids": ["R4-E1"], "target_action_id": "R4-A2", "objection_kind": "unjustified_certainty", "cited_evidence_id": "R4-E2"},
+        {"target_claim_id": "R4-C3", "target_evidence_ids": ["R4-E1"], "target_action_id": "R4-A1", "objection_kind": "unjustified_certainty", "cited_evidence_id": "R4-E2"},
+        {"target_claim_id": "R4-C1", "target_evidence_ids": ["R4-E1"], "target_action_id": "R4-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R4-E2"}
+      ]
+    },
+    "FINAL": {
+      "accepted_arguments": [
+        {"claim_id": "FINAL-C1", "evidence_ids": ["FINAL-E1"]},
+        {"claim_id": "FINAL-C1", "evidence_ids": ["FINAL-E1", "R2-E1"]}
+      ],
+      "accepted_actions": ["FINAL-A1"],
+      "accepted_objections": [
+        {"target_claim_id": "FINAL-C3", "target_evidence_ids": ["R1-E1"], "target_action_id": "FINAL-A2", "objection_kind": "logical_leap", "cited_evidence_id": "FINAL-E1"},
+        {"target_claim_id": "FINAL-C3", "target_evidence_ids": ["R1-E1"], "target_action_id": "FINAL-A1", "objection_kind": "logical_leap", "cited_evidence_id": "FINAL-E1"},
+        {"target_claim_id": "FINAL-C2", "target_evidence_ids": ["FINAL-E1"], "target_action_id": "FINAL-A1", "objection_kind": "contradiction", "cited_evidence_id": "FINAL-E1"},
+        {"target_claim_id": "FINAL-C1", "target_evidence_ids": ["FINAL-E1"], "target_action_id": "FINAL-A2", "objection_kind": "unsafe_action", "cited_evidence_id": "R1-E2"}
+      ]
+    }
+  }
+}

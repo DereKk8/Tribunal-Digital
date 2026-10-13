@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEMO — Prueba de integración de la proyección</title>
+<style>
+  @font-face { font-family: 'Archivo'; src: url('/static/archivo.woff2') format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; }
+  @font-face { font-family: 'Atkinson Next'; src: url('/static/atkinson-next.woff2') format('woff2'); font-weight: 200 800; }
+  :root { --papel: #e6e9e1; --folio: #f6f7f2; --tinta: #1a2133; --tinta-2: #4f586b; --regla: #c3c9bd; --lacre: #a0122c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 400 1.4vw/1.45 'Atkinson Next', system-ui, sans-serif; color: var(--tinta); background: var(--papel); }
+  .banner { background: repeating-linear-gradient(-45deg, #f2c200 0 14px, var(--tinta) 14px 28px); padding: .5em; text-align: center; }
+  .banner span { background: #f2c200; color: var(--tinta); font: 800 1.1vw/1 'Archivo', sans-serif; font-stretch: 112%; padding: .45em 1em; display: inline-block; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; padding: 2vw 3vw; }
+  h1 { font: 800 2.6vw/1 'Archivo', sans-serif; font-stretch: 125%; margin: 0 0 .5em; }
+  h2 { font: 800 1.6vw/1.1 'Archivo', sans-serif; font-stretch: 112%; margin: 0 0 .5em; }
+  table { width: 100%; border-collapse: collapse; background: var(--folio); }
+  th, td { text-align: left; padding: .4em .6em; border-bottom: 1px solid var(--regla); }
+  th { color: var(--tinta-2); }
+  .estado { background: var(--folio); border: 1px solid var(--regla); border-left: .5vw solid var(--lacre); padding: 1em 1.2em; }
+  .ok { color: #10734f; font-weight: 700; }
+  .error { color: var(--lacre); font-weight: 700; }
+  .diapos { display: flex; flex-wrap: wrap; gap: .3em; font: 700 .85vw/1 'Archivo', sans-serif; font-stretch: 80%; }
+  .slide { border: 1px solid var(--regla); background: var(--folio); padding: .35em .5em; border-radius: 2px; color: var(--tinta-2); }
+  .slide.active { background: var(--lacre); border-color: var(--lacre); color: #fff; }
+  ul { margin: 0; padding-left: 1.2em; }
+  code { font-size: .9em; }
+</style>
+</head>
+<body>
+<div class="banner" role="note"><span>DEMO — DATOS FICTICIOS DE PRUEBA</span></div>
+<p style="margin:1vw 3vw 0;color:#4f586b">Página de prueba de integración de <code>/api/public-state</code>. No es la presentación del taller: la proyección real es el HTML make-slide de Agente A.</p>
+<main>
+  <section class="estado" aria-live="polite">
+    <h1>Estado de la partida</h1>
+    <p>Conexión con <code>/api/public-state</code> (mismo origen): <span id="conexion">comprobando…</span></p>
+    <p>Ronda: <strong id="ronda">—</strong> · Fase: <strong id="fase">—</strong></p>
+    <p>Diapositiva asignada: <strong id="diapo">—</strong></p>
+    <p>Origen de la página: <code id="origen"></code></p>
+  </section>
+  <section>
+    <h2>Marcador</h2>
+    <table>
+      <thead><tr><th>Puesto</th><th>Equipo</th><th>Puntos</th><th>Fichas</th></tr></thead>
+      <tbody id="marcador"></tbody>
+    </table>
+    <p id="ganadores"></p>
+  </section>
+  <section>
+    <h2>Respuestas publicadas</h2>
+    <ul id="respuestas"><li>Aún no hay respuestas publicadas.</li></ul>
+  </section>
+  <section>
+    <h2>Objeciones publicadas</h2>
+    <ul id="objeciones"><li>Aún no hay objeciones publicadas.</li></ul>
+  </section>
+  <section style="grid-column: 1 / -1">
+    <h2>Identificadores de diapositiva DEMO (projection-map.json)</h2>
+    <div class="diapos">
+      <div class="slide" id="demo-tutorial">demo-tutorial</div>
+      <div class="slide" id="demo-r1-reveal">demo-r1-reveal</div>
+      <div class="slide" id="demo-r1-deliberation">demo-r1-deliberation</div>
+      <div class="slide" id="demo-r1-defense">demo-r1-defense</div>
+      <div class="slide" id="demo-r1-objection">demo-r1-objection</div>
+      <div class="slide" id="demo-r1-confrontation">demo-r1-confrontation</div>
+      <div class="slide" id="demo-r1-resolution">demo-r1-resolution</div>
+      <div class="slide" id="demo-r2-reveal">demo-r2-reveal</div>
+      <div class="slide" id="demo-r2-deliberation">demo-r2-deliberation</div>
+      <div class="slide" id="demo-r2-defense">demo-r2-defense</div>
+      <div class="slide" id="demo-r2-objection">demo-r2-objection</div>
+      <div class="slide" id="demo-r2-confrontation">demo-r2-confrontation</div>
+      <div class="slide" id="demo-r2-resolution">demo-r2-resolution</div>
+      <div class="slide" id="demo-r3-reveal">demo-r3-reveal</div>
+      <div class="slide" id="demo-r3-deliberation">demo-r3-deliberation</div>
+      <div class="slide" id="demo-r3-defense">demo-r3-defense</div>
+      <div class="slide" id="demo-r3-objection">demo-r3-objection</div>
+      <div class="slide" id="demo-r3-confrontation">demo-r3-confrontation</div>
+      <div class="slide" id="demo-r3-resolution">demo-r3-resolution</div>
+      <div class="slide" id="demo-r4-reveal">demo-r4-reveal</div>
+      <div class="slide" id="demo-r4-deliberation">demo-r4-deliberation</div>
+      <div class="slide" id="demo-r4-defense">demo-r4-defense</div>
+      <div class="slide" id="demo-r4-objection">demo-r4-objection</div>
+      <div class="slide" id="demo-r4-confrontation">demo-r4-confrontation</div>
+      <div class="slide" id="demo-r4-resolution">demo-r4-resolution</div>
+      <div class="slide" id="demo-final-deliberation">demo-final-deliberation</div>
+      <div class="slide" id="demo-final-defense">demo-final-defense</div>
+      <div class="slide" id="demo-final-objection">demo-final-objection</div>
+      <div class="slide" id="demo-final-resolution">demo-final-resolution</div>
+      <div class="slide" id="demo-closing">demo-closing</div>
+    </div>
+  </section>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; };
+  $('origen').textContent = location.origin;
+  function pintar(s) {
+    $('ronda').textContent = s.round_id || '—';
+    $('fase').textContent = s.phase_label || s.phase || '—';
+    $('diapo').textContent = s.slide == null ? '—' : String(s.slide);
+    document.querySelectorAll('.slide').forEach(function (el) {
+      el.classList.toggle('active', el.id === s.slide);
+    });
+    var nombres = {};
+    (s.scoreboard || []).forEach(function (r) { nombres[r.team_id] = r.team_name || r.team_id; });
+    $('marcador').innerHTML = (s.scoreboard || []).map(function (r) {
+      return '<tr data-team="' + esc(r.team_id) + '"><td>' + esc(r.rank) + '</td><td>' + esc(r.team_name) +
+        '</td><td class="puntos">' + esc(r.score) + '</td><td class="fichas">' + esc(r.objection_tokens_remaining) + '</td></tr>';
+    }).join('');
+    $('ganadores').textContent = s.winners && s.winners.length
+      ? 'Ganador(es): ' + s.winners.map(function (id) { return nombres[id] || id; }).join(' y ')
+      : '';
+    var resp = s.responses || [];
+    $('respuestas').innerHTML = resp.length ? resp.map(function (r) {
+      if (r.status !== 'submitted') return '<li>' + esc(nombres[r.team_id]) + ': sin respuesta</li>';
+      return '<li>' + esc(nombres[r.team_id]) + ': ' + esc(r.claim_id) + ' + [' + esc(r.evidence_ids.join(', ')) + '] + ' + esc(r.action_id) + '</li>';
+    }).join('') : '<li>Aún no hay respuestas publicadas.</li>';
+    var obj = s.objections || [];
+    $('objeciones').innerHTML = obj.length ? obj.map(function (o) {
+      var res = o.valid === true ? ' → válida' : (o.valid === false ? ' → no válida' : '');
+      return '<li>' + esc(nombres[o.attacking_team_id]) + ' objeta a ' + esc(nombres[o.target_team_id]) + ' (' + esc(o.objection_kind_label) + ', ' + esc(o.cited_evidence_id) + ')' + res + '</li>';
+    }).join('') : '<li>Aún no hay objeciones publicadas.</li>';
+  }
+  function consultar() {
+    fetch('/api/public-state', { cache: 'no-store', credentials: 'same-origin' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (s) { $('conexion').innerHTML = '<span class="ok">OK</span>'; pintar(s); })
+      .catch(function (e) { $('conexion').innerHTML = '<span class="error">sin conexión (' + esc(e.message) + ')</span>'; })
+      .finally(function () { setTimeout(consultar, 2000); });
+  }
+  consultar();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-label="R2-E1: DEMO: la cuenta que difundió las 16:00 se creó hace dos días.">
+  <rect width="800" height="450" fill="#fffbe6"/>
+  <rect x="0" y="0" width="800" height="64" fill="#b00020"/>
+  <text x="40" y="43" font-family="sans-serif" font-size="26" font-weight="700" fill="#ffffff">DEMO — DATOS FICTICIOS DE PRUEBA</text>
+  <text x="40" y="130" font-family="sans-serif" font-size="40" font-weight="700" fill="#1b1b1b">Evidencia R2-E1</text>
+  <g font-family="sans-serif">
+  <text x="40" y="200" font-size="32" fill="#1b1b1b">DEMO: la cuenta que difundió las</text>
+  <text x="40" y="244" font-size="32" fill="#1b1b1b">16:00 se creó hace dos días.</text>
+  </g>
+  <rect x="8" y="8" width="784" height="434" fill="none" stroke="#b00020" stroke-width="6" stroke-dasharray="18 10"/>
+</svg>
