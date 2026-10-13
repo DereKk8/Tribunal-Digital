@@ -48,8 +48,8 @@ if (existsSync(KEY)) {
       needles.add(`"claim_id":"${a.claim_id}","evidence_ids":${JSON.stringify(a.evidence_ids)}`);
       needles.add(`"claim_id": "${a.claim_id}", "evidence_ids": ${JSON.stringify(a.evidence_ids).replace(/,/g, ', ')}`);
     }
-    needles.add(`"accepted_actions":${JSON.stringify(r.accepted_actions)}`);
-    needles.add(`"accepted_actions": ${JSON.stringify(r.accepted_actions).replace(/,/g, ', ')}`);
+    // Las listas de acciones aceptadas no se usan como firma: un solo id («R1-A2») coincide por azar
+    // con cualquier otro paquete que use el mismo esquema de ids (p. ej. la DEMO sintética del Agente B).
   }
   // (se compone en tiempo de ejecución para que este archivo no coincida consigo mismo)
   if (existsSync(RULES)) needles.add(['"status": "', 'sound", "accepted', '_sets"'].join(''));
@@ -60,9 +60,11 @@ if (existsSync(KEY)) {
   const revs = hasHead ? git('rev-list', '--all').split('\n').filter(Boolean) : [];
   for (const n of needles) {
     // árbol de trabajo versionado + índice
-    try { const hit = git('grep', '-l', '-F', '--cached', '-e', n); if (hit) problems.push(`firma de respuesta real en archivos preparados: ${hit.split('\n').join(', ')}`); } catch { /* sin coincidencias */ }
+    // fixtures/demo/ es la DEMO sintética del Agente B (reglas inventadas): se excluye de la búsqueda de firmas.
+    const pathspec = ['--', '.', ':(exclude)fixtures/demo'];
+    try { const hit = git('grep', '-l', '-F', '--cached', '-e', n, ...pathspec); if (hit) problems.push(`firma de respuesta real en archivos preparados: ${hit.split('\n').join(', ')}`); } catch { /* sin coincidencias */ }
     if (revs.length) {
-      try { const hit = git('grep', '-l', '-F', '-e', n, ...revs); if (hit) problems.push(`firma de respuesta real en el historial: ${hit.split('\n').slice(0, 5).join(', ')}`); } catch { /* sin coincidencias */ }
+      try { const hit = git('grep', '-l', '-F', '-e', n, ...revs, ...pathspec); if (hit) problems.push(`firma de respuesta real en el historial: ${hit.split('\n').slice(0, 5).join(', ')}`); } catch { /* sin coincidencias */ }
     }
   }
   console.log(`· Clave local encontrada: ${needles.size} firmas buscadas en ${revs.length} commits y en el índice.`);
