@@ -154,6 +154,11 @@ node content/tools/check-leaks.mjs
 node projection/build/qa-render.mjs --width 1600 --height 900
 node projection/build/qa-render.mjs --width 1280 --height 720 --out projection/qa-output/720p
 
+# Interacción y modo en vivo (servidor simulado), y extremo a extremo con la aplicación real
+node projection/build/qa-interaction.mjs
+node projection/build/qa-live.mjs
+node projection/build/qa-app-e2e.mjs --root <árbol con la aplicación, este paquete y la clave local>
+
 # Regenerar todo tras editar content/src/case.mjs
 node content/tools/build-public.mjs        # → content/public.json
 node content/tools/render-evidence.mjs     # → assets/evidence/*.svg

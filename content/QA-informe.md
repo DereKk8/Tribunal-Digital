@@ -17,7 +17,10 @@ Este informe es público: resume resultados **sin revelar respuestas**. El detal
 | Captura de las 63 diapositivas a 1600×900, 1280×720 y 1920×1080 | `node projection/build/qa-render.mjs` | ✓ sin desbordes ni texto fuera del escenario |
 | Caso extremo: los cinco equipos eligen la afirmación y la acción más largas | (script de QA) | ✓ sin recortes a 1600×900 ni a 1280×720 |
 | Interacción: teclado, clic, `#id`, notas en ventana emergente, reloj y turnos (28 aserciones) | `node projection/build/qa-interaction.mjs` | ✓ 28/28, sin errores de JavaScript |
-| Modo en vivo contra un **servidor simulado** (16 aserciones) | `node projection/build/qa-live.mjs` | ✓ datos en vivo, caída del servidor, 404, 401 y `file://` |
+| Modo en vivo contra un **servidor simulado** con la forma de estado de la aplicación (22 aserciones) | `node projection/build/qa-live.mjs` | ✓ datos en vivo, caída del servidor, 404, 401 y `file://` |
+| **Extremo a extremo con la aplicación real del Agente B** (rama de PR #1 fusionada en local con esta, modo real, 63 aserciones) | `node projection/build/qa-app-e2e.mjs --root <árbol integrado>` | ✓ 63/63: la proyección sigue la diapositiva del servidor en las 30 fases (R1–R4, FINAL y cierre); la aplicación puntúa igual que la clave en R1–R4 y FINAL; marcador, respuestas, objeciones ✓/✗ y podio en vivo; el HTML se sirve byte a byte; un código de equipo no abre la proyección (403) |
+| Puerta de modo real de la aplicación con este paquete y la clave local | `npm run validar:real` (aplicación) | ✓ APROBADO |
+| Pruebas de la aplicación con este paquete | `npm test` (aplicación) | ✓ 86/86 sin la clave en el árbol; 85/86 con ella (ver §3) |
 | Filtraciones en índice e historial de Git (rutas privadas y firmas exactas de respuestas) | `node content/tools/check-leaks.mjs` | ✓ antes de cada commit de esta rama |
 
 Probabilidades al azar, según el ensayo: +3 por argumento entre 0,4 % y 2 % por ronda; +2 por acción entre 25 % y
@@ -66,9 +69,13 @@ revelar respuestas:
 
 ## 3. Riesgos pendientes
 
-- **Prueba con la API real del Agente B: pendiente.** Se probó solo contra un servidor simulado que sigue el
-  contrato. Falta verificar el nombre real de los campos (hay alias tolerados) y la autorización de la ruta de
-  presentador.
+- **Integración probada en local, no en el servidor del taller.** La prueba de extremo a extremo se hizo con la
+  rama del Agente B (PR #1) fusionada en un árbol local. Tras fusionar ambos PR conviene repetir
+  `npm run validar:real` y `node projection/build/qa-app-e2e.mjs` en la máquina del taller.
+- **Una prueba de la aplicación depende del entorno.** «modo real sin paquete de Agente A» supone que la clave real
+  no está presente; con la clave instalada falla por diseño (85/86). No se ha tocado: se comunica al Agente B.
+- **`.gitignore` en ambas ramas.** Las dos ramas crean el archivo; al fusionar habrá un conflicto add/add que se
+  resuelve con la unión de reglas (probado en el árbol integrado).
 - **Repositorio público.** Evidencias, diapositivas y lecciones del cierre son legibles antes del taller. No hay que
   difundir el repositorio a participantes.
 - **Fuentes y teléfonos.** Se verificaron a través de su indexación en buscadores porque el entorno bloqueaba la
