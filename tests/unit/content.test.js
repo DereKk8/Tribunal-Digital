@@ -4,7 +4,7 @@ import { rmSync, unlinkSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { loadContent, ContentError } from '../../src/content/load.js';
 import { contentPaths } from '../../src/config.js';
-import { copyDemoPackage, mutate, ROOT } from '../helpers.js';
+import { copyDemoPackage, mutate, tempDir, ROOT } from '../helpers.js';
 
 function expectErrors(paths, ...fragments) {
   try {
@@ -128,10 +128,19 @@ test('falla cerrado si falta la clave privada (sin usar otra de reemplazo)', () 
 }));
 
 test('modo real sin paquete de Agente A: falla con diagnóstico en español, sin caer al DEMO', () => {
-  const real = contentPaths('real', ROOT);
-  assert.ok(!real.publicPath.includes('fixtures'));
-  assert.ok(!real.keyPath.includes('fixtures'));
-  expectErrors(real, 'Falta el archivo');
+  // Raíz vacía: la prueba no depende de si el repositorio ya tiene el paquete o la clave real instalados.
+  const root = tempDir('tribunal-vacio-');
+  try {
+    const real = contentPaths('real', root);
+    for (const k of ['publicPath', 'keyPath', 'schemaPath', 'projectionMapPath', 'projectionHtmlPath']) {
+      assert.ok(real[k].startsWith(root), k);
+      assert.ok(!real[k].includes('fixtures'), k);
+    }
+    const errors = expectErrors(real, 'Falta el archivo public.json', 'Falta el archivo de clave privada', 'Falta el archivo schema.json', 'Falta el archivo projection-map.json', 'Falta el archivo de proyección');
+    assert.ok(!errors.some((m) => m.includes(path.join(ROOT, 'fixtures'))));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });
 
 test('JSON mal formado se informa con el nombre del archivo', () => withCopy((p) => {
