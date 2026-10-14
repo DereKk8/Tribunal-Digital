@@ -16,9 +16,11 @@ export function buildPublic() {
     teams: TEAMS.map(({ id, name }) => ({ id, name })),
     rounds: ROUNDS.map((r) => ({
       id: r.id,
-      title: `${r.name}: ${r.question}`,
+      title: r.name,
+      question: r.question,
       evidence: EVIDENCE.filter((e) => e.round === r.id).map((e) => ({
         id: e.id,
+        summary: e.summary,
         body: evidenceBody(e),
         asset_path: `assets/evidence/${e.id}.svg`,
         revealed_in: e.round,

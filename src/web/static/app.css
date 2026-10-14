@@ -194,6 +194,7 @@ button.ancho { width: 100%; }
 .ronda-cabecera { margin: 6px 0 24px; }
 .ronda-codigo { color: var(--equipo-tinta); font: 800 15px/1 var(--f-display); font-stretch: 80%; margin-bottom: 8px; display: block; }
 .ronda-titulo { font-size: clamp(30px, 8.2vw, 42px); }
+.ronda-pregunta { font-size: 19px; margin: 12px 0 0; }
 .indicacion { border-left: 4px solid var(--equipo); padding: 4px 0 4px 14px; margin: 0 0 22px; font-size: 17px; }
 
 h2.seccion { font: 800 21px/1.15 var(--f-display); font-stretch: 112%; margin: 30px 0 12px; }
@@ -201,10 +202,16 @@ h2.seccion { font: 800 21px/1.15 var(--f-display); font-stretch: 112%; margin: 3
 /* ------------------------------------------------------------------ exhibiciones (evidencia) */
 .exhibiciones { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .exhibicion { background: var(--folio); border: 1px solid var(--regla); border-radius: 4px; overflow: hidden; }
-.exhibicion figure { margin: 0; position: relative; background: var(--regla-suave); }
-.exhibicion img { display: block; width: 100%; height: auto; max-height: 320px; object-fit: contain; }
-.exhibicion figure .tag { position: absolute; top: 10px; left: 10px; }
-.exhibicion figcaption, .exhibicion .exhibicion-texto { padding: 12px 14px 14px; }
+.exhibicion-resumen { padding: 14px; margin: 0; }
+.exhibicion-resumen .tag { margin-right: 8px; }
+.lectura-evidencia { border-top: 1px solid var(--regla); }
+.lectura-evidencia summary { cursor: pointer; padding: 10px 14px; min-height: 44px; color: var(--equipo-tinta); font-size: 15px; font-weight: 700; }
+.lectura-evidencia[open] summary { border-bottom: 1px solid var(--regla); }
+.transcripcion { padding: 14px; font-size: 17px; line-height: 1.6; overflow-wrap: anywhere; }
+.transcripcion p:last-child { margin-bottom: 0; }
+.lectura-evidencia figure { margin: 0; padding: 0 14px 14px; }
+.lectura-evidencia figcaption { color: var(--tinta-2); font-size: 15px; margin-bottom: 8px; }
+.lectura-evidencia img { display: block; width: 100%; height: auto; border-radius: 3px; background: var(--regla-suave); }
 .nueva { display: inline-block; font-weight: 700; color: var(--equipo-tinta); margin-right: 6px; }
 details.archivo { margin-top: 18px; border-top: 1px solid var(--regla); }
 details.archivo summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
@@ -263,7 +270,10 @@ details.archivo summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
 .opcion:has(input:focus-visible) { outline: 3px solid var(--equipo); outline-offset: 2px; }
 .opcion .tag { margin-right: 8px; }
 .opcion-texto { font-size: 17px; }
-.opcion img { display: block; width: 100%; max-height: 220px; object-fit: contain; margin-top: 10px; border-radius: 3px; background: var(--regla-suave); }
+.opcion > span { min-width: 0; overflow-wrap: anywhere; }
+.opcion-evidencia { margin-top: 10px; background: var(--folio); border: 1px solid var(--regla); border-left: 5px solid var(--regla); border-radius: 4px; }
+.opcion-evidencia > .opcion { margin: 0; border: 0; background: transparent; }
+.opcion-evidencia:has(input:checked) { border-color: var(--equipo); background: var(--equipo-suave); }
 
 .sellar { position: relative; }
 .sellar::before { content: ''; position: absolute; left: -38px; top: 14px; width: 26px; height: 26px; border-radius: 50%; border: 4px dashed var(--regla); }
@@ -309,9 +319,10 @@ details.archivo summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
 }
 .sellada h2 { font-size: 30px; margin-bottom: 6px; }
 .alegato-detalle { margin: 18px 0 0; border-top: 1px solid var(--regla); }
-.alegato-detalle div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--regla); }
+.alegato-detalle > div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--regla); }
 .alegato-detalle dt { font-weight: 700; color: var(--tinta-2); }
-.alegato-detalle dd { margin: 0; }
+.alegato-detalle dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.alegato-detalle > div:has(.lectura-evidencia[open]) { grid-template-columns: 1fr; gap: 6px; }
 .alegato-detalle .tag { margin: 0 6px 4px 0; }
 
 /* ------------------------------------------------------------------ alegatos públicos */

@@ -34,7 +34,16 @@ test('importa el paquete DEMO válido', () => {
   assert.deepEqual(c.rounds.map((r) => r.id), ['R1', 'R2', 'R3', 'R4', 'FINAL']);
   assert.match(c.fingerprint, /^[0-9a-f]{64}$/);
   assert.deepEqual(c.warnings, []);
+  assert.equal(c.rounds[0].question, null);
+  assert.equal(c.rounds[0].evidence[0].summary, c.rounds[0].evidence[0].body, 'los paquetes anteriores conservan sus frases breves');
 });
+
+test('una transcripción larga sin resumen no se repite en la opción de selección', () => withCopy((p) => {
+  mutate(p, ({ pub }) => { pub.rounds[0].evidence[0].body = 'Una primera frase.\nUna segunda frase.'; });
+  const evidence = loadContent(p).rounds[0].evidence[0];
+  assert.equal(evidence.summary, `Revisemos la evidencia ${evidence.id}.`);
+  assert.equal(evidence.body, 'Una primera frase.\nUna segunda frase.');
+}));
 
 test('rechaza un esquema inválido (campo obligatorio ausente) con mensaje en español', () => withCopy((p) => {
   mutate(p, ({ pub }) => { delete pub.rounds[1].claims[0].text; });

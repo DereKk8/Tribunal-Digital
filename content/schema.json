@@ -114,6 +114,11 @@
         "body": {
           "$ref": "#/$defs/nonEmptyText"
         },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
         "asset_path": {
           "type": "string",
           "pattern": "^assets/[A-Za-z0-9._/-]+\\.(svg|png|jpg|jpeg|webp)$"
@@ -184,6 +189,9 @@
           "$ref": "#/$defs/roundId"
         },
         "title": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "question": {
           "$ref": "#/$defs/nonEmptyText"
         },
         "evidence": {

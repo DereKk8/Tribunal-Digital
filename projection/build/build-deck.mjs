@@ -117,14 +117,14 @@ slide({
   id: 'mision', grad: 7, title: 'Su misión',
   notes: '[1:30–2:30] Una sola respuesta colectiva por equipo y fase: una afirmación, una o dos evidencias y una acción. No hay voto individual: todas las personas pueden aportar durante la deliberación. Las respuestas se bloquean en la aplicación y, ya bloqueadas, se proyectan para que todos puedan objetarlas.',
   body: `${JOIN_PILL}
-<span class="a kicker">Su misión</span>
-<h2 class="a lg text-center" style="margin-top:20px">Cada fase, una respuesta por equipo</h2>
+<span class="a kicker">Nuestra misión</span>
+<h2 class="a lg text-center" style="margin-top:20px">Decidimos juntos, respondemos una vez</h2>
 <div class="a cards-grid wide">
-<div class="a glass-card"><span class="card-icon">🧩</span><h3>1 afirmación</h3><p class="big">Qué se puede afirmar con lo que hay. Varias suenan bien y no todas se sostienen.</p><span class="card-tag">Afirmar</span></div>
-<div class="a glass-card"><span class="card-icon">🔎</span><h3>1–2 evidencias</h3><p class="big">Las que sostienen cada dato de su afirmación. Las de rondas anteriores siguen disponibles.</p><span class="card-tag">Citar</span></div>
-<div class="a glass-card"><span class="card-icon">🛡️</span><h3>1 acción</h3><p class="big">Qué deberían hacer Leo o su familia ahora, con lo que se sabe en este momento.</p><span class="card-tag">Decidir</span></div>
+<div class="a glass-card"><span class="card-icon">🧩</span><h3>1 afirmación</h3><p class="big">Elegimos lo que podemos afirmar con las pistas de esta ronda.</p><span class="card-tag">¿Qué creemos?</span></div>
+<div class="a glass-card"><span class="card-icon">🔎</span><h3>1–2 evidencias</h3><p class="big">Citamos una o dos evidencias que respalden toda nuestra afirmación.</p><span class="card-tag">¿Qué lo demuestra?</span></div>
+<div class="a glass-card"><span class="card-icon">🛡️</span><h3>1 acción</h3><p class="big">Decidimos qué pueden hacer Leo o su familia ahora.</p><span class="card-tag">¿Qué hacemos?</span></div>
 </div>
-<p class="a lead text-center mt-2">Todo el equipo delibera. La respuesta se bloquea en <b class="accent">${JOIN_HOST}</b> y después se ve en pantalla.</p>`,
+<p class="a lead text-center mt-2">Decidimos entre todos y sellamos nuestra respuesta en <b class="accent">${JOIN_HOST}</b>.</p>`,
 });
 
 slide({
@@ -140,7 +140,7 @@ slide({
 <div class="chart-bar-group"><div class="chart-bar bar-color-5" style="height:3%;max-width:120px"><span class="bar-val" style="font-size:26px;top:-38px">0</span></div><span class="bar-label" style="font-size:20px;color:#fff;text-align:center;white-space:normal">Jugada inválida<br><small style="font-size:15px;color:var(--text-secondary)">(la ficha se gasta igual)</small></span></div>
 </div>
 <div class="a glass-dark" style="padding:18px 28px;margin-top:22px;max-width:1240px">
-<p style="font-size:21px;line-height:1.55"><b class="accent">Desempate:</b> 1) más objeciones válidas · 2) más argumentos sostenidos · 3) victoria compartida.<br><b class="accent">Los discursos no suman:</b> decide una clave fija. Para el +3, las evidencias deben cubrir cada dato de la afirmación.</p>
+<p style="font-size:21px;line-height:1.55"><b class="accent">Desempate:</b> 1) más objeciones válidas · 2) más argumentos sostenidos · 3) victoria compartida.<br>El debate oral no suma puntos.<br>Para sumar +3, nuestras evidencias deben respaldar toda la afirmación.</p>
 </div>`,
 });
 
@@ -149,7 +149,7 @@ slide({
   notes: '[3:30–4:45] Cada equipo tiene 3 fichas para todo el juego y puede gastar como máximo una por fase. Si la objeción falla, la ficha se pierde. Cada objeción indica: equipo objetivo, categoría y UNA evidencia citada. Recorra las cuatro categorías con sus pruebas. Si varias categorías aplican, cualquiera vale. Contra una respuesta correcta, cualquier objeción falla. La defensa verbal es libre, pero no cambia el resultado: lo decide la clave.',
   body: `${JOIN_PILL}
 <div class="head-row a"><div><span class="kicker">Objeciones</span><h2 class="lg" style="margin-top:14px">3 fichas para todo el juego</h2></div></div>
-<p class="a lead" style="margin-top:10px">Máximo una por fase · se gasta aunque falle · indiquen <b class="accent">equipo objetivo, categoría y UNA evidencia</b></p>
+<p class="a lead" style="margin-top:10px">Gastamos una ficha por ronda, aunque falle, y elegimos <b class="accent">equipo, motivo y una evidencia</b>.</p>
 <div class="a decide-grid">
 <div class="flow-step"><div class="step-glow"></div><div class="step-num">Contradicción</div><div class="step-title">Un dato es falso</div><div class="step-desc">Algún dato de la afirmación choca con lo que muestra una evidencia.</div><div class="step-cite">Cita: la evidencia que lo contradice</div></div>
 <div class="flow-step"><div class="step-glow"></div><div class="step-num">Certeza injustificada</div><div class="step-title">Da por seguro lo que no lo es</div><div class="step-desc">Identidad, intención, culpa, «imposible», «demostrado»… sin que la evidencia lo establezca.</div><div class="step-cite">Cita: la que lo deja abierto o lo desmiente, o una de las suyas</div></div>
@@ -165,10 +165,10 @@ slide({
   body: `${JOIN_PILL}
 <div class="a"><span class="kicker">Ritmo</span><h2 class="lg" style="margin-top:14px">Así es cada ronda · 10 minutos</h2></div>
 <div class="a timeline">
-<div class="seg glass-dark" style="flex:1"><span class="dur">1:00</span><span class="name">Revelación</span><span class="desc">Nuevas evidencias en pantalla y en la app.</span></div>
-<div class="seg glass-dark" style="flex:1.3"><span class="dur">2:00</span><span class="name">Deliberación</span><span class="desc">Afirmación + 1–2 evidencias + acción. Se bloquea.</span></div>
-<div class="seg glass-dark" style="flex:1.4"><span class="dur">2:30</span><span class="name">Defensa</span><span class="desc">5 portavoces × 30 s. Portavoz distinto cada ronda.</span></div>
-<div class="seg glass-dark" style="flex:1"><span class="dur">0:45</span><span class="name">Objeciones</span><span class="desc">¿Gastan una ficha? Objetivo, categoría, evidencia.</span></div>
+<div class="seg glass-dark" style="flex:1"><span class="dur">1:00</span><span class="name">Revelación</span><span class="desc">Revisamos las pistas nuevas.</span></div>
+<div class="seg glass-dark" style="flex:1.3"><span class="dur">2:00</span><span class="name">Deliberación</span><span class="desc">Elegimos afirmación, evidencias y acción, y sellamos la respuesta.</span></div>
+<div class="seg glass-dark" style="flex:1.4"><span class="dur">2:30</span><span class="name">Defensa</span><span class="desc">Una persona distinta nos representa durante 30 s cada ronda.</span></div>
+<div class="seg glass-dark" style="flex:1"><span class="dur">0:45</span><span class="name">Objeciones</span><span class="desc">Elegimos si gastamos una ficha para objetar.</span></div>
 <div class="seg glass-dark" style="flex:1.5"><span class="dur">3:00</span><span class="name">Confrontación</span><span class="desc">Hasta 5 intercambios: ataque 18 s · defensa 18 s.</span></div>
 <div class="seg glass-dark" style="flex:1"><span class="dur">0:45</span><span class="name">Resultados</span><span class="desc">Marcador y cierre de ronda.</span></div>
 </div>
@@ -203,8 +203,8 @@ slide({
   body: `${JOIN_PILL}
 <div class="a quote-block">
 <div class="a quote-mark">&ldquo;</div>
-<p class="a quote-text" style="font-size:40px">Mi hermano Leo tiene 14 años y le ofrecieron un «pase directo» para un torneo de su videojuego. Algo no me cierra. ¿Me ayudan a pensar qué podemos afirmar y qué deberíamos hacer?</p>
-<p class="a quote-attr">&mdash; <span>Marina Márquez</span>, 20 años</p>
+<p class="a quote-text" style="font-size:40px">A mi hermano Leo, de 14 años, le ofrecieron un pase directo a un torneo. Algo no me cuadra. ¿Me ayudan a revisarlo?</p>
+<p class="a quote-attr">- <span>Marina Márquez</span>, 20 años</p>
 </div>`,
 });
 
@@ -228,20 +228,19 @@ const released = [];
 function optionsSlide({ r, id, grad, title, notes, phase, phaseLabel, duration, timerGroup }) {
   const avail = [...released];
   const isNew = (e) => evById[e].round === r.id;
-  const dense = Math.max(...r.claims.map((c) => c.length)) > 150 ? ' dense' : '';
   slide({
     id, grad, cls: 'layout-wide', title, notes, round: r.id, phase, phaseLabel, duration, timerGroup,
     body: `<div class="a"><span class="kicker">${r.id === 'FINAL' ? 'Final' : 'Ronda ' + r.number}<span class="sep">·</span>${esc(phaseLabel)}</span>
 <h2 class="question" style="margin-top:14px;max-width:1180px">${esc(r.question)}</h2></div>
-<div class="a opts${dense}">
-<div><h3>Afirmaciones</h3><div class="opt-list">
+<div class="a opts">
+<div><h3>¿Qué creemos?</h3><div class="opt-list">
 ${r.claims.map((c, i) => `<div class="opt glass-dark"><span class="chip">C${i + 1}</span><p>${esc(c)}</p></div>`).join('\n')}
 </div></div>
-<div><h3>Acciones</h3><div class="opt-list">
+<div><h3>¿Qué hacemos?</h3><div class="opt-list">
 ${r.actions.map((a, i) => `<div class="opt glass-dark"><span class="chip">A${i + 1}</span><p>${esc(a)}</p></div>`).join('\n')}
 </div></div>
 </div>
-<div class="a ev-avail"><span>Evidencias disponibles:</span>${avail.map((e) => `<span class="chip sm${isNew(e) ? '' : ' ghost'}">${e}</span>`).join('')}<span style="margin-left:auto" class="lock-hint">Bloqueen: <b>1 afirmación · 1–2 evidencias · 1 acción</b></span></div>`,
+<div class="a ev-avail"><span>Nuestras pistas:</span>${avail.map((e) => `<span class="chip sm${isNew(e) ? '' : ' ghost'}">${e}</span>`).join('')}<span style="margin-left:auto" class="lock-hint">Elegimos: <b>1 afirmación · 1–2 evidencias · 1 acción</b></span></div>`,
   });
 }
 
@@ -280,8 +279,8 @@ function liveSlides({ r, prefix, grad, defenseName, defenseSecs, defenseTotal, n
     id: `${prefix}-objeciones`, grad: 8, cls: 'layout-wide', title: `${label} · Objeciones`,
     round: r.id, phase: 'objection', phaseLabel: 'Objeciones', duration: 45, notes: notes.objection,
     body: `<div class="a"><span class="kicker">${label}<span class="sep">·</span>Objeciones</span>
-<h2 class="lg" style="margin-top:12px">¿Gastan una ficha?</h2></div>
-<p class="a lead" style="margin-top:6px">En la app: <b class="accent">equipo objetivo · categoría · una evidencia</b>. Máximo una por fase; si falla, se pierde.</p>
+<h2 class="lg" style="margin-top:12px">¿Gastamos una ficha?</h2></div>
+<p class="a lead" style="margin-top:6px">Elegimos <b class="accent">equipo, motivo y una evidencia</b>, y gastamos una ficha aunque falle.</p>
 <div class="a token-strip" data-live="tokens" data-round="${r.id}"></div>
 <div class="a cards-grid cols-4" style="margin-top:22px;gap:14px">
 <div class="glass-dark" style="padding:16px 18px"><h3 style="font-size:19px;color:var(--accent)">Contradicción</h3><p style="font-size:16.5px;line-height:1.45">Un dato es falso según una evidencia.</p></div>
@@ -298,11 +297,11 @@ function liveSlides({ r, prefix, grad, defenseName, defenseSecs, defenseTotal, n
     body: `<div class="a"><span class="kicker">${label}<span class="sep">·</span>Confrontación</span>
 <h2 class="lg" style="margin-top:12px">Ataque y defensa</h2></div>
 <div class="a flow-container" style="max-width:1100px;margin-top:26px">
-<div class="flow-step"><div class="step-glow"></div><div class="step-num">18 s</div><div class="step-title" style="font-size:26px">Ataque</div><div class="step-desc" style="font-size:18px">El equipo que objetó explica su categoría y la evidencia citada.</div></div>
+<div class="flow-step"><div class="step-glow"></div><div class="step-num">18 s</div><div class="step-title" style="font-size:26px">Ataque</div><div class="step-desc" style="font-size:18px">Explicamos qué falla y mostramos nuestra evidencia.</div></div>
 <div class="flow-arrow">&rarr;</div>
-<div class="flow-step"><div class="step-glow"></div><div class="step-num">18 s</div><div class="step-title" style="font-size:26px">Defensa</div><div class="step-desc" style="font-size:18px">El equipo objetado responde. La defensa verbal es libre.</div></div>
+<div class="flow-step"><div class="step-glow"></div><div class="step-num">18 s</div><div class="step-title" style="font-size:26px">Defensa</div><div class="step-desc" style="font-size:18px">Si nos objetan, explicamos por qué elegimos esa respuesta.</div></div>
 <div class="flow-arrow">&rarr;</div>
-<div class="flow-step"><div class="step-glow"></div><div class="step-num">× 5 como máximo</div><div class="step-title" style="font-size:26px">Una por objeción</div><div class="step-desc" style="font-size:18px">Cada equipo objeta como mucho una vez por fase: hay, a lo sumo, cinco intercambios.</div></div>
+<div class="flow-step"><div class="step-glow"></div><div class="step-num">× 5 como máximo</div><div class="step-title" style="font-size:26px">Una por objeción</div><div class="step-desc" style="font-size:18px">Cada equipo puede objetar una vez por ronda.</div></div>
 </div>
 <div class="a obj-list" data-live="objections" data-round="${r.id}"></div>`,
   });

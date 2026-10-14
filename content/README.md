@@ -51,6 +51,13 @@ Las evidencias de rondas anteriores siguen disponibles: en `public.json`, cada r
 revelan en ella** (`revealed_in`), y la aplicación debe acumularlas. Cada evidencia tiene una transcripción
 completa en `body`, generada de los mismos datos que dibujan la imagen, de modo que texto e imagen coinciden.
 
+Los títulos son cortos y la pregunta de la ronda viaja por separado en `question`. Cada evidencia incluye un
+`summary` neutral de una frase para las listas de selección; «Ver evidencia» abre la transcripción completa y
+la captura original. Estos campos son opcionales en el contrato v1.0 para mantener compatibles otros paquetes.
+Las afirmaciones y acciones usan una sola frase de hasta 24 palabras, con una voz cercana de equipo, sin
+cambiar sus ids, el grado de certeza ni la lógica de puntuación. Las pruebas de texto comprueban ese límite y
+que `public.json` esté regenerado desde la fuente. Ver [criterios de redacción](../docs/TEXTOS-JUGADORES.md).
+
 **Cronología canónica (2026):** lun 7 sep anuncio del Semillero · lun 21 sep se crea RaiCoach_ATL ·
 mar 29 sep primer mensaje · mié 30 sep cierre de inscripciones · jue 1 oct paso a Susurro y mensaje de Dani ·
 sáb 3 oct clasificatorio online 10:00–14:00 con corte de transmisión 12:00–12:15 · lun 5 oct regalo ·

@@ -52,6 +52,7 @@ export const EVIDENCE = [
   {
     id: 'E01', round: 'R1', kind: 'web',
     label: 'Página web del club',
+    summary: 'El club publica las reglas del Semillero.',
     source: 'clubatalaya.gg/semillero',
     when: 'Publicada el lunes 7 de septiembre de 2026',
     web: {
@@ -79,6 +80,7 @@ export const EVIDENCE = [
   {
     id: 'E02', round: 'R1', kind: 'game-chat',
     label: 'Chat privado de Fractal Arena',
+    summary: 'Leo recibe una invitación de RaiCoach_ATL.',
     source: 'Fractal Arena · Mensajes',
     when: 'Martes 29 de septiembre de 2026',
     chat: {
@@ -96,6 +98,7 @@ export const EVIDENCE = [
   {
     id: 'E03', round: 'R1', kind: 'game-profile',
     label: 'Perfil de jugador: RaiCoach_ATL',
+    summary: 'Así se presenta RaiCoach_ATL en el juego.',
     source: 'Fractal Arena · Perfil',
     when: 'Captura de Leo, martes 29 de septiembre de 2026, 21:55',
     profile: {
@@ -117,6 +120,7 @@ export const EVIDENCE = [
   {
     id: 'E04', round: 'R1', kind: 'game-profile',
     label: 'Perfil de jugador: LeoNova14',
+    summary: 'Este es el perfil de Leo en Fractal Arena.',
     source: 'Fractal Arena · Perfil',
     when: 'Captura de Leo, martes 29 de septiembre de 2026, 21:56',
     profile: {
@@ -144,6 +148,7 @@ export const EVIDENCE = [
   {
     id: 'E05', round: 'R2', kind: 'game-chat',
     label: 'Chat privado de Fractal Arena',
+    summary: 'RaiCoach_ATL propone seguir la charla en Susurro.',
     source: 'Fractal Arena · Mensajes',
     when: 'Jueves 1 de octubre de 2026',
     chat: {
@@ -162,6 +167,7 @@ export const EVIDENCE = [
   {
     id: 'E06', round: 'R2', kind: 'game-chat',
     label: 'Chat privado de Fractal Arena',
+    summary: 'Dani invita a Leo al grupo del colegio.',
     source: 'Fractal Arena · Mensajes',
     when: 'Jueves 1 de octubre de 2026',
     chat: {
@@ -178,6 +184,7 @@ export const EVIDENCE = [
   {
     id: 'E07', round: 'R2', kind: 'group-info',
     label: 'Información de un grupo de Susurro',
+    summary: 'Así está organizado el grupo Los Zurdos.',
     source: 'Susurro · Info del grupo',
     when: 'Captura de Leo, viernes 2 de octubre de 2026',
     group: {
@@ -197,6 +204,7 @@ export const EVIDENCE = [
   {
     id: 'E08', round: 'R2', kind: 'web',
     label: 'Página web del club',
+    summary: 'El club responde dudas sobre el Semillero.',
     source: 'clubatalaya.gg/semillero/preguntas',
     when: 'Publicada el lunes 7 de septiembre de 2026',
     web: {
@@ -217,6 +225,7 @@ export const EVIDENCE = [
   {
     id: 'E09', round: 'R3', kind: 'lumen-profile',
     label: 'Perfil de Lumen: @rai.atalaya',
+    summary: 'Así se presenta @rai.atalaya en Lumen.',
     source: 'Lumen · Perfil',
     when: 'Captura de Marina, jueves 8 de octubre de 2026',
     lumen: {
@@ -235,6 +244,7 @@ export const EVIDENCE = [
   {
     id: 'E10', round: 'R3', kind: 'email',
     label: 'Correo del club',
+    summary: 'El club responde a Carmen y Marina el 9 de octubre.',
     source: 'Correo electrónico',
     when: 'Viernes 9 de octubre de 2026, 10:32',
     email: {
@@ -254,6 +264,7 @@ export const EVIDENCE = [
   },
   {
     id: 'E11', round: 'R3', kind: 'lumen-post',
+    summary: 'El club publica los horarios del directo del 3 de octubre.',
     label: 'Publicación de Lumen de @clubatalaya',
     source: 'Lumen · Publicación',
     when: 'Sábado 3 de octubre de 2026, 09:45',
@@ -269,6 +280,7 @@ export const EVIDENCE = [
   },
   {
     id: 'E12', round: 'R3', kind: 'phone-chat',
+    summary: 'rf_coach escribe a Leo durante el clasificatorio.',
     label: 'Chat de Susurro con rf_coach',
     source: 'Susurro · Chat',
     when: 'Captura de Leo, sábado 3 de octubre de 2026, 13:40',
@@ -292,6 +304,7 @@ export const EVIDENCE = [
   {
     id: 'E13', round: 'R4', kind: 'game-notification',
     label: 'Notificación de regalo en Fractal Arena',
+    summary: 'Leo recibe un regalo de Cristales.',
     source: 'Fractal Arena · Notificaciones',
     when: 'Lunes 5 de octubre de 2026, 20:14',
     notification: {
@@ -305,6 +318,7 @@ export const EVIDENCE = [
   },
   {
     id: 'E14', round: 'R4', kind: 'phone-chat',
+    summary: 'rf_coach pide una videollamada y fotos del cuarto.',
     label: 'Chat de Susurro con rf_coach',
     source: 'Susurro · Chat',
     when: 'Captura de Leo, miércoles 7 de octubre de 2026, 22:51',
@@ -325,6 +339,7 @@ export const EVIDENCE = [
   },
   {
     id: 'E15', round: 'R4', kind: 'phone-chat',
+    summary: 'rf_coach propone una prueba privada para el 17 de octubre.',
     label: 'Chat de Susurro con rf_coach',
     source: 'Susurro · Chat',
     when: 'Captura de Marina, sábado 10 de octubre de 2026, 18:02',
@@ -346,6 +361,7 @@ export const EVIDENCE = [
   {
     id: 'E16', round: 'R4', kind: 'email',
     label: 'Correo del club',
+    summary: 'Carmen recibe un correo de inscripciones del club.',
     source: 'Correo electrónico',
     when: 'Lunes 12 de octubre de 2026, 09:15',
     email: {
@@ -367,6 +383,7 @@ export const EVIDENCE = [
   {
     id: 'E17', round: 'FINAL', kind: 'platform-notice',
     label: 'Aviso del Centro de Seguridad de Lumen',
+    summary: 'Lumen responde al reporte de @rai.atalaya.',
     source: 'Lumen · Centro de Seguridad',
     when: 'Martes 13 de octubre de 2026, 08:40',
     notice: {
@@ -384,6 +401,7 @@ export const EVIDENCE = [
   {
     id: 'E18', round: 'FINAL', kind: 'email',
     label: 'Correo del club',
+    summary: 'El club envía novedades del caso el 13 de octubre.',
     source: 'Correo electrónico',
     when: 'Martes 13 de octubre de 2026, 12:10',
     email: {
@@ -411,95 +429,95 @@ export const ROUNDS = [
     id: 'R1',
     number: 1,
     name: 'La invitación',
-    question: '¿Qué respalda la oferta de «pase directo» que recibió Leo?',
+    question: '¿Ese pase directo es real?',
     claims: [
-      'El Semillero existe y su cuerpo técnico puede invitar a jugadores; por lo tanto, quien le escribe a Leo es de verdad el entrenador Rai Ferrer.',
-      'RaiCoach_ATL no es una cuenta nueva: lleva años en el servidor siguiendo partidas y conoce bien el nivel de jugadores como Leo.',
-      'Está claro que el «pase directo» de RaiCoach_ATL no figura en las bases: según la web del club, a la final se pasa desde el clasificatorio.',
-      'RaiCoach_ATL miente desde el primer mensaje: dice que vio a Leo en clasificatorias, pero Leo no había jugado ni una partida clasificatoria antes del 3 de octubre.',
-      'Que un adulto desconocido le escriba a un menor por el chat del juego ya demuestra que se trata de un caso de grooming.',
+      'Si el club existe y sus técnicos buscan jugadores, RaiCoach_ATL tiene que ser el verdadero Rai Ferrer.',
+      'RaiCoach_ATL lleva años viendo partidas y conoce bien a jugadores como Leo.',
+      'Ese pase no cuadra: el club dice que hay que jugar el clasificatorio para llegar a la final.',
+      'RaiCoach_ATL miente: Leo no jugó ninguna clasificatoria antes del 3 de octubre.',
+      'Que un adulto desconocido escriba a Leo por el juego ya demuestra que es grooming.',
     ],
     actions: [
-      'Responderle con su edad, su ciudad y su colegio: el Semillero existe, la plaza parece real y esos datos no son tan delicados.',
-      'Consultar al club por su canal oficial, para comprobar si esa cuenta y ese «pase directo» son reales.',
-      'Avisar en el chat del clan de que Rai Ferrer, el entrenador del Atalaya, intenta engañar a menores.',
-      'Bloquear la cuenta y borrar el chat para cortar el contacto de raíz, y que Leo siga jugando como si nada hubiera pasado.',
+      'Démosle la edad, la ciudad y el colegio de Leo, porque la plaza parece real.',
+      'Preguntemos al club por su canal oficial si la cuenta y el pase son reales.',
+      'Avisemos al clan de que Rai Ferrer está engañando a menores.',
+      'Bloqueemos la cuenta y borremos el chat para que Leo siga jugando tranquilo.',
     ],
   },
   {
     id: 'R2',
     number: 2,
     name: 'Secretos y canales',
-    question: '¿Qué distingue un secreto inocente de una señal de alerta?',
+    question: '¿Son iguales los dos secretos?',
     claims: [
-      'Dani también pidió un dato personal de Leo y un secreto; por lo tanto, su conducta debe preocupar tanto como la de RaiCoach_ATL.',
-      'Los dos secretos son muy distintos: Dani pide guardar una jugada ante un equipo rival, mientras RaiCoach_ATL pide ocultar el contacto a la familia.',
-      'El paso a Susurro demuestra que RaiCoach_ATL no es el verdadero Rai Ferrer: el club dice que su personal nunca sigue conversaciones por apps externas.',
-      'RaiCoach_ATL le recordó a Leo que su madre debía completar la inscripción en el Portal Familias, tal como pide el club en sus bases.',
-      'El club dice que su personal nunca sigue conversaciones por apps externas; por lo tanto, el paso a Susurro queda fuera de los canales del Semillero.',
+      'Dani también pide datos y un secreto, así que preocupa tanto como RaiCoach_ATL.',
+      'Dani guarda una jugada frente al rival, pero RaiCoach_ATL pide ocultar el contacto a la familia.',
+      'RaiCoach_ATL no puede ser Rai Ferrer, porque está usando Susurro y los entrenadores del club tienen prohibido hablar por apps externas.',
+      'RaiCoach_ATL le recordó a Leo que su mamá tenía que completar la inscripción en el Portal Familias.',
+      'Pasarse a Susurro rompe las normas del Semillero, porque el club prohíbe seguir la charla por apps externas.',
     ],
     actions: [
-      'Seguir hablando con RaiCoach_ATL en Susurro, solo de temas del juego y sin dar ningún dato, hasta que el club publique la lista de la final.',
-      'Enviarle a RaiCoach_ATL las preguntas frecuentes del club y exigirle que explique por qué no cumple sus normas.',
-      'Contárselo a su madre, para que ella consulte al club por el canal oficial si ese contacto es suyo.',
-      'Pedirle a Dani, que conoce bien el juego, que escriba a rf_coach haciéndose pasar por Leo para ver qué responde.',
+      'Sigamos hablando del juego por Susurro sin dar datos hasta que el club publique los finalistas.',
+      'Mandémosle las normas del club y pidámosle que explique por qué no las cumple.',
+      'Contémoselo a la mamá de Leo para que consulte al club por su canal oficial.',
+      'Pidámosle a Dani que se haga pasar por Leo y escriba a rf_coach.',
     ],
   },
   {
     id: 'R3',
     number: 3,
     name: '¿Quién está detrás?',
-    question: '¿Qué podemos afirmar —y qué no— sobre la identidad de quien escribe?',
+    question: '¿Sabemos quién escribe?',
     claims: [
-      'Los horarios del 3 de octubre dejan abierta la identidad: rf_coach escribió durante la narración y también durante el corte.',
-      'Según el correo del club, Rai Ferrer admitió que las tres cuentas son suyas, aunque asegura que las usa solo para buscar talento joven.',
-      'Como el club confirma que Rai Ferrer es su entrenador, las cuentas que usan su nombre y su foto también son suyas.',
-      'La foto de perfil de @rai.atalaya es la misma imagen de Rai Ferrer que aparece en la web del Semillero.',
-      'rf_coach no puede ser Rai Ferrer: todos sus mensajes del sábado 3 de octubre se enviaron mientras Rai narraba en vivo el clasificatorio.',
+      'rf_coach escribió durante el directo y durante el corte, así que los horarios no aclaran quién es.',
+      'El club dice que Rai Ferrer admitió usar las tres cuentas para buscar jugadores.',
+      'Si el club confirma que Rai Ferrer es su entrenador, las cuentas con su nombre y foto tienen que ser suyas.',
+      'La foto de @rai.atalaya es la misma que tiene Rai Ferrer en la web del club.',
+      'rf_coach no puede ser Rai Ferrer, porque todos sus mensajes llegaron mientras Rai narraba en vivo.',
     ],
     actions: [
-      'Guardar capturas con fecha y hora de chats y perfiles antes de que se borren, y que Leo deje de responder.',
-      'Que Leo siga respondiendo con normalidad y sin dar datos, para no levantar sospechas mientras el club termina de investigar.',
-      'Responder al correo del club adjuntando todas las capturas guardadas.',
-      'Que Carmen le escriba a rf_coach desde el móvil de Leo, se identifique como su madre y le exija que deje en paz a su hijo.',
+      'Guardemos capturas con fecha y hora antes de que se borren y pidamos a Leo que deje de responder.',
+      'Que Leo siga respondiendo sin dar datos mientras el club investiga, para no levantar sospechas.',
+      'Respondamos al correo del club con todas las capturas.',
+      'Que Carmen se presente como su mamá desde el móvil de Leo y exija a rf_coach que deje de escribirle.',
     ],
   },
   {
     id: 'R4',
     number: 4,
     name: 'La escalada',
-    question: '¿Hay ya un riesgo claro que justifique denunciar?',
+    question: '¿Ya hay motivos para denunciar?',
     claims: [
-      'Todavía es pronto para denunciar: mientras no se sepa quién está detrás de rf_coach, cualquier denuncia sería precipitada y podría perjudicar a un inocente.',
-      'El correo del 12 de octubre es otro intento de engaño: pide datos de Leo, igual que rf_coach, y llega por un canal que no es el que usa el club.',
-      'Videollamada a solas, fotos de su cuarto y una cita sin adultos: con eso ya hay motivo para denunciar, sin esperar a saber quién escribe.',
-      'Ya está probado que rf_coach es Rai Ferrer: firma con sus iniciales y escribió «tengo un respiro» justo en el corte de la transmisión.',
-      'La «prueba privada» del 17 no es del Semillero: la única cita presencial que anuncia el club es la final del 24, en la sede y con un adulto.',
+      'Sin saber quién es rf_coach, denunciar sería precipitarse y podría perjudicar a un inocente.',
+      'El correo del día 12 también es una trampa: pide datos y usa un canal ajeno al club.',
+      'Pedir videollamada a solas, fotos del cuarto y una cita sin adultos ya basta para denunciar, aunque no sepamos quién escribe.',
+      'rf_coach es Rai Ferrer seguro: firma con sus iniciales y escribió «tengo un respiro» justo cuando se cortó la transmisión.',
+      'La prueba del 17 no es del club, que solo anuncia la final del 24 en su sede y con adultos.',
     ],
     actions: [
-      'Que Leo acepte la cita del 17 y Marina lo acompañe a escondidas para desenmascararlo.',
-      'Publicar en Lumen las capturas, con el nombre de Leo tapado, para que otras familias del Semillero estén alerta cuanto antes.',
-      'Responderle a rf_coach que la familia ya avisó a la policía, para que se asuste, desaparezca y no vuelva a escribir a Leo.',
-      'Guardar las pruebas y, con su madre, reportar las cuentas en las plataformas y denunciar ante el club y la policía.',
+      'Aceptemos la cita del 17 y que Marina acompañe a Leo a escondidas para descubrir quién es.',
+      'Publiquemos las capturas en Lumen con el nombre de Leo tapado para alertar a otras familias.',
+      'Digámosle a rf_coach que avisamos a la policía para asustarlo y que deje de escribir.',
+      'Guardemos las pruebas y, con la mamá de Leo, reportemos las cuentas y denunciemos ante el club y la policía.',
     ],
   },
   {
     id: 'FINAL',
     number: 5,
     name: 'Veredicto',
-    question: '¿Qué sostiene la evidencia completa y qué hacemos ahora?',
+    question: '¿Qué sabemos y qué hacemos ahora?',
     claims: [
-      'Nunca hubo riesgo real: quien suplantaba al entrenador no buscaba más que los cristales y la cuenta de Leo, como en tantas estafas del juego.',
-      'Es seguro que el caso sigue abierto tras suspender @rai.atalaya: rf_coach dejó otro contacto, @r.ferrer.pro, que esa suspensión deja fuera.',
-      'Rai Ferrer manejaba las cuentas desde el principio, y el club, en lugar de investigarlo, intenta encubrirlo con un comunicado a las familias.',
-      'Las cuentas suplantaban a Rai Ferrer y mostraron señales de captación; quién está detrás y si cometió un delito lo determinará la investigación.',
-      'Está demostrado que detrás de las cuentas hay un depredador con más víctimas entre las familias del Semillero: por eso el club avisa a todas ellas.',
+      'Solo querían robar los Cristales y la cuenta de Leo, así que nunca hubo un riesgo real.',
+      'El caso sigue abierto seguro: suspendieron @rai.atalaya, pero rf_coach dejó otro contacto, @r.ferrer.pro.',
+      'Rai Ferrer llevaba las cuentas y el club intenta encubrirlo en vez de investigarlo.',
+      'Suplantaron a Rai Ferrer y hay señales de grooming, pero la investigación dirá quién está detrás y si hubo delito.',
+      'El aviso a todas las familias del Semillero demuestra que las cuentas son de un depredador y que ya hay más víctimas.',
     ],
     actions: [
-      'Mantener la denuncia, aportar @r.ferrer.pro y rf_coach a la investigación y acompañar a Leo con su familia y el club.',
-      'Dar el caso por cerrado con la suspensión, borrar las capturas para que Leo pase página y no volver a hablar del tema en casa.',
-      'Crear una cuenta falsa para seguir de cerca a @r.ferrer.pro, reunir más pruebas y entregar a la policía todo lo que se consiga.',
-      'Difundir en Lumen las capturas y el aviso del club, para que ninguna otra familia caiga en la trampa.',
+      'Sigamos con la denuncia, aportemos los contactos rf_coach y @r.ferrer.pro, y acompañemos a Leo con su familia y el club.',
+      'Borrémoslo todo y cerremos el tema en casa, porque la cuenta ya está suspendida.',
+      'Creemos una cuenta falsa para seguir a @r.ferrer.pro y llevar más pruebas a la policía.',
+      'Compartamos las capturas y el aviso del club en Lumen para que otras familias no caigan.',
     ],
   },
 ];

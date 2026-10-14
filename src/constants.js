@@ -26,10 +26,10 @@ export const OBJECTION_KIND_LABELS = Object.freeze({
 });
 
 export const OBJECTION_KIND_HELP = Object.freeze({
-  contradiction: 'La respuesta choca con una evidencia publicada.',
-  logical_leap: 'La conclusión no se sigue de la evidencia citada.',
-  unjustified_certainty: 'Afirma como seguro algo que la evidencia no demuestra.',
-  unsafe_action: 'La acción propuesta pone en riesgo a alguien.',
+  contradiction: 'Dicen algo que una evidencia contradice.',
+  logical_leap: 'Las evidencias que eligieron no alcanzan para decir eso.',
+  unjustified_certainty: 'Dan por seguro algo que las evidencias no demuestran.',
+  unsafe_action: 'Lo que proponen pone a alguien en riesgo.',
 });
 
 /** Enum estable de fases (API pública). */

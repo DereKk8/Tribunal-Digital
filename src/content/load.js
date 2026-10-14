@@ -88,6 +88,14 @@ export function loadContent(p) {
   return buildModel({ mode: p.mode, paths: p, publicCase, answerKey, projectionMap, publicText, keyText, warnings });
 }
 
+function evidenceSummary(evidence) {
+  if (evidence.summary) return evidence.summary;
+  // Los paquetes anteriores pueden tener ya una frase breve como transcripción.
+  const sentences = new Intl.Segmenter('es', { granularity: 'sentence' });
+  if (evidence.body.length <= 160 && !/[\r\n]/.test(evidence.body) && [...sentences.segment(evidence.body)].length === 1) return evidence.body;
+  return `Revisemos la evidencia ${evidence.id}.`;
+}
+
 function buildModel({ mode, paths, publicCase, answerKey, projectionMap, publicText, keyText, warnings }) {
   const fingerprint = createHash('sha256').update(publicText).update('\0').update(keyText).digest('hex');
   const teams = publicCase.teams.map((t) => ({ id: t.id, name: t.name }));
@@ -95,7 +103,8 @@ function buildModel({ mode, paths, publicCase, answerKey, projectionMap, publicT
     id: r.id,
     index,
     title: r.title,
-    evidence: r.evidence.map((e) => ({ id: e.id, body: e.body, asset_path: e.asset_path, revealed_in: e.revealed_in })),
+    question: r.question ?? null,
+    evidence: r.evidence.map((e) => ({ id: e.id, summary: evidenceSummary(e), body: e.body, asset_path: e.asset_path, revealed_in: e.revealed_in })),
     claims: r.claims.map((c) => ({ id: c.id, text: c.text })),
     actions: r.actions.map((a) => ({ id: a.id, text: a.text })),
   }));

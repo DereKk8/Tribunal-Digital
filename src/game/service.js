@@ -579,9 +579,9 @@ export class GameService {
       team: { id: team.id, name: team.name },
       tokens_remaining: tokens,
       released_evidence: this.releasedEvidence(g.stage_index).map((e) => ({
-        id: e.id, body: e.body, revealed_in: e.revealed_in, media_url: `/media/${encodeURIComponent(e.id)}`,
+        id: e.id, summary: e.summary, body: e.body, revealed_in: e.revealed_in, media_url: `/media/${encodeURIComponent(e.id)}`,
       })),
-      round: round ? { id: round.id, title: round.title, claims: round.claims, actions: round.actions } : null,
+      round: round ? { id: round.id, title: round.title, question: round.question, claims: round.claims, actions: round.actions } : null,
       my_response: myRow ? this._responseOut(myRow) : null,
       can_respond: stage.phase === 'deliberation' && !myRow,
       my_objection: myObj ? this._objectionOut(myObj) : null,
