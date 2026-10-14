@@ -560,6 +560,7 @@ export class GameService {
     const team = this.content.teamById.get(session.team_id);
     const roundId = stage.round_id;
     const round = roundId ? this.content.roundById.get(roundId) : null;
+    const released = this.releasedEvidence(g.stage_index);
     const myRow = roundId ? this.db.prepare('SELECT * FROM responses WHERE game_id = ? AND round_id = ? AND team_id = ?').get(g.id, roundId, team.id) : null;
     const myObj = roundId ? this.db.prepare('SELECT * FROM objections WHERE game_id = ? AND round_id = ? AND attacking_team_id = ?').get(g.id, roundId, team.id) : null;
     const tokens = this.tokensRemaining(g.id, team.id);
@@ -577,11 +578,13 @@ export class GameService {
     return {
       ...pub,
       team: { id: team.id, name: team.name },
+      case_intro: this.content.introduction,
       tokens_remaining: tokens,
-      released_evidence: this.releasedEvidence(g.stage_index).map((e) => ({
-        id: e.id, summary: e.summary, body: e.body, revealed_in: e.revealed_in, media_url: `/media/${encodeURIComponent(e.id)}`,
+      released_evidence: released.map((e) => ({
+        id: e.id, title: e.title, summary: e.summary, facts: e.facts, body: e.body, revealed_in: e.revealed_in, media_url: `/media/${encodeURIComponent(e.id)}`,
       })),
-      round: round ? { id: round.id, title: round.title, question: round.question, claims: round.claims, actions: round.actions } : null,
+      round: round ? { id: round.id, title: round.title, question: round.question, context: round.context, claims: round.claims, actions: round.actions } : null,
+      evidence_rounds: this.content.rounds.filter((r) => released.some((e) => e.revealed_in === r.id)).map((r) => ({ id: r.id, title: r.title, context: r.context })),
       my_response: myRow ? this._responseOut(myRow) : null,
       can_respond: stage.phase === 'deliberation' && !myRow,
       my_objection: myObj ? this._objectionOut(myObj) : null,

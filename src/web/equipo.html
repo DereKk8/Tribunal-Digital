@@ -25,6 +25,7 @@
     <span id="banda-reloj" class="banda-reloj" aria-hidden="true"></span>
   </div>
   <div class="drenaje" aria-hidden="true"><i id="drenaje"></i></div>
+  <div class="banda-herramientas"><button type="button" id="boton-pistas" class="boton-pistas" hidden aria-haspopup="dialog">Pistas</button></div>
 </header>
 
 <main class="contenedor">
@@ -46,6 +47,16 @@
     <div id="contenido"></div>
   </section>
 </main>
+
+<dialog id="archivo-pistas" class="archivo-pistas" aria-labelledby="titulo-pistas">
+  <header class="archivo-cabecera"><h2 id="titulo-pistas">Las pistas del caso</h2><button type="button" id="cerrar-pistas" class="quieto">Volver al juego</button></header>
+  <div id="contenido-pistas"></div>
+</dialog>
+
+<dialog id="visor-captura" class="visor-captura" aria-labelledby="titulo-captura">
+  <header class="archivo-cabecera"><h2 id="titulo-captura">Captura original</h2><button type="button" id="cerrar-captura" class="quieto">Volver a las pistas</button></header>
+  <div class="captura-completa"><img id="imagen-captura" alt=""></div>
+</dialog>
 
 <dialog id="dialogo" aria-labelledby="dialogo-titulo">
   <h2 id="dialogo-titulo"></h2>

@@ -195,6 +195,9 @@ button.ancho { width: 100%; }
 .ronda-codigo { color: var(--equipo-tinta); font: 800 15px/1 var(--f-display); font-stretch: 80%; margin-bottom: 8px; display: block; }
 .ronda-titulo { font-size: clamp(30px, 8.2vw, 42px); }
 .ronda-pregunta { font-size: 19px; margin: 12px 0 0; }
+.contexto-caso { margin: 0 0 22px; padding: 18px; background: var(--equipo-suave); border-radius: 8px; }
+.contexto-caso h2 { font-size: 17px; margin-bottom: 8px; }
+.contexto-caso p { margin: 0; line-height: 1.6; }
 .indicacion { border-left: 4px solid var(--equipo); padding: 4px 0 4px 14px; margin: 0 0 22px; font-size: 17px; }
 
 h2.seccion { font: 800 21px/1.15 var(--f-display); font-stretch: 112%; margin: 30px 0 12px; }
@@ -204,14 +207,33 @@ h2.seccion { font: 800 21px/1.15 var(--f-display); font-stretch: 112%; margin: 3
 .exhibicion { background: var(--folio); border: 1px solid var(--regla); border-radius: 4px; overflow: hidden; }
 .exhibicion-resumen { padding: 14px; margin: 0; }
 .exhibicion-resumen .tag { margin-right: 8px; }
-.lectura-evidencia { border-top: 1px solid var(--regla); }
-.lectura-evidencia summary { cursor: pointer; padding: 10px 14px; min-height: 44px; color: var(--equipo-tinta); font-size: 15px; font-weight: 700; }
-.lectura-evidencia[open] summary { border-bottom: 1px solid var(--regla); }
-.transcripcion { padding: 14px; font-size: 17px; line-height: 1.6; overflow-wrap: anywhere; }
-.transcripcion p:last-child { margin-bottom: 0; }
-.lectura-evidencia figure { margin: 0; padding: 0 14px 14px; }
-.lectura-evidencia figcaption { color: var(--tinta-2); font-size: 15px; margin-bottom: 8px; }
-.lectura-evidencia img { display: block; width: 100%; height: auto; border-radius: 3px; background: var(--regla-suave); }
+.pista { padding: 16px; min-width: 0; overflow-wrap: anywhere; }
+.pista > header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.pista h3 { font-size: 19px; line-height: 1.3; }
+.pista-resumen { margin-bottom: 10px; }
+.pista-datos { padding-left: 20px; margin: 0; line-height: 1.55; }
+.pista-datos li + li { margin-top: 8px; }
+.ver-pista { border: 0; border-top: 1px solid var(--regla); background: transparent; color: var(--equipo-tinta); width: 100%; justify-content: flex-start; padding: 10px 14px; font-size: 15px; }
+.ver-pista:hover:not(:disabled) { background: var(--equipo-suave); color: var(--equipo-tinta); }
+.pista > .ver-pista { margin-top: 12px; padding-left: 0; }
+.banda-herramientas { max-width: 640px; margin: 0 auto; padding: 8px 20px 10px; }
+.boton-pistas, .boton-pistas:hover:not(:disabled) { width: 100%; min-height: 40px; padding: 8px 12px; background: transparent; color: var(--sobre-equipo); border-color: currentColor; font-size: 15px; }
+.archivo-pistas, .visor-captura { padding: 0; width: min(640px, calc(100vw - 16px)); max-width: none; max-height: calc(100dvh - 16px); overflow: auto; overscroll-behavior: contain; }
+.archivo-cabecera { position: sticky; top: 0; z-index: 2; padding: 14px 16px; background: var(--folio); border-bottom: 1px solid var(--regla); display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.archivo-cabecera h2 { font-size: 21px; margin: 0; flex: 1 1 180px; }
+.archivo-cabecera button { padding: 8px 12px; font-size: 15px; }
+#contenido-pistas { padding: 16px; }
+.archivo-ronda { border-bottom: 1px solid var(--regla); }
+.archivo-ronda > summary { cursor: pointer; padding: 16px 0; font-size: 18px; font-weight: 700; }
+.archivo-ronda .pista { background: #fff; border: 1px solid var(--regla); border-radius: 6px; margin-bottom: 14px; scroll-margin-top: 110px; }
+.captura-evidencia { margin-top: 14px; border-top: 1px solid var(--regla); }
+.captura-evidencia summary { cursor: pointer; padding: 12px 0; font-size: 15px; font-weight: 700; }
+.ampliar-captura, .ampliar-captura:hover:not(:disabled) { display: block; width: 100%; min-width: 0; padding: 0; border: 0; background: var(--regla-suave); color: var(--tinta); }
+.ampliar-captura img { display: block; width: 100%; max-width: 100%; height: auto; object-fit: contain; border-radius: 4px; }
+.ampliar-captura span { display: block; padding: 10px; font-size: 15px; }
+.visor-captura { width: min(1200px, calc(100vw - 12px)); }
+.captura-completa { padding: 12px; }
+.captura-completa img { display: block; margin: 0 auto; width: 100%; height: auto; max-height: calc(100dvh - 170px); object-fit: contain; }
 .nueva { display: inline-block; font-weight: 700; color: var(--equipo-tinta); margin-right: 6px; }
 details.archivo { margin-top: 18px; border-top: 1px solid var(--regla); }
 details.archivo summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
@@ -322,7 +344,6 @@ details.archivo summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
 .alegato-detalle > div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--regla); }
 .alegato-detalle dt { font-weight: 700; color: var(--tinta-2); }
 .alegato-detalle dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
-.alegato-detalle > div:has(.lectura-evidencia[open]) { grid-template-columns: 1fr; gap: 6px; }
 .alegato-detalle .tag { margin: 0 6px 4px 0; }
 
 /* ------------------------------------------------------------------ alegatos públicos */

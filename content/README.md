@@ -51,9 +51,12 @@ Las evidencias de rondas anteriores siguen disponibles: en `public.json`, cada r
 revelan en ella** (`revealed_in`), y la aplicación debe acumularlas. Cada evidencia tiene una transcripción
 completa en `body`, generada de los mismos datos que dibujan la imagen, de modo que texto e imagen coinciden.
 
-Los títulos son cortos y la pregunta de la ronda viaja por separado en `question`. Cada evidencia incluye un
-`summary` neutral de una frase para las listas de selección; «Ver evidencia» abre la transcripción completa y
-la captura original. Estos campos son opcionales en el contrato v1.0 para mantener compatibles otros paquetes.
+Los títulos son cortos y la pregunta de la ronda viaja por separado en `question`. `introduction` explica el
+caso y cada ronda incluye un `context` que permite leerla sin haber visto las anteriores. Cada evidencia tiene
+un `title`, un `summary` de una frase y `facts` con los datos breves necesarios para jugar. «Pistas» está
+disponible en todas las pantallas; allí se ven el contexto y las capturas completas de las rondas ya reveladas.
+Las transcripciones se conservan en `body` como fuente, sin mostrarse en la lectura del juego.
+Estos campos son opcionales en el contrato v1.0 para mantener compatibles otros paquetes.
 Las afirmaciones y acciones usan una sola frase de hasta 24 palabras, con una voz cercana de equipo, sin
 cambiar sus ids, el grado de certeza ni la lógica de puntuación. Las pruebas de texto comprueban ese límite y
 que `public.json` esté regenerado desde la fuente. Ver [criterios de redacción](../docs/TEXTOS-JUGADORES.md).

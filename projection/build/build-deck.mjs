@@ -203,7 +203,7 @@ slide({
   body: `${JOIN_PILL}
 <div class="a quote-block">
 <div class="a quote-mark">&ldquo;</div>
-<p class="a quote-text" style="font-size:40px">A mi hermano Leo, de 14 años, le ofrecieron un pase directo a un torneo. Algo no me cuadra. ¿Me ayudan a revisarlo?</p>
+<p class="a quote-text" style="font-size:36px">${esc(CASE_INFO.introduction)}</p>
 <p class="a quote-attr">- <span>Marina Márquez</span>, 20 años</p>
 </div>`,
 });
@@ -232,6 +232,7 @@ function optionsSlide({ r, id, grad, title, notes, phase, phaseLabel, duration, 
     id, grad, cls: 'layout-wide', title, notes, round: r.id, phase, phaseLabel, duration, timerGroup,
     body: `<div class="a"><span class="kicker">${r.id === 'FINAL' ? 'Final' : 'Ronda ' + r.number}<span class="sep">·</span>${esc(phaseLabel)}</span>
 <h2 class="question" style="margin-top:14px;max-width:1180px">${esc(r.question)}</h2></div>
+<p class="a case-trail">Leo, de 14 años, recibió una oferta para el torneo del Club Atalaya; Marina, su hermana, nos pide comprobarla.</p>
 <div class="a opts">
 <div><h3>¿Qué creemos?</h3><div class="opt-list">
 ${r.claims.map((c, i) => `<div class="opt glass-dark"><span class="chip">C${i + 1}</span><p>${esc(c)}</p></div>`).join('\n')}
@@ -245,21 +246,15 @@ ${r.actions.map((a, i) => `<div class="opt glass-dark"><span class="chip">A${i +
 }
 
 function evidenceSlide({ e, r, idx, total, grad, timerGroup, phase, phaseLabel, duration, notesPrefix }) {
-  const phone = PHONE_KINDS.has(e.kind);
   slide({
     id: `${r.id === 'FINAL' ? 'final' : r.id.toLowerCase()}-${e.id.toLowerCase()}`,
-    grad, cls: 'ev-slide', title: `Evidencia ${e.id}`, round: r.id, phase, phaseLabel, duration, timerGroup,
-    notes: `${notesPrefix} Evidencia ${e.id} (${idx}/${total}). Lea en voz alta solo el encabezado: «${e.label}», ${e.when.charAt(0).toLowerCase() + e.when.slice(1)}. No señale detalles ni interprete: esa es la tarea de los equipos. La transcripción completa está en la app y en el texto alternativo de la imagen.`,
-    body: `<div class="ev-grid${phone ? ' phone' : ''}">
-<div class="ev-info a">
-<span class="kicker">${r.id === 'FINAL' ? 'Final' : 'Ronda ' + r.number}<span class="sep">·</span>Evidencia ${idx}/${total}</span>
-<div class="ev-id">${e.id}</div>
-<div class="ev-label">${esc(e.label)}</div>
-<div class="ev-meta"><b>Fuente</b>${esc(e.source)}</div>
-<div class="ev-meta"><b>Fecha</b>${esc(e.when)}</div>
-</div>
-<div class="ev-figure a">${evidenceSvg(e.id)}</div>
-</div>`,
+    grad, cls: 'layout-wide story-evidence', title: `Evidencia ${e.id}`, round: r.id, phase, phaseLabel, duration, timerGroup,
+    notes: `${notesPrefix} Pista ${e.id} (${idx}/${total}). Lea el contexto si alguien se incorpora ahora y después los hechos breves. No adelante conclusiones. La captura original se puede abrir desde Pistas en cualquier pantalla de la aplicación.`,
+    body: `<span class="a kicker">${r.id === 'FINAL' ? 'Final' : 'Ronda ' + r.number}<span class="sep">·</span>Pista ${e.id}</span>
+<h2 class="a lg story-title">${esc(e.title)}</h2>
+<div class="a story-grid"><aside class="story-reminder glass-dark"><h3>El caso hasta ahora</h3><p>${esc(r.context)}</p></aside>
+<article class="story-clue glass-dark"><p class="clue-summary">${esc(e.summary)}</p><ul>${e.facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul></article></div>
+<template id="original-${e.id}">${evidenceSvg(e.id)}</template>`,
   });
 }
 
@@ -333,10 +328,10 @@ for (const r of ROUNDS) {
       round: r.id, phase: 'reveal', phaseLabel: 'Revelación', duration: 60, timerGroup: group,
       notes: `[Ronda ${r.number} · Revelación · 1:00] Pulse T. Lea la pregunta de la ronda y recorra las ${evs.length} evidencias nuevas (unos 15 s cada una). Quedan disponibles en la app para todos los equipos y siguen disponibles en las rondas siguientes. No interprete ni subraye nada.`,
       body: `<span class="a kicker">Ronda ${r.number}<span class="sep">·</span>Revelación</span>
-<div class="a big-num">0${r.number}</div>
-<h2 class="a xl text-center">${esc(r.name)}</h2>
+<h2 class="a lg text-center">${esc(r.name)}</h2>
+<p class="a round-story">${esc(r.context)}</p>
 <p class="a question">${esc(r.question)}</p>
-<div class="a phase-strip">${ROUND_TIMES.map(([n, t]) => `<span><b>${fmt(t)}</b>${n}</span>`).join('')}</div>`,
+<div class="a round-clues">${evs.map((e) => `<article class="glass-dark"><span class="chip sm">${e.id}</span><h3>${esc(e.title)}</h3><p>${esc(e.summary)}</p></article>`).join('')}</div>`,
     });
     evs.forEach((e, i) => evidenceSlide({ e, r, idx: i + 1, total: evs.length, grad: 9, timerGroup: group, phase: 'reveal', phaseLabel: 'Revelación', duration: 60, notesPrefix: `[Ronda ${r.number} · Revelación]` }));
     optionsSlide({
@@ -351,11 +346,10 @@ for (const r of ROUNDS) {
       round: r.id, phase: 'deliberation', phaseLabel: 'Análisis', duration: 90, timerGroup: group,
       notes: '[Final · Análisis · 1:30] Pulse T: el reloj de 1:30 cubre estas diapositivas y la de opciones. Presente las dos evidencias nuevas leyendo solo su encabezado; luego avance a la diapositiva de afirmaciones y acciones. Los equipos analizan y bloquean dentro de este mismo tiempo.',
       body: `<div class="a"><span class="kicker">Final<span class="sep">·</span>Análisis</span>
-<h2 class="lg" style="margin-top:12px">Veredicto: dos evidencias nuevas</h2>
+<h2 class="lg" style="margin-top:12px">Veredicto</h2>
 <p class="question" style="margin-top:8px;font-size:26px">${esc(r.question)}</p></div>
-<div class="a ev-pair">
-${evs.map((e) => `<figure><figcaption><span class="chip sm">${e.id}</span>${esc(e.label)}</figcaption><div class="fig">${evidenceSvg(e.id).replace(/id="(E\d\d)-/g, 'id="pair-$1-').replace(/aria-labelledby="(E\d\d)-title (E\d\d)-desc"/, 'aria-labelledby="pair-$1-title pair-$2-desc"').replace(/url\(#(E\d\d)-/g, 'url(#pair-$1-')}</div></figure>`).join('\n')}
-</div>`,
+<p class="a round-story">${esc(r.context)}</p>
+<div class="a final-clues">${evs.map((e) => `<article class="glass-dark"><span class="chip sm">${e.id}</span><h3>${esc(e.title)}</h3><p>${esc(e.summary)}</p><ul>${e.facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul></article>`).join('')}</div>`,
     });
     evs.forEach((e, i) => evidenceSlide({ e, r, idx: i + 1, total: evs.length, grad: 9, timerGroup: group, phase: 'deliberation', phaseLabel: 'Análisis', duration: 90, notesPrefix: '[Final · Análisis]' }));
     optionsSlide({

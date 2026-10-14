@@ -9,6 +9,7 @@ export const SCHEMA_VERSION = '1.0';
 
 export const CASE_INFO = {
   title: 'El pase directo',
+  introduction: 'Leo tiene 14 años y quiere jugar el torneo del Club Atalaya. Su mamá ya lo inscribió. Un contacto dice ser Rai Ferrer, el entrenador, y le ofrece un pase directo a la final. Marina, su hermana, nos pide averiguar si la oferta es real y cómo ayudar a Leo.',
   tagline: 'Un caso ficticio sobre ofertas, perfiles y secretos en un videojuego en línea',
   disclaimer:
     'Caso ficticio. Las personas, cuentas, marcas, sitios y dominios son inventados. No contiene material sexual explícito.',
@@ -26,17 +27,17 @@ export const TEAMS = [
 
 // Personajes y glosario (se muestran en la introducción; no revelan rondas futuras).
 export const CHARACTERS = [
-  { name: 'Leo Márquez', role: '14 años. Juega a Fractal Arena como «LeoNova14».' },
-  { name: 'Marina Márquez', role: '20 años, hermana de Leo. Reúne el expediente con permiso de Leo.' },
-  { name: 'Carmen Ruiz', role: 'Madre de Leo. Es la persona adulta inscrita en el club.' },
-  { name: 'Club Atalaya eSports', role: 'Club que organiza el Semillero Atalaya 2026 para jugadores de 13 a 17 años.' },
+  { name: 'Leo Márquez', role: 'Tiene 14 años y quiere jugar el torneo del club.' },
+  { name: 'Marina Márquez', role: 'Es la hermana mayor de Leo y reúne las pruebas con su permiso.' },
+  { name: 'Carmen Ruiz', role: 'Es la mamá de Leo y hace su inscripción al torneo.' },
+  { name: 'Club Atalaya', role: 'Organiza el torneo para jugadores de 13 a 17 años.' },
 ];
 
 export const GLOSSARY = [
-  { term: 'Fractal Arena', text: 'Videojuego en línea. Tiene partidas «normales» y «clasificatorias» (por rango), chat privado y regalos de «Cristales».' },
-  { term: 'Lumen', text: 'Red social de fotos y videos. La insignia ✓ indica una cuenta verificada.' },
-  { term: 'Susurro', text: 'App de mensajería. Permite activar «mensajes temporales», que se borran solos.' },
-  { term: 'Portal Familias', text: 'Web del club donde la persona adulta inscrita hace los trámites del Semillero.' },
+  { term: 'El juego', text: 'Leo habla con otros jugadores y recibe regalos virtuales.' },
+  { term: 'La red social', text: 'La insignia indica que la plataforma verificó una cuenta.' },
+  { term: 'La app de mensajes', text: 'Las conversaciones pueden borrarse solas si se activan mensajes temporales.' },
+  { term: 'El portal del club', text: 'La mamá de Leo hace aquí los trámites oficiales del torneo.' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -52,7 +53,9 @@ export const EVIDENCE = [
   {
     id: 'E01', round: 'R1', kind: 'web',
     label: 'Página web del club',
-    summary: 'El club publica las reglas del Semillero.',
+    title: 'Las reglas del torneo',
+    summary: 'El torneo exige una prueba previa y una final acompañada por un adulto.',
+    facts: ['Solo los 40 mejores de la prueba del 3 de octubre pasan a la final del 24.', 'Rai Ferrer es el entrenador y su equipo puede invitar a jugadores a inscribirse.', 'Las familias hacen la inscripción en el portal del club.', 'En la foto oficial, el entrenador lleva gorra morada y auriculares amarillos.'],
     source: 'clubatalaya.gg/semillero',
     when: 'Publicada el lunes 7 de septiembre de 2026',
     web: {
@@ -80,7 +83,9 @@ export const EVIDENCE = [
   {
     id: 'E02', round: 'R1', kind: 'game-chat',
     label: 'Chat privado de Fractal Arena',
-    summary: 'Leo recibe una invitación de RaiCoach_ATL.',
+    title: 'La oferta que recibió Leo',
+    summary: 'Un contacto dice ser el entrenador y ofrece a Leo saltarse la prueba previa.',
+    facts: ['Dice que vio a Leo jugando partidas clasificatorias.', 'Pide su edad, ciudad y colegio, y dice que la oferta todavía no es pública.', 'Leo le cuenta que su mamá ya lo inscribió.'],
     source: 'Fractal Arena · Mensajes',
     when: 'Martes 29 de septiembre de 2026',
     chat: {
@@ -98,7 +103,9 @@ export const EVIDENCE = [
   {
     id: 'E03', round: 'R1', kind: 'game-profile',
     label: 'Perfil de jugador: RaiCoach_ATL',
-    summary: 'Así se presenta RaiCoach_ATL en el juego.',
+    title: 'La cuenta del contacto',
+    summary: 'La cuenta del supuesto entrenador tenía ocho días cuando escribió a Leo y apenas 14 partidas.',
+    facts: ['Usa el logo del club y se presenta como entrenador.', 'Tiene nivel 9 y no tiene rango en partidas clasificatorias.'],
     source: 'Fractal Arena · Perfil',
     when: 'Captura de Leo, martes 29 de septiembre de 2026, 21:55',
     profile: {
@@ -120,7 +127,9 @@ export const EVIDENCE = [
   {
     id: 'E04', round: 'R1', kind: 'game-profile',
     label: 'Perfil de jugador: LeoNova14',
-    summary: 'Este es el perfil de Leo en Fractal Arena.',
+    title: 'Lo que sabemos de Leo',
+    summary: 'Leo tiene 14 años, buen nivel y ya jugó partidas clasificatorias antes de la invitación.',
+    facts: ['Jugó clasificatorias el 28 y el 29 de septiembre.', 'Su perfil muestra su zona y el grupo al que pertenece.'],
     source: 'Fractal Arena · Perfil',
     when: 'Captura de Leo, martes 29 de septiembre de 2026, 21:56',
     profile: {
@@ -148,7 +157,9 @@ export const EVIDENCE = [
   {
     id: 'E05', round: 'R2', kind: 'game-chat',
     label: 'Chat privado de Fractal Arena',
-    summary: 'RaiCoach_ATL propone seguir la charla en Susurro.',
+    title: 'Un secreto para la familia',
+    summary: 'El contacto pide hablar por otra app y ocultar la conversación a la familia de Leo.',
+    facts: ['Activa mensajes que se borran solos.', 'Dice que él arregla la inscripción sin que la mamá use el portal del club.'],
     source: 'Fractal Arena · Mensajes',
     when: 'Jueves 1 de octubre de 2026',
     chat: {
@@ -167,7 +178,9 @@ export const EVIDENCE = [
   {
     id: 'E06', round: 'R2', kind: 'game-chat',
     label: 'Chat privado de Fractal Arena',
-    summary: 'Dani invita a Leo al grupo del colegio.',
+    title: 'El secreto de Dani',
+    summary: 'Dani, compañero de Leo, le pide el número para sumarlo al grupo del colegio.',
+    facts: ['Dice que el profesor Andrés Gil dirige el grupo.', 'Pide ocultar una jugada al equipo rival, sin pedir que Leo oculte el grupo a su familia.'],
     source: 'Fractal Arena · Mensajes',
     when: 'Jueves 1 de octubre de 2026',
     chat: {
@@ -184,7 +197,9 @@ export const EVIDENCE = [
   {
     id: 'E07', round: 'R2', kind: 'group-info',
     label: 'Información de un grupo de Susurro',
-    summary: 'Así está organizado el grupo Los Zurdos.',
+    title: 'El grupo del colegio',
+    summary: 'El grupo del colegio tiene un profesor a cargo y mantiene informadas a las familias.',
+    facts: ['El profesor Andrés Gil administra el equipo del Colegio Monteverde.', 'Los mensajes no se borran y las familias reciben un correo cada semana.'],
     source: 'Susurro · Info del grupo',
     when: 'Captura de Leo, viernes 2 de octubre de 2026',
     group: {
@@ -204,7 +219,9 @@ export const EVIDENCE = [
   {
     id: 'E08', round: 'R2', kind: 'web',
     label: 'Página web del club',
-    summary: 'El club responde dudas sobre el Semillero.',
+    title: 'Cómo se comunica el club',
+    summary: 'El club no ofrece pases directos ni pide datos a menores por mensajes privados.',
+    facts: ['Los 40 puestos dependen de la prueba previa del 3 de octubre.', 'Los trámites se hacen en el portal del club con el adulto inscrito.', 'El personal puede felicitar por el chat público, pero no seguir hablando por otra app.'],
     source: 'clubatalaya.gg/semillero/preguntas',
     when: 'Publicada el lunes 7 de septiembre de 2026',
     web: {
@@ -225,7 +242,9 @@ export const EVIDENCE = [
   {
     id: 'E09', round: 'R3', kind: 'lumen-profile',
     label: 'Perfil de Lumen: @rai.atalaya',
-    summary: 'Así se presenta @rai.atalaya en Lumen.',
+    title: 'Una foto conocida',
+    summary: 'El perfil del contacto en la red social usa el nombre y una foto del entrenador.',
+    facts: ['No está verificado, se creó en septiembre y solo tiene tres fotos del club.', 'La foto muestra al entrenador con gorra morada y auriculares amarillos.'],
     source: 'Lumen · Perfil',
     when: 'Captura de Marina, jueves 8 de octubre de 2026',
     lumen: {
@@ -244,7 +263,9 @@ export const EVIDENCE = [
   {
     id: 'E10', round: 'R3', kind: 'email',
     label: 'Correo del club',
-    summary: 'El club responde a Carmen y Marina el 9 de octubre.',
+    title: 'La primera respuesta del club',
+    summary: 'El club confirma quién es su entrenador, pero aún investiga quién maneja las cuentas que escriben a Leo.',
+    facts: ['El perfil público de Rai Ferrer sí está verificado.', 'Las cuentas del contacto no figuran entre las declaradas por el personal.', 'El club sigue consultando al entrenador y pide que Leo no responda.'],
     source: 'Correo electrónico',
     when: 'Viernes 9 de octubre de 2026, 10:32',
     email: {
@@ -264,7 +285,9 @@ export const EVIDENCE = [
   },
   {
     id: 'E11', round: 'R3', kind: 'lumen-post',
-    summary: 'El club publica los horarios del directo del 3 de octubre.',
+    title: 'Los horarios de la transmisión',
+    summary: 'Rai Ferrer narró la prueba del torneo, pero el directo tuvo un corte de 15 minutos.',
+    facts: ['La transmisión fue el 3 de octubre, de 10:00 a 14:00.', 'Estuvo cortada de 12:00 a 12:15.'],
     label: 'Publicación de Lumen de @clubatalaya',
     source: 'Lumen · Publicación',
     when: 'Sábado 3 de octubre de 2026, 09:45',
@@ -280,7 +303,9 @@ export const EVIDENCE = [
   },
   {
     id: 'E12', round: 'R3', kind: 'phone-chat',
-    summary: 'rf_coach escribe a Leo durante el clasificatorio.',
+    title: 'Los horarios de los mensajes',
+    summary: 'El contacto envió tres mensajes a Leo el mismo día de la prueba del torneo.',
+    facts: ['Escribió a las 11:06, 12:07 y 13:31 del 3 de octubre.', 'A las 12:07, dijo que tenía un descanso.', 'La cuenta usa las iniciales del entrenador y sus mensajes se borran en 24 horas.'],
     label: 'Chat de Susurro con rf_coach',
     source: 'Susurro · Chat',
     when: 'Captura de Leo, sábado 3 de octubre de 2026, 13:40',
@@ -304,7 +329,9 @@ export const EVIDENCE = [
   {
     id: 'E13', round: 'R4', kind: 'game-notification',
     label: 'Notificación de regalo en Fractal Arena',
-    summary: 'Leo recibe un regalo de Cristales.',
+    title: 'Un regalo para Leo',
+    summary: 'El contacto regaló a Leo 1.200 monedas del videojuego y le pidió guardar el secreto.',
+    facts: ['Leo recibió el regalo el 5 de octubre y lo aceptó.', 'El contacto dice que el regalo es para la ropa virtual del equipo.'],
     source: 'Fractal Arena · Notificaciones',
     when: 'Lunes 5 de octubre de 2026, 20:14',
     notification: {
@@ -318,7 +345,9 @@ export const EVIDENCE = [
   },
   {
     id: 'E14', round: 'R4', kind: 'phone-chat',
-    summary: 'rf_coach pide una videollamada y fotos del cuarto.',
+    title: 'Una llamada a solas',
+    summary: 'El contacto pide a Leo una videollamada a solas y fotos de su cuarto.',
+    facts: ['El 7 de octubre, pide que no haya nadie más en el cuarto.', 'También pide una foto de Leo con la camiseta del equipo.', 'Pregunta a qué colegio va para organizar un transporte.'],
     label: 'Chat de Susurro con rf_coach',
     source: 'Susurro · Chat',
     when: 'Captura de Leo, miércoles 7 de octubre de 2026, 22:51',
@@ -339,7 +368,9 @@ export const EVIDENCE = [
   },
   {
     id: 'E15', round: 'R4', kind: 'phone-chat',
-    summary: 'rf_coach propone una prueba privada para el 17 de octubre.',
+    title: 'Una cita sin sus padres',
+    summary: 'El contacto propone recoger a Leo para una prueba privada el 17 de octubre, sin sus padres.',
+    facts: ['La reunión sería cerca de su colegio, que encontró en el perfil del juego.', 'Pide guardar el secreto y deja otro perfil de la red social por si desaparece.', 'Leo no aceptó ni respondió a la propuesta.'],
     label: 'Chat de Susurro con rf_coach',
     source: 'Susurro · Chat',
     when: 'Captura de Marina, sábado 10 de octubre de 2026, 18:02',
@@ -361,7 +392,9 @@ export const EVIDENCE = [
   {
     id: 'E16', round: 'R4', kind: 'email',
     label: 'Correo del club',
-    summary: 'Carmen recibe un correo de inscripciones del club.',
+    title: 'La invitación oficial',
+    summary: 'Un correo oficial confirma que Leo ganó su plaza en la final del 24 de octubre.',
+    facts: ['El correo del 12 de octubre confirma que Leo quedó en el puesto 27 en la prueba del día 3.', 'Su mamá debe completar la autorización, el contacto de emergencia y la ficha médica en el portal.', 'La final es en la sede del club y Leo debe ir acompañado por un adulto.'],
     source: 'Correo electrónico',
     when: 'Lunes 12 de octubre de 2026, 09:15',
     email: {
@@ -383,7 +416,9 @@ export const EVIDENCE = [
   {
     id: 'E17', round: 'FINAL', kind: 'platform-notice',
     label: 'Aviso del Centro de Seguridad de Lumen',
-    summary: 'Lumen responde al reporte de @rai.atalaya.',
+    title: 'La red social responde',
+    summary: 'La red social suspendió el primer perfil por suplantar la identidad del entrenador.',
+    facts: ['La suspensión afecta al perfil denunciado, no a todos los contactos relacionados.', 'La plataforma no revela quién lo manejaba y permite reportar otras cuentas.'],
     source: 'Lumen · Centro de Seguridad',
     when: 'Martes 13 de octubre de 2026, 08:40',
     notice: {
@@ -401,7 +436,9 @@ export const EVIDENCE = [
   {
     id: 'E18', round: 'FINAL', kind: 'email',
     label: 'Correo del club',
-    summary: 'El club envía novedades del caso el 13 de octubre.',
+    title: 'El club presenta una denuncia',
+    summary: 'El entrenador niega manejar las cuentas y el club ya presentó una denuncia a la policía.',
+    facts: ['Rai Ferrer reportó personalmente las cuentas por usar su identidad.', 'El club avisa a todas las familias sin revelar los datos de Leo.', 'Pide conservar las capturas y ofrece apoyo psicológico a Leo.'],
     source: 'Correo electrónico',
     when: 'Martes 13 de octubre de 2026, 12:10',
     email: {
@@ -430,17 +467,18 @@ export const ROUNDS = [
     number: 1,
     name: 'La invitación',
     question: '¿Ese pase directo es real?',
+    context: 'Leo tiene 14 años y quiere jugar el torneo del Club Atalaya. Su mamá ya lo inscribió. Un contacto dice ser Rai Ferrer, el entrenador, y le ofrece un pase directo a la final. Marina, su hermana, nos pide revisar la oferta: tenemos las reglas del torneo, la invitación y los perfiles del juego.',
     claims: [
-      'Si el club existe y sus técnicos buscan jugadores, RaiCoach_ATL tiene que ser el verdadero Rai Ferrer.',
-      'RaiCoach_ATL lleva años viendo partidas y conoce bien a jugadores como Leo.',
-      'Ese pase no cuadra: el club dice que hay que jugar el clasificatorio para llegar a la final.',
-      'RaiCoach_ATL miente: Leo no jugó ninguna clasificatoria antes del 3 de octubre.',
-      'Que un adulto desconocido escriba a Leo por el juego ya demuestra que es grooming.',
+      'El contacto es el verdadero entrenador porque el club existe y busca jugadores.',
+      'El contacto lleva años viendo partidas de jugadores como Leo.',
+      'El pase se salta la prueba que el club exige para llegar a la final.',
+      'El contacto miente sobre las clasificatorias, porque Leo nunca había jugado una antes del 3 de octubre.',
+      'Que un adulto desconocido escriba a Leo ya demuestra que busca abusar de él.',
     ],
     actions: [
       'Démosle la edad, la ciudad y el colegio de Leo, porque la plaza parece real.',
-      'Preguntemos al club por su canal oficial si la cuenta y el pase son reales.',
-      'Avisemos al clan de que Rai Ferrer está engañando a menores.',
+      'Verifiquemos la cuenta y el pase por el canal oficial del club.',
+      'Avisemos a otros jugadores de que el entrenador engaña a menores.',
       'Bloqueemos la cuenta y borremos el chat para que Leo siga jugando tranquilo.',
     ],
   },
@@ -449,18 +487,19 @@ export const ROUNDS = [
     number: 2,
     name: 'Secretos y canales',
     question: '¿Son iguales los dos secretos?',
+    context: 'Leo, de 14 años, recibió una oferta de pase directo al torneo del Club Atalaya de alguien que dice ser el entrenador Rai Ferrer. Ahora ese contacto pide cambiar de app y ocultar la conversación a su familia. Dani, compañero de Leo, también pide un secreto sobre una jugada. Marina, la hermana de Leo, nos pide comparar las situaciones.',
     claims: [
-      'Dani también pide datos y un secreto, así que preocupa tanto como RaiCoach_ATL.',
-      'Dani guarda una jugada frente al rival, pero RaiCoach_ATL pide ocultar el contacto a la familia.',
-      'RaiCoach_ATL no puede ser Rai Ferrer, porque está usando Susurro y los entrenadores del club tienen prohibido hablar por apps externas.',
-      'RaiCoach_ATL le recordó a Leo que su mamá tenía que completar la inscripción en el Portal Familias.',
-      'Pasarse a Susurro rompe las normas del Semillero, porque el club prohíbe seguir la charla por apps externas.',
+      'Dani y el contacto piden datos y secretos, así que deberían preocuparnos por igual.',
+      'Dani oculta una jugada al rival, pero el contacto oculta la charla a la familia.',
+      'El contacto no puede ser el entrenador, porque usa una app que el club prohíbe.',
+      'El contacto pidió que la mamá de Leo terminara la inscripción en el portal.',
+      'El contacto rompe las normas del club al seguir hablando por otra app.',
     ],
     actions: [
-      'Sigamos hablando del juego por Susurro sin dar datos hasta que el club publique los finalistas.',
+      'Sigamos hablando del juego por la nueva app sin dar datos hasta que el club publique los finalistas.',
       'Mandémosle las normas del club y pidámosle que explique por qué no las cumple.',
       'Contémoselo a la mamá de Leo para que consulte al club por su canal oficial.',
-      'Pidámosle a Dani que se haga pasar por Leo y escriba a rf_coach.',
+      'Pidamos a Dani que se haga pasar por Leo y escriba al contacto.',
     ],
   },
   {
@@ -468,18 +507,19 @@ export const ROUNDS = [
     number: 3,
     name: '¿Quién está detrás?',
     question: '¿Sabemos quién escribe?',
+    context: 'Leo tiene 14 años y habla con un contacto que dice ser Rai Ferrer, entrenador del torneo del Club Atalaya. Le ofreció un pase directo y pidió ocultar la charla a su familia. Marina, su hermana, reúne un perfil, la respuesta del club y los horarios de una transmisión para comprobar quién escribe.',
     claims: [
-      'rf_coach escribió durante el directo y durante el corte, así que los horarios no aclaran quién es.',
-      'El club dice que Rai Ferrer admitió usar las tres cuentas para buscar jugadores.',
-      'Si el club confirma que Rai Ferrer es su entrenador, las cuentas con su nombre y foto tienen que ser suyas.',
-      'La foto de @rai.atalaya es la misma que tiene Rai Ferrer en la web del club.',
-      'rf_coach no puede ser Rai Ferrer, porque todos sus mensajes llegaron mientras Rai narraba en vivo.',
+      'Los horarios dejan la identidad abierta: hubo mensajes durante el directo y durante el corte.',
+      'El club dice que su entrenador admitió usar las tres cuentas para buscar jugadores.',
+      'Las cuentas deben ser del entrenador, porque el club confirma su nombre y usan su foto.',
+      'La foto del perfil del contacto coincide con la del entrenador en la web del club.',
+      'El contacto no puede ser el entrenador, porque todos sus mensajes llegaron mientras él narraba.',
     ],
     actions: [
-      'Guardemos capturas con fecha y hora antes de que se borren y pidamos a Leo que deje de responder.',
+      'Guardemos capturas con fecha y hora antes de que se borren, y que Leo deje de responder.',
       'Que Leo siga respondiendo sin dar datos mientras el club investiga, para no levantar sospechas.',
       'Respondamos al correo del club con todas las capturas.',
-      'Que Carmen se presente como su mamá desde el móvil de Leo y exija a rf_coach que deje de escribirle.',
+      'Que su mamá escriba desde el teléfono de Leo, se presente y exija que lo deje en paz.',
     ],
   },
   {
@@ -487,18 +527,19 @@ export const ROUNDS = [
     number: 4,
     name: 'La escalada',
     question: '¿Ya hay motivos para denunciar?',
+    context: 'Leo, de 14 años, recibió una oferta de pase directo al torneo del Club Atalaya de un contacto que dice ser su entrenador. Marina, su hermana, ya consultó al club, pero todavía no sabemos quién escribe. Ahora el contacto envía un regalo, pide fotos y una llamada a solas, y propone una prueba privada; también llega una invitación oficial.',
     claims: [
-      'Sin saber quién es rf_coach, denunciar sería precipitarse y podría perjudicar a un inocente.',
+      'Denunciar sin saber quién escribe sería precipitado y podría perjudicar a un inocente.',
       'El correo del día 12 también es una trampa: pide datos y usa un canal ajeno al club.',
-      'Pedir videollamada a solas, fotos del cuarto y una cita sin adultos ya basta para denunciar, aunque no sepamos quién escribe.',
-      'rf_coach es Rai Ferrer seguro: firma con sus iniciales y escribió «tengo un respiro» justo cuando se cortó la transmisión.',
-      'La prueba del 17 no es del club, que solo anuncia la final del 24 en su sede y con adultos.',
+      'Fotos del cuarto, llamada a solas y cita sin adultos bastan para denunciar, sin saber quién escribe.',
+      'El contacto es el entrenador: usa sus iniciales y dijo tener un descanso justo cuando se cortó el directo.',
+      'La prueba del 17 no es del club: su final es el 24, en la sede y con un adulto.',
     ],
     actions: [
       'Aceptemos la cita del 17 y que Marina acompañe a Leo a escondidas para descubrir quién es.',
-      'Publiquemos las capturas en Lumen con el nombre de Leo tapado para alertar a otras familias.',
-      'Digámosle a rf_coach que avisamos a la policía para asustarlo y que deje de escribir.',
-      'Guardemos las pruebas y, con la mamá de Leo, reportemos las cuentas y denunciemos ante el club y la policía.',
+      'Publiquemos las capturas en la red social con el nombre de Leo tapado para alertar a otras familias.',
+      'Digamos al contacto que avisamos a la policía para asustarlo y que deje de escribir.',
+      'Guardemos pruebas y, con su mamá, denunciemos ante las plataformas, el club y la policía.',
     ],
   },
   {
@@ -506,18 +547,19 @@ export const ROUNDS = [
     number: 5,
     name: 'Veredicto',
     question: '¿Qué sabemos y qué hacemos ahora?',
+    context: 'Leo tiene 14 años y recibió una oferta de pase directo al torneo del Club Atalaya. El contacto, que usaba el nombre del entrenador Rai Ferrer, pidió secretos, fotos y un encuentro sin adultos. Marina, su hermana, guardó pruebas y consultó al club. Ahora llegan las respuestas de la red social y del club para decidir qué hacer.',
     claims: [
-      'Solo querían robar los Cristales y la cuenta de Leo, así que nunca hubo un riesgo real.',
-      'El caso sigue abierto seguro: suspendieron @rai.atalaya, pero rf_coach dejó otro contacto, @r.ferrer.pro.',
-      'Rai Ferrer llevaba las cuentas y el club intenta encubrirlo en vez de investigarlo.',
-      'Suplantaron a Rai Ferrer y hay señales de grooming, pero la investigación dirá quién está detrás y si hubo delito.',
-      'El aviso a todas las familias del Semillero demuestra que las cuentas son de un depredador y que ya hay más víctimas.',
+      'Solo querían robar las monedas y la cuenta del juego, así que Leo nunca estuvo en riesgo.',
+      'El caso sigue abierto seguro, porque el contacto dejó otro perfil que la red social no ha suspendido.',
+      'El entrenador manejaba las cuentas y el club intenta encubrirlo en vez de investigarlo.',
+      'Suplantaron al entrenador y hay señales de manipulación; toca investigar quién escribe y si hubo delito.',
+      'El aviso del club a las familias demuestra que hay un agresor y que Leo no es su única víctima.',
     ],
     actions: [
-      'Sigamos con la denuncia, aportemos los contactos rf_coach y @r.ferrer.pro, y acompañemos a Leo con su familia y el club.',
+      'Sigamos con la denuncia, aportemos ambos contactos y apoyemos a Leo con su familia y el club.',
       'Borrémoslo todo y cerremos el tema en casa, porque la cuenta ya está suspendida.',
-      'Creemos una cuenta falsa para seguir a @r.ferrer.pro y llevar más pruebas a la policía.',
-      'Compartamos las capturas y el aviso del club en Lumen para que otras familias no caigan.',
+      'Creemos una cuenta falsa para seguir el segundo perfil y llevar más pruebas a la policía.',
+      'Compartamos las capturas y el aviso del club en la red social para alertar a otras familias.',
     ],
   },
 ];

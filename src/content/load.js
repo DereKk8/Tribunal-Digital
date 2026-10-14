@@ -104,7 +104,8 @@ function buildModel({ mode, paths, publicCase, answerKey, projectionMap, publicT
     index,
     title: r.title,
     question: r.question ?? null,
-    evidence: r.evidence.map((e) => ({ id: e.id, summary: evidenceSummary(e), body: e.body, asset_path: e.asset_path, revealed_in: e.revealed_in })),
+    context: r.context ?? null,
+    evidence: r.evidence.map((e) => ({ id: e.id, title: e.title ?? `Pista ${e.id}`, summary: evidenceSummary(e), facts: e.facts ?? [], body: e.body, asset_path: e.asset_path, revealed_in: e.revealed_in })),
     claims: r.claims.map((c) => ({ id: c.id, text: c.text })),
     actions: r.actions.map((a) => ({ id: a.id, text: a.text })),
   }));
@@ -142,6 +143,7 @@ function buildModel({ mode, paths, publicCase, answerKey, projectionMap, publicT
     paths,
     fingerprint,
     title: typeof publicCase.title === 'string' ? publicCase.title : null,
+    introduction: publicCase.introduction ?? null,
     teams,
     teamById: new Map(teams.map((t) => [t.id, t])),
     rounds,

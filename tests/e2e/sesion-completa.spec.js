@@ -88,12 +88,18 @@ test('sesión completa: tutorial, R1–R4, final, cierre y auditoría', async ({
   expect(denegada.status()).toBe(403);
   expect(await denegada.text()).not.toContain('demo-r1-reveal');
 
+  async function elegirEvidencia(p, id) {
+    const input = p.locator(`input[name="evidence"][value="${id}"]`);
+    if (!(await input.isVisible())) await p.locator('#pistas-anteriores-respuesta > summary').click();
+    await input.check();
+  }
+
   async function sellar(team, r) {
     const p = phones[team];
     await expect(p.locator('#form-respuesta')).toBeVisible();
     await expect(p.locator('#boton-sellar')).toBeDisabled();
     await p.check(`input[name="claim"][value="${r.claim_id}"]`);
-    for (const e of r.evidence_ids) await p.check(`input[name="evidence"][value="${e}"]`);
+    for (const e of r.evidence_ids) await elegirEvidencia(p, e);
     if (r.evidence_ids.length === 2) {
       // Con dos evidencias, el resto queda bloqueado.
       const libres = p.locator('input[name="evidence"]:not(:checked)');
@@ -132,7 +138,7 @@ test('sesión completa: tutorial, R1–R4, final, cierre y auditoría', async ({
       const p = phones.rojo;
       const r = rp.responses.rojo;
       await p.check(`input[name="claim"][value="${r.claim_id}"]`);
-      for (const e of r.evidence_ids) await p.check(`input[name="evidence"][value="${e}"]`);
+      for (const e of r.evidence_ids) await elegirEvidencia(p, e);
       await p.check(`input[name="action"][value="${r.action_id}"]`);
       await p.context().setOffline(true);
       await p.click('#boton-sellar');

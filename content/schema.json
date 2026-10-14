@@ -119,6 +119,13 @@
           "minLength": 1,
           "maxLength": 160
         },
+        "title": { "$ref": "#/$defs/nonEmptyText" },
+        "facts": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string", "minLength": 1, "maxLength": 180 }
+        },
         "asset_path": {
           "type": "string",
           "pattern": "^assets/[A-Za-z0-9._/-]+\\.(svg|png|jpg|jpeg|webp)$"
@@ -194,6 +201,7 @@
         "question": {
           "$ref": "#/$defs/nonEmptyText"
         },
+        "context": { "type": "string", "minLength": 1, "maxLength": 700 },
         "evidence": {
           "type": "array",
           "items": {
@@ -311,6 +319,8 @@
         "game_id": {
           "$ref": "#/$defs/gameId"
         },
+        "title": { "$ref": "#/$defs/nonEmptyText" },
+        "introduction": { "type": "string", "minLength": 1, "maxLength": 700 },
         "teams": {
           "type": "array",
           "prefixItems": [

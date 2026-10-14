@@ -13,6 +13,7 @@
   var selloRecien = false;
   var borrador = { ronda: '', claim: null, evidence: [], action: null };
   var borradorObj = { ronda: '', target: null, kind: null, cited: null };
+  var claveArchivo = '';
 
   TD.comprobarDemo('cinta');
 
@@ -23,6 +24,9 @@
     claveVista = '';
     delete document.body.dataset.equipo;
     $('pantalla-juego').hidden = true;
+    $('boton-pistas').hidden = true;
+    if ($('archivo-pistas').open) $('archivo-pistas').close();
+    if ($('visor-captura').open) $('visor-captura').close();
     $('banda').hidden = true;
     $('pantalla-acceso').hidden = false;
     var err = $('error-acceso');
@@ -99,18 +103,28 @@
   function cabeceraRonda() {
     var pregunta = estado.round && estado.round.question;
     return '<header class="ronda-cabecera"><span class="ronda-codigo">' + esc(nombreRonda(estado.round_id)) + '</span><h1 class="ronda-titulo display">' + esc(estado.round_title || '') + '</h1>' +
-      (pregunta ? '<p class="ronda-pregunta">' + esc(pregunta) + '</p>' : '') + '</header>';
+      (pregunta ? '<p class="ronda-pregunta">' + esc(pregunta) + '</p>' : '') + '</header>' + contextoCaso(estado.round && estado.round.context);
+  }
+
+  function contextoCaso(texto) {
+    return texto ? '<section class="contexto-caso" aria-label="Historia del caso"><h2>El caso hasta ahora</h2><p>' + esc(texto) + '</p></section>' : '';
+  }
+
+  function datosEvidencia(e) {
+    return '<p class="pista-resumen">' + esc(e.summary) + '</p>' + ((e.facts || []).length ? '<ul class="pista-datos">' + e.facts.map(function (dato) { return '<li>' + esc(dato) + '</li>'; }).join('') + '</ul>' : '');
   }
 
   function lecturaEvidencia(e) {
-    return '<details class="lectura-evidencia" data-lectura="' + esc(e.id) + '"><summary>Ver evidencia ' + esc(e.id) + '</summary>' +
-      '<div class="transcripcion">' + e.body.split('\n').filter(function (linea) { return linea.trim(); }).map(function (linea) {
-        return '<p>' + esc(linea) + '</p>';
-      }).join('') + '</div><figure><figcaption>Captura original</figcaption><img src="' + esc(e.media_url) + '" alt="Captura de la evidencia ' + esc(e.id) + '" loading="lazy"></figure></details>';
+    return '<button type="button" class="ver-pista" data-evidence="' + esc(e.id) + '">Ver pista ' + esc(e.id) + '</button>';
+  }
+
+  function tarjetaEvidencia(e, captura) {
+    return '<article class="pista"' + (captura ? ' id="pista-' + esc(e.id) + '" tabindex="-1"' : '') + '><header>' + tag(e.id, true) + '<h3>' + esc(e.title) + '</h3></header>' + datosEvidencia(e) +
+      (captura ? '<details class="captura-evidencia" data-lectura="' + esc(e.id) + '"><summary>Ver captura original</summary><button type="button" class="ampliar-captura" data-image="' + esc(e.id) + '" aria-label="Ampliar captura ' + esc(e.id) + '"><img src="' + esc(e.media_url) + '" alt="Captura original de ' + esc(e.title) + '" loading="lazy"><span>Ampliar imagen</span></button></details>' : lecturaEvidencia(e)) + '</article>';
   }
 
   function exhibicion(e) {
-    return '<li class="exhibicion"><p class="exhibicion-resumen">' + tag(e.id) + esc(e.summary) + '</p>' + lecturaEvidencia(e) + '</li>';
+    return '<li class="exhibicion">' + tarjetaEvidencia(e, false) + '</li>';
   }
 
   function opcionEvidencia(tipo, nombre, e, marcada, deshabilitada, nueva) {
@@ -118,11 +132,50 @@
       (nueva ? '<span class="nueva">Nueva</span>' : '') + '<span class="opcion-texto">' + esc(e.summary) + '</span>') + lecturaEvidencia(e) + '</div>';
   }
 
-  function evidenciasAnteriores() {
-    var previas = (estado.released_evidence || []).filter(function (e) { return e.revealed_in !== estado.round_id; });
-    if (!previas.length) return '';
-    return '<details class="archivo" data-lectura="anteriores"><summary>Pistas anteriores (' + previas.length + ')</summary><ul class="exhibiciones">' + previas.map(exhibicion).join('') + '</ul></details>';
+  function actualizarArchivo() {
+    var evidencias = estado.released_evidence || [];
+    var nuevaClave = JSON.stringify([estado.team.id, evidencias.map(function (e) { return e.id; })]);
+    if (nuevaClave === claveArchivo) return;
+    claveArchivo = nuevaClave;
+    var contenido = $('contenido-pistas');
+    var abiertas = Array.prototype.map.call(contenido.querySelectorAll('details[data-lectura][open]'), function (d) { return d.dataset.lectura; });
+    contenido.innerHTML = evidencias.length ? (estado.evidence_rounds || []).slice().reverse().map(function (r) {
+      var deRonda = evidencias.filter(function (e) { return e.revealed_in === r.id; });
+      return '<details class="archivo-ronda" data-lectura="ronda-' + esc(r.id) + '"' + (r.id === estado.round_id ? ' open' : '') + '><summary>' + esc(nombreRonda(r.id)) + ' · ' + esc(r.title) + '</summary>' +
+        contextoCaso(r.context) + deRonda.map(function (e) { return tarjetaEvidencia(e, true); }).join('') + '</details>';
+    }).join('') : contextoCaso(estado.case_intro) + '<p>Las primeras pistas aparecen cuando empieza la ronda 1.</p>';
+    if (abiertas.length) contenido.querySelectorAll('details[data-lectura]').forEach(function (d) { d.open = abiertas.indexOf(d.dataset.lectura) >= 0 || d.open; });
   }
+
+  function abrirArchivo(id) {
+    actualizarArchivo();
+    if (!$('archivo-pistas').open) $('archivo-pistas').showModal();
+    if (id) {
+      var tarjeta = document.getElementById('pista-' + id);
+      if (tarjeta) {
+        tarjeta.closest('.archivo-ronda').open = true;
+        tarjeta.focus({ preventScroll: true });
+        tarjeta.scrollIntoView({ block: 'start' });
+      }
+    }
+  }
+
+  $('boton-pistas').addEventListener('click', function () { abrirArchivo(); });
+  $('cerrar-pistas').addEventListener('click', function () { $('archivo-pistas').close(); });
+  $('cerrar-captura').addEventListener('click', function () { $('visor-captura').close(); });
+  document.addEventListener('click', function (event) {
+    var enlace = event.target.closest('[data-evidence]');
+    if (enlace) abrirArchivo(enlace.dataset.evidence);
+    var ampliar = event.target.closest('[data-image]');
+    if (ampliar) {
+      var e = evidencia(ampliar.dataset.image);
+      if (!e) return;
+      $('titulo-captura').textContent = e.title;
+      $('imagen-captura').src = e.media_url;
+      $('imagen-captura').alt = 'Captura original de ' + e.title;
+      $('visor-captura').showModal();
+    }
+  });
 
   function evidenciasNuevas() {
     var nuevas = (estado.released_evidence || []).filter(function (e) { return e.revealed_in === estado.round_id; });
@@ -200,6 +253,7 @@
   function vTutorial() {
     return '<header class="ronda-cabecera"><span class="ronda-codigo">Antes de empezar</span><h1 class="ronda-titulo display">Cómo jugamos</h1></header>' +
       (estado.case_title ? '<p class="indicacion">' + esc(estado.case_title) + '</p>' : '') +
+      contextoCaso(estado.case_intro) +
       '<ol class="reglas">' +
       '<li>Revisamos las mismas pistas que los demás equipos.</li>' +
       '<li>Elegimos una afirmación, una o dos evidencias y una acción.</li>' +
@@ -216,10 +270,7 @@
   }
 
   function vRevelacion() {
-    return cabeceraRonda() + '<p class="indicacion">Revisemos las pistas antes de elegir en la siguiente fase.</p>' + evidenciasNuevas() +
-      '<h2 class="seccion">Afirmaciones posibles</h2><ul class="lista-lectura">' + estado.round.claims.map(function (c) { return '<li>' + tag(c.id) + '<span>' + esc(c.text) + '</span></li>'; }).join('') + '</ul>' +
-      '<h2 class="seccion">Acciones posibles</h2><ul class="lista-lectura">' + estado.round.actions.map(function (a) { return '<li>' + tag(a.id) + '<span>' + esc(a.text) + '</span></li>'; }).join('') + '</ul>' +
-      evidenciasAnteriores();
+    return cabeceraRonda() + evidenciasNuevas() + '<p class="indicacion">Primero leemos las pistas; elegimos nuestra respuesta en la siguiente fase.</p>';
   }
 
   function respuestaCompleta() {
@@ -235,14 +286,20 @@
       return (b.revealed_in === estado.round_id) - (a.revealed_in === estado.round_id);
     });
     var lleno = borrador.evidence.length >= 2;
+    var nuevas = ev.filter(function (e) { return e.revealed_in === estado.round_id; });
+    var anteriores = ev.filter(function (e) { return e.revealed_in !== estado.round_id; });
+    var anterioresElegidas = anteriores.filter(function (e) { return borrador.evidence.indexOf(e.id) >= 0; }).length;
+    function opcionesDe(lista) {
+      return lista.map(function (e) {
+        var marcada = borrador.evidence.indexOf(e.id) >= 0;
+        return opcionEvidencia('checkbox', 'evidence', e, marcada, lleno && !marcada, e.revealed_in === estado.round_id);
+      }).join('');
+    }
     return cabeceraRonda() + '<form id="form-respuesta" class="hilo" novalidate>' +
       '<section class="paso' + (borrador.claim ? ' completo' : '') + '" data-paso="claim"><span class="nudo" aria-hidden="true">1</span><h2 class="paso-titulo">¿Qué creemos?</h2><p class="ayuda">Elegimos una afirmación.</p>' +
       r.claims.map(function (c) { return opcion('radio', 'claim', c.id, borrador.claim === c.id, false, tag(c.id) + '<span class="opcion-texto">' + esc(c.text) + '</span>'); }).join('') + '</section>' +
       '<section class="paso' + (borrador.evidence.length ? ' completo' : '') + '" data-paso="evidence"><span class="nudo" aria-hidden="true">2</span><h2 class="paso-titulo">¿Qué lo demuestra?</h2><p class="ayuda" id="ayuda-evidencias">Elegimos una o dos (' + borrador.evidence.length + '/2).</p>' +
-      ev.map(function (e) {
-        var marcada = borrador.evidence.indexOf(e.id) >= 0;
-        return opcionEvidencia('checkbox', 'evidence', e, marcada, lleno && !marcada, e.revealed_in === estado.round_id);
-      }).join('') + '</section>' +
+      opcionesDe(nuevas) + (anteriores.length ? '<details id="pistas-anteriores-respuesta" class="archivo pistas-previas" data-lectura="opciones-previas"' + (anterioresElegidas ? ' open' : '') + '><summary>Pistas anteriores (' + anteriores.length + ')<span id="anteriores-elegidas">' + (anterioresElegidas ? ' · ' + anterioresElegidas + ' elegidas' : '') + '</span></summary>' + opcionesDe(anteriores) + '</details>' : '') + '</section>' +
       '<section class="paso' + (borrador.action ? ' completo' : '') + '" data-paso="action"><span class="nudo" aria-hidden="true">3</span><h2 class="paso-titulo">¿Qué hacemos?</h2><p class="ayuda">Elegimos una acción.</p>' +
       r.actions.map(function (a) { return opcion('radio', 'action', a.id, borrador.action === a.id, false, tag(a.id) + '<span class="opcion-texto">' + esc(a.text) + '</span>'); }).join('') + '</section>' +
       '<div class="sellar' + (respuestaCompleta() ? ' listo' : '') + '"><button type="submit" class="boton-sello" id="boton-sellar"' + (respuestaCompleta() ? '' : ' disabled') + '>Sellar respuesta</button>' +
@@ -251,7 +308,7 @@
 
   function vDefensa() {
     return cabeceraRonda() + '<p class="indicacion">Nuestro portavoz defiende la respuesta cuando la moderación le dé la palabra.</p>' +
-      (estado.my_response ? '' : tarjetaSellada()) + alegatos() + evidenciasAnteriores();
+      (estado.my_response ? '' : tarjetaSellada()) + alegatos();
   }
 
   function inventario() {
@@ -374,6 +431,9 @@
     $('pantalla-acceso').hidden = true;
     $('pantalla-juego').hidden = false;
     pintarBanda();
+    $('boton-pistas').hidden = false;
+    $('boton-pistas').textContent = 'Pistas (' + (estado.released_evidence || []).length + ')';
+    actualizarArchivo();
     if (borrador.ronda !== estado.round_id) borrador = { ronda: estado.round_id, claim: null, evidence: [], action: null };
     if (borradorObj.ronda !== estado.round_id) borradorObj = { ronda: estado.round_id, target: null, kind: null, cited: null };
     var clave = calcularClave(estado);
@@ -416,6 +476,11 @@
       document.querySelectorAll('input[name="evidence"]').forEach(function (x) { x.disabled = lleno && !x.checked; });
       var ayuda = $('ayuda-evidencias');
       if (ayuda) ayuda.textContent = 'Elegimos una o dos (' + borrador.evidence.length + '/2).';
+      var anteriores = $('anteriores-elegidas');
+      if (anteriores) {
+        var cantidad = document.querySelectorAll('#pistas-anteriores-respuesta input:checked').length;
+        anteriores.textContent = cantidad ? ' · ' + cantidad + (cantidad === 1 ? ' elegida' : ' elegidas') : '';
+      }
     }
     if (t.name === 'target') borradorObj.target = t.value;
     if (t.name === 'kind') borradorObj.kind = t.value;
